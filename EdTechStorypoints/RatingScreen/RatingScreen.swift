@@ -194,12 +194,6 @@ struct SecondView: View {
     }
 }
 
-
-#Preview {
-    RatingScreen()
-}
-
-
 #Preview {
     RatingScreen()
 }

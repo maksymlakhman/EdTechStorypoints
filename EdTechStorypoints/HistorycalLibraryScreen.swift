@@ -36,9 +36,9 @@ enum LiteraryTag: String, CaseIterable, Identifiable {
 struct LiteraryItem: Identifiable {
     let id = UUID()
     let author: String
-    let quote: String
+    let title: String
     let image1: String
-    let tag: LiteraryTag // Use the enum instead of a string
+    let tag: LiteraryTag
 }
 
 struct HistorycalLibraryScreen: View {
@@ -49,87 +49,97 @@ struct HistorycalLibraryScreen: View {
     let tags: [LiteraryTag] = LiteraryTag.allCases
     
     let items: [LiteraryItem] = [
-        LiteraryItem(author: "Taras Shevchenko", quote: "«fight and you shall overcome!»", image1: "book", tag: .historicalFiction),
-        LiteraryItem(author: "Lesya Ukrainka", quote: "«contra spem spero!»", image1: "book", tag: .classic),
-        LiteraryItem(author: "Ivan Franko", quote: "«knowledge is power!»", image1: "book", tag: .biography),
-        LiteraryItem(author: "Hryhorii Skovoroda", quote: "«the world tried to catch me but couldn't.»", image1: "book", tag: .philosophy),
-        LiteraryItem(author: "Mykhailo Kotsyubynsky", quote: "«shadows of forgotten ancestors.»", image1: "book", tag: .poetry),
-        LiteraryItem(author: "Oleksandr Dovzhenko", quote: "«land is the greatest wealth of the people.»", image1: "book", tag: .novel)
+        LiteraryItem(author: "Taras Shevchenko", title: "fight and you shall overcome!", image1: "book", tag: .historicalFiction),
+        LiteraryItem(author: "Lesya Ukrainka", title: "contra spem spero!", image1: "book", tag: .classic),
+        LiteraryItem(author: "Ivan Franko", title: "knowledge is power!", image1: "book", tag: .biography),
+        LiteraryItem(author: "Hryhorii Skovoroda", title: "the world tried to catch me but couldn't.", image1: "book", tag: .philosophy),
+        LiteraryItem(author: "Mykhailo Kotsyubynsky", title: "shadows of forgotten ancestors.", image1: "book", tag: .poetry),
+        LiteraryItem(author: "Oleksandr Dovzhenko", title: "land is the greatest wealth of the people.", image1: "book", tag: .novel),
+        LiteraryItem(author: "Lesya Ukrainka", title: "the forest song", image1: "book", tag: .classic),
+        LiteraryItem(author: "Ivan Franko", title: "difficulties of a knight", image1: "book", tag: .biography),
+        LiteraryItem(author: "Taras Shevchenko", title: "katerina", image1: "book", tag: .historicalFiction),
+        LiteraryItem(author: "Mykhailo Kotsyubynsky", title: "intermezzo", image1: "book", tag: .poetry),
+        LiteraryItem(author: "Hryhorii Skovoroda", title: "a conversation with a fool", image1: "book", tag: .philosophy),
+        LiteraryItem(author: "Vasyl Stus", title: "the last letters", image1: "book", tag: .poetry),
+        LiteraryItem(author: "Bohdan Ihor Antonych", title: "the rose of the world", image1: "book", tag: .poetry),
+        LiteraryItem(author: "Oleksandr Dovzhenko", title: "earth", image1: "book", tag: .novel),
+        LiteraryItem(author: "Lina Kostenko", title: "the evening bells", image1: "book", tag: .classic),
+        LiteraryItem(author: "Mykhailo Kotsyubynsky", title: "a novel about love", image1: "book", tag: .novel)
     ]
-
     
     var body: some View {
         NavigationStack {
-            VStack(alignment: .leading) {
-                Group {
-                    HStack(alignment: .bottom) {
-                        Text("the best books for /")
-                            
-                        Text("you")
-                            .foregroundStyle(.yellow)
-                    }
-                    .font(.system(size: 50))
-
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 10) {
-                            ForEach(tags) { tag in
-                                Button {
-                                    activeTag = tag
-                                } label: {
-                                    Text("#\(tag.rawValue)")
-                                        .padding(.vertical, 10)
-                                        .padding(.horizontal, 15)
-                                        .background(activeTag == tag ? Color.yellow : Color.white.opacity(0.2))
-                                        .cornerRadius(20)
-                                }
-                                .foregroundStyle(activeTag == tag ? Color.black : Color.white)
-                            }
-                        }
-                    }
-                }
-                .padding(.horizontal)
-                
-                ScrollView(.vertical, showsIndicators: false) {
-                    VStack(alignment: .trailing, spacing: 8) {
-                        Divider()
-                            .background(.primary)
-                        ForEach(items.filter { activeTag == nil || $0.tag == activeTag }, id: \.id) { item in
-                            HStack(spacing: 16) {
+            ScrollView(.vertical, showsIndicators: false) {
+                VStack(alignment: .leading, spacing: 8) {
+                    Group {
+                        HStack(alignment: .bottom) {
+                            Text("the best books for /")
                                 
-                                VStack(alignment: .leading) {
-                                    Text(item.quote)
-                                        .font(.headline)
-                                        .fontWeight(.semibold)
-                                        .foregroundColor(.blue)
-                                        .multilineTextAlignment(.leading)
-                                    Text(item.author)
-                                        .font(.subheadline)
-                                        .foregroundColor(.yellow)
-                                }
-                                .foregroundStyle(.primary)
-                                Spacer()
-                                Image(item.image1)
-                                    .resizable()
-                                    .frame(width: 160, height: 160)
-                                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                            }
-                            Divider()
-                                .background(.primary)
+                            Text("you")
+                                .foregroundStyle(.yellow)
                         }
-                       
+                        .font(.system(size: 50))
+                        .multilineTextAlignment(.leading)
+
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(spacing: 10) {
+                                ForEach(tags) { tag in
+                                    Button {
+                                        activeTag = tag
+                                    } label: {
+                                        Text("#\(tag.rawValue)")
+                                            .padding(.vertical, 10)
+                                            .padding(.horizontal, 15)
+                                            .background(activeTag == tag ? Color.yellow : Color.white.opacity(0.2))
+                                            .cornerRadius(20)
+                                    }
+                                    .foregroundStyle(activeTag == tag ? Color.black : Color.white)
+                                }
+                            }
+                        }
                     }
-                    .padding(10)
+                    Divider()
+                        .frame(height: 1)
+                        .background(Color.primary)
+                    ForEach(items.filter { activeTag == nil || $0.tag == activeTag }) { item in
+                        HStack(spacing: 16) {
+                            
+                            VStack(alignment: .leading, spacing : 15) {
+                                Text("#" + item.tag.rawValue)
+                                Spacer()
+                                Text(item.title)
+                                    .font(.title)
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(.white)
+                                    .multilineTextAlignment(.leading)
+                                    .padding(.top, 20)
+                                Text(item.author)
+                                    .font(.title3)
+                                    .foregroundColor(.yellow)
+                            }
+                            .foregroundStyle(.primary)
+                            .padding(.vertical)
+                            Spacer()
+                            Image(item.image1)
+                                .resizable()
+                                .frame(maxWidth: UIScreen.main.bounds.width / 3, maxHeight: 160)
+                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                        }
+                        Divider()
+                            .frame(height: 1)
+                            .background(Color.primary)
+                    }
                 }
+                .padding(.leading, 16)
             }
+            .background(Color.blue)
+            .navigationBarBackButtonHidden()
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle("Books")
+            .searchable(text: $searchText, prompt: "Search books")
         }
-        .background(.blue)
-        .navigationBarBackButtonHidden()
-        .navigationBarTitleDisplayMode(.inline)
-        .searchable(text: $searchText, prompt: "Search books")
     }
 }
-
-
 
 #Preview {
     HistorycalLibraryScreen()

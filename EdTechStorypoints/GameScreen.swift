@@ -2,53 +2,61 @@ import SwiftUI
 
 struct GameScreen: View {
     private let images: [String] = ["CossackLong", "CossackLarge", "CossackSmall", "Cossacks"]
-    @State private var isProfileViewButtonPressed : Bool = false
-    @State private var isAffermationViewButtonPressed : Bool = false
-    @State private var isAppleWatchConnectivityViewButtonPressed : Bool = false
-    
+    @State private var isAffermationViewButtonPressed: Bool = false
+    @State private var isAppleWatchConnectivityViewButtonPressed: Bool = false
+    @State private var showSidebar: Bool = false
+
     var body: some View {
-        NavigationStack {
-            ScrollView(.vertical, showsIndicators: false) {
-                LazyVStack(spacing: 5) {
-                    ForEach(1..<15) { index in
-                        HStack {
-                            // Картинка зліва, якщо offset позитивний
-                            if (index >= 4 && (index - 4) % 3 == 0) && LevelView(level: index).offset > 0 {
-                                Image(images[(index - 4) % images.count])
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(height: 200)
+        ZStack {
+            NavigationStack {
+                ScrollView(.vertical, showsIndicators: false) {
+                    LazyVStack(spacing: 5) {
+                        ForEach(1..<15) { index in
+                            HStack {
+                                // Картинка зліва, якщо offset позитивний
+                                if (index >= 4 && (index - 4) % 3 == 0) && LevelView(level: index).offset > 0 {
+                                    Image(images[(index - 4) % images.count])
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(height: 200)
+                                }
+
+                                LevelView(level: index)
+                                    .transition(.slide)
+
+                                // Картинка справа, якщо offset негативний
+                                if (index >= 4 && (index - 4) % 3 == 0) && LevelView(level: index).offset < 0 {
+                                    Image(images[(index - 4) % images.count])
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(height: 200)
+                                }
                             }
-                            
-                            LevelView(level: index)
-                                .transition(.slide)
-                                
-                            // Картинка справа, якщо offset негативний
-                            if (index >= 4 && (index - 4) % 3 == 0) && LevelView(level: index).offset < 0 {
-                                Image(images[(index - 4) % images.count])
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(height: 200)
-                            }
+                            .padding(.horizontal)
                         }
-                        .padding(.horizontal)
+                    }
+                    .background {
+                        Color.blue
                     }
                 }
-                .background {
-                    Color.blue
+                .configureNavigationBar()
+                .ignoresSafeArea(edges: .bottom)
+                .navigationBarBackButtonHidden()
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    leadingNavItems()
+                    trailingNavItems()
+                    centerNavItems()
                 }
             }
-            .configureNavigationBar()
-            .ignoresSafeArea(edges: .bottom)
-            .navigationBarBackButtonHidden()
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                leadingNavItems()
-                trailingNavItems()
-                centerNavItems()
+            
+            // Overlay для SideMenuView
+            if showSidebar {
+                SideMenuView(show: $showSidebar)
+                    .transition(.move(edge: .leading))
+                    .zIndex(1)
             }
         }
-
     }
 }
 
@@ -149,16 +157,20 @@ extension GameScreen {
     private func leadingNavView() -> some View {
         Button {
             withAnimation(.smooth) {
-                isProfileViewButtonPressed.toggle()
+                showSidebar.toggle()
             }
         } label: {
-            Image(systemName: isProfileViewButtonPressed ? "person.circle.fill" : "person.crop.circle.dashed")
+            Image(systemName: showSidebar ? "person.circle.fill" : "person.crop.circle.dashed")
+                .onTapGesture {
+                    withAnimation { showSidebar.toggle() }
+                }
                 .padding(5)
+                .hAlign(.leading)
                 .background {
                     Circle()
-                        .fill(isProfileViewButtonPressed ? .black : .white)
+                        .fill(showSidebar ? .black : .white)
                 }
-                .foregroundStyle(isProfileViewButtonPressed ? .yellow : .blue)
+                .foregroundStyle(showSidebar ? .yellow : .blue)
                 .contentTransition(.symbolEffect(.replace.upUp.byLayer))
                 .accessibilityLabel("Profile View Button")
         }
@@ -214,7 +226,6 @@ extension GameScreen {
             AppleWatchConnectivityView()
         }
     }
-
     
     private struct NavigationBarConstants {
         let leadingSpacing: CGFloat = 6
@@ -227,6 +238,13 @@ extension GameScreen {
         let trailingImageHeight: CGFloat = 24
         let trailingStackWidth: CGFloat = 40
         let trailingStackHeight: CGFloat = 40
+    }
+}
+
+extension View{
+    func hAlign(_ alignment: Alignment) -> some View{
+        self
+            .frame(maxWidth: .infinity, alignment: alignment)
     }
 }
 

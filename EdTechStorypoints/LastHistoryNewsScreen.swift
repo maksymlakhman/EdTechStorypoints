@@ -64,8 +64,8 @@ struct LastHistoryNewsScreen: View {
                     }
                 }
                 .clipped()
-                .clipShape(RoundedRectangle(cornerRadius: 15))
-                .frame(width: 180, height: CGFloat.random(in: 200...300), alignment: .center)
+                .clipShape(RoundedRectangle(cornerRadius: 20))
+                .frame(width: 180, height: CGFloat.random(in: 250...300), alignment: .center)
             }
         }
     }
@@ -97,8 +97,8 @@ struct LastHistoryNewsScreen: View {
                     }
                 }
                 .clipped()
-                .clipShape(RoundedRectangle(cornerRadius: 15))
-                .frame(width: 180, height: CGFloat.random(in: 200...300), alignment: .center)
+                .clipShape(RoundedRectangle(cornerRadius: 20))
+                .frame(width: 180, height: CGFloat.random(in: 250...300), alignment: .center)
             }
         }
     }
@@ -106,11 +106,11 @@ struct LastHistoryNewsScreen: View {
     var body: some View {
         NavigationStack {
             ScrollView(.vertical, showsIndicators: false) {
-                HStack(alignment: .top) {
-                    VStack {
+                HStack(alignment: .top, spacing: 0) {
+                    VStack(spacing: 0) {
                         positiveStories
                     }
-                    VStack {
+                    VStack(spacing: 0) {
                         negativeStories
                     }
                 }

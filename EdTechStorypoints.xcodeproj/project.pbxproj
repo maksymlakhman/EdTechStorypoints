@@ -26,6 +26,7 @@
 		9D2C71CF2C66495C00651745 /* AffermationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2C71CE2C66495C00651745 /* AffermationView.swift */; };
 		9D2C71D12C6649D500651745 /* ARPuzzlesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2C71D02C6649D500651745 /* ARPuzzlesScreen.swift */; };
 		9D2C71D32C66625400651745 /* NavigationBarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2C71D22C66625400651745 /* NavigationBarModifier.swift */; };
+		9D2C71D52C66754000651745 /* SideMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2C71D42C66754000651745 /* SideMenuView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		9D2C71CE2C66495C00651745 /* AffermationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AffermationView.swift; sourceTree = "<group>"; };
 		9D2C71D02C6649D500651745 /* ARPuzzlesScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARPuzzlesScreen.swift; sourceTree = "<group>"; };
 		9D2C71D22C66625400651745 /* NavigationBarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarModifier.swift; sourceTree = "<group>"; };
+		9D2C71D42C66754000651745 /* SideMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,11 +83,11 @@
 		9D07CB1F2C624FB500DAA2AA /* EdTechStorypoints */ = {
 			isa = PBXGroup;
 			children = (
+				9D07CB222C624FB500DAA2AA /* RootTabBar.swift */,
 				9D2C71D22C66625400651745 /* NavigationBarModifier.swift */,
 				9D2C71C32C6642BC00651745 /* RatingScreen */,
 				9D07CB392C62DE2000DAA2AA /* Onboarding */,
 				9D07CB202C624FB500DAA2AA /* EdTechStorypointsApp.swift */,
-				9D07CB222C624FB500DAA2AA /* RootTabBar.swift */,
 				9D07CB242C624FB700DAA2AA /* Assets.xcassets */,
 				9D07CB262C624FB700DAA2AA /* Preview Content */,
 				9D07CB2E2C62510100DAA2AA /* PreloaderScreen.swift */,
@@ -97,6 +99,7 @@
 				9D2C71CC2C66467A00651745 /* GameScreen.swift */,
 				9D2C71CE2C66495C00651745 /* AffermationView.swift */,
 				9D2C71D02C6649D500651745 /* ARPuzzlesScreen.swift */,
+				9D2C71D42C66754000651745 /* SideMenuView.swift */,
 			);
 			path = EdTechStorypoints;
 			sourceTree = "<group>";
@@ -206,6 +209,7 @@
 			files = (
 				9D07CB232C624FB500DAA2AA /* RootTabBar.swift in Sources */,
 				9D2C71CD2C66467A00651745 /* GameScreen.swift in Sources */,
+				9D2C71D52C66754000651745 /* SideMenuView.swift in Sources */,
 				9D07CB3B2C62DE3B00DAA2AA /* OnboardingScreenTwo.swift in Sources */,
 				9D2C71C52C6642C800651745 /* RatingScreen.swift in Sources */,
 				9D2C71D12C6649D500651745 /* ARPuzzlesScreen.swift in Sources */,

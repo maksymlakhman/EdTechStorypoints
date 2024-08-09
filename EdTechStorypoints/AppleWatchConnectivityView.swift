@@ -37,7 +37,7 @@ struct AppleWatchConnectivityView: View {
     
     var body: some View {
         VStack {
-            Text("Question History")
+            Text("Apple Watch Conncetivity")
                 .font(.headline)
                 .padding()
             
@@ -134,6 +134,7 @@ struct AppleWatchConnectivityView: View {
             Spacer()
         }
         .padding()
+        .background(.blue)
     }
 }
 

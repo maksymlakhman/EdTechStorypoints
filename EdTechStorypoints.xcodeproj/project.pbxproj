@@ -18,6 +18,14 @@
 		9D07CB382C625A7E00DAA2AA /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D07CB372C625A7E00DAA2AA /* OnboardingView.swift */; };
 		9D07CB3B2C62DE3B00DAA2AA /* OnboardingScreenTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D07CB3A2C62DE3B00DAA2AA /* OnboardingScreenTwo.swift */; };
 		9D07CB3D2C636D4700DAA2AA /* NavLinkButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D07CB3C2C636D4700DAA2AA /* NavLinkButtonStyle.swift */; };
+		9D2C71C52C6642C800651745 /* RatingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2C71C42C6642C800651745 /* RatingScreen.swift */; };
+		9D2C71C72C66432100651745 /* HistorycalLibraryScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2C71C62C66432100651745 /* HistorycalLibraryScreen.swift */; };
+		9D2C71C92C6643A000651745 /* LastHistoryNewsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2C71C82C6643A000651745 /* LastHistoryNewsScreen.swift */; };
+		9D2C71CB2C6644C900651745 /* AppleWatchConnectivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2C71CA2C6644C900651745 /* AppleWatchConnectivityView.swift */; };
+		9D2C71CD2C66467A00651745 /* GameScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2C71CC2C66467A00651745 /* GameScreen.swift */; };
+		9D2C71CF2C66495C00651745 /* AffermationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2C71CE2C66495C00651745 /* AffermationView.swift */; };
+		9D2C71D12C6649D500651745 /* ARPuzzlesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2C71D02C6649D500651745 /* ARPuzzlesScreen.swift */; };
+		9D2C71D32C66625400651745 /* NavigationBarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2C71D22C66625400651745 /* NavigationBarModifier.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +40,14 @@
 		9D07CB372C625A7E00DAA2AA /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		9D07CB3A2C62DE3B00DAA2AA /* OnboardingScreenTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingScreenTwo.swift; sourceTree = "<group>"; };
 		9D07CB3C2C636D4700DAA2AA /* NavLinkButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavLinkButtonStyle.swift; sourceTree = "<group>"; };
+		9D2C71C42C6642C800651745 /* RatingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingScreen.swift; sourceTree = "<group>"; };
+		9D2C71C62C66432100651745 /* HistorycalLibraryScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorycalLibraryScreen.swift; sourceTree = "<group>"; };
+		9D2C71C82C6643A000651745 /* LastHistoryNewsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastHistoryNewsScreen.swift; sourceTree = "<group>"; };
+		9D2C71CA2C6644C900651745 /* AppleWatchConnectivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleWatchConnectivityView.swift; sourceTree = "<group>"; };
+		9D2C71CC2C66467A00651745 /* GameScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScreen.swift; sourceTree = "<group>"; };
+		9D2C71CE2C66495C00651745 /* AffermationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AffermationView.swift; sourceTree = "<group>"; };
+		9D2C71D02C6649D500651745 /* ARPuzzlesScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARPuzzlesScreen.swift; sourceTree = "<group>"; };
+		9D2C71D22C66625400651745 /* NavigationBarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarModifier.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +81,8 @@
 		9D07CB1F2C624FB500DAA2AA /* EdTechStorypoints */ = {
 			isa = PBXGroup;
 			children = (
+				9D2C71D22C66625400651745 /* NavigationBarModifier.swift */,
+				9D2C71C32C6642BC00651745 /* RatingScreen */,
 				9D07CB392C62DE2000DAA2AA /* Onboarding */,
 				9D07CB202C624FB500DAA2AA /* EdTechStorypointsApp.swift */,
 				9D07CB222C624FB500DAA2AA /* ContentView.swift */,
@@ -73,6 +91,12 @@
 				9D07CB2E2C62510100DAA2AA /* PreloaderScreen.swift */,
 				9D07CB332C62513800DAA2AA /* LottieView.swift */,
 				9D07CB352C6258FC00DAA2AA /* Storyk.json */,
+				9D2C71C62C66432100651745 /* HistorycalLibraryScreen.swift */,
+				9D2C71C82C6643A000651745 /* LastHistoryNewsScreen.swift */,
+				9D2C71CA2C6644C900651745 /* AppleWatchConnectivityView.swift */,
+				9D2C71CC2C66467A00651745 /* GameScreen.swift */,
+				9D2C71CE2C66495C00651745 /* AffermationView.swift */,
+				9D2C71D02C6649D500651745 /* ARPuzzlesScreen.swift */,
 			);
 			path = EdTechStorypoints;
 			sourceTree = "<group>";
@@ -93,6 +117,14 @@
 				9D07CB3A2C62DE3B00DAA2AA /* OnboardingScreenTwo.swift */,
 			);
 			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		9D2C71C32C6642BC00651745 /* RatingScreen */ = {
+			isa = PBXGroup;
+			children = (
+				9D2C71C42C6642C800651745 /* RatingScreen.swift */,
+			);
+			path = RatingScreen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -173,11 +205,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				9D07CB232C624FB500DAA2AA /* ContentView.swift in Sources */,
+				9D2C71CD2C66467A00651745 /* GameScreen.swift in Sources */,
 				9D07CB3B2C62DE3B00DAA2AA /* OnboardingScreenTwo.swift in Sources */,
+				9D2C71C52C6642C800651745 /* RatingScreen.swift in Sources */,
+				9D2C71D12C6649D500651745 /* ARPuzzlesScreen.swift in Sources */,
+				9D2C71D32C66625400651745 /* NavigationBarModifier.swift in Sources */,
 				9D07CB2F2C62510100DAA2AA /* PreloaderScreen.swift in Sources */,
 				9D07CB3D2C636D4700DAA2AA /* NavLinkButtonStyle.swift in Sources */,
+				9D2C71C92C6643A000651745 /* LastHistoryNewsScreen.swift in Sources */,
 				9D07CB212C624FB500DAA2AA /* EdTechStorypointsApp.swift in Sources */,
 				9D07CB382C625A7E00DAA2AA /* OnboardingView.swift in Sources */,
+				9D2C71CB2C6644C900651745 /* AppleWatchConnectivityView.swift in Sources */,
+				9D2C71CF2C66495C00651745 /* AffermationView.swift in Sources */,
+				9D2C71C72C66432100651745 /* HistorycalLibraryScreen.swift in Sources */,
 				9D07CB342C62513800DAA2AA /* LottieView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

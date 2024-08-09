@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  RootTabBar.swift
 //  EdTechStorypoints
 //
 //  Created by Макс Лахман on 06.08.2024.
@@ -7,7 +7,7 @@
 import SwiftUI
 
 @available(iOS 15.0, *)
-struct MainScreen: View {
+struct RootTabBar: View {
     
     @State var index : Int = 0
     
@@ -189,6 +189,6 @@ struct CustomTabBar3View : View {
 
 
 #Preview {
-    MainScreen()
+    RootTabBar()
 }
 

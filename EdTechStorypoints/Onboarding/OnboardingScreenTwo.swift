@@ -80,7 +80,7 @@ struct OnboardingScreenTwo: View {
                     .foregroundStyle(.white)
                     Spacer()
                     NavigationLink {
-                        MainScreen()
+                        RootTabBar()
                     } label: {
                         Text("Next")
                             .padding()

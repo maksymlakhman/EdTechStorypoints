@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9D07CB212C624FB500DAA2AA /* EdTechStorypointsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D07CB202C624FB500DAA2AA /* EdTechStorypointsApp.swift */; };
-		9D07CB232C624FB500DAA2AA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D07CB222C624FB500DAA2AA /* ContentView.swift */; };
+		9D07CB232C624FB500DAA2AA /* RootTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D07CB222C624FB500DAA2AA /* RootTabBar.swift */; };
 		9D07CB252C624FB700DAA2AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D07CB242C624FB700DAA2AA /* Assets.xcassets */; };
 		9D07CB282C624FB700DAA2AA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D07CB272C624FB700DAA2AA /* Preview Assets.xcassets */; };
 		9D07CB2F2C62510100DAA2AA /* PreloaderScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D07CB2E2C62510100DAA2AA /* PreloaderScreen.swift */; };
@@ -31,7 +31,7 @@
 /* Begin PBXFileReference section */
 		9D07CB1D2C624FB500DAA2AA /* EdTechStorypoints.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EdTechStorypoints.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D07CB202C624FB500DAA2AA /* EdTechStorypointsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdTechStorypointsApp.swift; sourceTree = "<group>"; };
-		9D07CB222C624FB500DAA2AA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		9D07CB222C624FB500DAA2AA /* RootTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabBar.swift; sourceTree = "<group>"; };
 		9D07CB242C624FB700DAA2AA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9D07CB272C624FB700DAA2AA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		9D07CB2E2C62510100DAA2AA /* PreloaderScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreloaderScreen.swift; sourceTree = "<group>"; };
@@ -85,7 +85,7 @@
 				9D2C71C32C6642BC00651745 /* RatingScreen */,
 				9D07CB392C62DE2000DAA2AA /* Onboarding */,
 				9D07CB202C624FB500DAA2AA /* EdTechStorypointsApp.swift */,
-				9D07CB222C624FB500DAA2AA /* ContentView.swift */,
+				9D07CB222C624FB500DAA2AA /* RootTabBar.swift */,
 				9D07CB242C624FB700DAA2AA /* Assets.xcassets */,
 				9D07CB262C624FB700DAA2AA /* Preview Content */,
 				9D07CB2E2C62510100DAA2AA /* PreloaderScreen.swift */,
@@ -204,7 +204,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9D07CB232C624FB500DAA2AA /* ContentView.swift in Sources */,
+				9D07CB232C624FB500DAA2AA /* RootTabBar.swift in Sources */,
 				9D2C71CD2C66467A00651745 /* GameScreen.swift in Sources */,
 				9D07CB3B2C62DE3B00DAA2AA /* OnboardingScreenTwo.swift in Sources */,
 				9D2C71C52C6642C800651745 /* RatingScreen.swift in Sources */,

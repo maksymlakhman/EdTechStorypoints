@@ -32,7 +32,7 @@ struct EdTechStorypointsApp: App {
                         OnboardingScreen()
 
                     } else {
-                        MainScreen()
+                        RootTabBar()
                     }
                 }
                 .preferredColorScheme(.dark)

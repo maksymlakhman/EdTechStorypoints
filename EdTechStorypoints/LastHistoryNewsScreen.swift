@@ -25,8 +25,6 @@ struct LastHistoryNewsScreen: View {
         Story(title: "Events of 1932–1933", date: "1932–1933", imageName: "BohdanKhmelnytsky", index: 2),
         Story(title: "The Hetmanate", date: "1648–1782", imageName: "BohdanKhmelnytsky", index: 1),
         Story(title: "Revolution of Dignity", date: "2013–2014", imageName: "BohdanKhmelnytsky", index: 2),
-        Story(title: "The Hetmanate", date: "1648–1782", imageName: "BohdanKhmelnytsky", index: 1),
-        Story(title: "Revolution of Dignity", date: "2013–2014", imageName: "BohdanKhmelnytsky", index: 2),
     ]
     
     var filteredStories: [Story] {
@@ -118,6 +116,7 @@ struct LastHistoryNewsScreen: View {
                 }
                 .padding(.top, 8)
             }
+            .background(.blue)
             .searchable(text: $searchText, prompt: "Search stories")
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("Last History News")

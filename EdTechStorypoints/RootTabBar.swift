@@ -31,7 +31,7 @@ struct RootTabBar: View {
                 HistorycalLibraryScreen()
                     .opacity(self.index == 3 ? 1 : 0)
                 
-                ARPuzzlesScreen()
+                ARScreen()
                     .opacity(self.index == 4 ? 1 : 0)
             }
             .padding(.bottom, -35)

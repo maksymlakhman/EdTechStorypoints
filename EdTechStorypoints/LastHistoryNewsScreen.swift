@@ -119,7 +119,7 @@ struct LastHistoryNewsScreen: View {
             .background(.blue)
             .searchable(text: $searchText, prompt: "Search stories")
             .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle("Last History News")
+            .navigationTitle("History")
         }
     }
 }

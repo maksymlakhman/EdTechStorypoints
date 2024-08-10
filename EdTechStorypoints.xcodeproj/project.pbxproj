@@ -24,9 +24,11 @@
 		9D2C71CB2C6644C900651745 /* AppleWatchConnectivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2C71CA2C6644C900651745 /* AppleWatchConnectivityView.swift */; };
 		9D2C71CD2C66467A00651745 /* GameScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2C71CC2C66467A00651745 /* GameScreen.swift */; };
 		9D2C71CF2C66495C00651745 /* AffermationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2C71CE2C66495C00651745 /* AffermationView.swift */; };
-		9D2C71D12C6649D500651745 /* ARPuzzlesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2C71D02C6649D500651745 /* ARPuzzlesScreen.swift */; };
+		9D2C71D12C6649D500651745 /* ARScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2C71D02C6649D500651745 /* ARScreen.swift */; };
 		9D2C71D32C66625400651745 /* NavigationBarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2C71D22C66625400651745 /* NavigationBarModifier.swift */; };
 		9D2C71D52C66754000651745 /* SideMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2C71D42C66754000651745 /* SideMenuView.swift */; };
+		9D2C71D72C66A52500651745 /* Bosel-Mausoleum.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 9D2C71D62C66A52500651745 /* Bosel-Mausoleum.usdz */; };
+		9D2C71D92C6764AB00651745 /* gramophone.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 9D2C71D82C6764AB00651745 /* gramophone.usdz */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,9 +49,11 @@
 		9D2C71CA2C6644C900651745 /* AppleWatchConnectivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleWatchConnectivityView.swift; sourceTree = "<group>"; };
 		9D2C71CC2C66467A00651745 /* GameScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScreen.swift; sourceTree = "<group>"; };
 		9D2C71CE2C66495C00651745 /* AffermationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AffermationView.swift; sourceTree = "<group>"; };
-		9D2C71D02C6649D500651745 /* ARPuzzlesScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARPuzzlesScreen.swift; sourceTree = "<group>"; };
+		9D2C71D02C6649D500651745 /* ARScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARScreen.swift; sourceTree = "<group>"; };
 		9D2C71D22C66625400651745 /* NavigationBarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarModifier.swift; sourceTree = "<group>"; };
 		9D2C71D42C66754000651745 /* SideMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuView.swift; sourceTree = "<group>"; };
+		9D2C71D62C66A52500651745 /* Bosel-Mausoleum.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "Bosel-Mausoleum.usdz"; sourceTree = "<group>"; };
+		9D2C71D82C6764AB00651745 /* gramophone.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = gramophone.usdz; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,12 +87,14 @@
 		9D07CB1F2C624FB500DAA2AA /* EdTechStorypoints */ = {
 			isa = PBXGroup;
 			children = (
+				9D2C71D82C6764AB00651745 /* gramophone.usdz */,
 				9D07CB222C624FB500DAA2AA /* RootTabBar.swift */,
 				9D2C71D22C66625400651745 /* NavigationBarModifier.swift */,
 				9D2C71C32C6642BC00651745 /* RatingScreen */,
 				9D07CB392C62DE2000DAA2AA /* Onboarding */,
 				9D07CB202C624FB500DAA2AA /* EdTechStorypointsApp.swift */,
 				9D07CB242C624FB700DAA2AA /* Assets.xcassets */,
+				9D2C71D62C66A52500651745 /* Bosel-Mausoleum.usdz */,
 				9D07CB262C624FB700DAA2AA /* Preview Content */,
 				9D07CB2E2C62510100DAA2AA /* PreloaderScreen.swift */,
 				9D07CB332C62513800DAA2AA /* LottieView.swift */,
@@ -98,7 +104,7 @@
 				9D2C71CA2C6644C900651745 /* AppleWatchConnectivityView.swift */,
 				9D2C71CC2C66467A00651745 /* GameScreen.swift */,
 				9D2C71CE2C66495C00651745 /* AffermationView.swift */,
-				9D2C71D02C6649D500651745 /* ARPuzzlesScreen.swift */,
+				9D2C71D02C6649D500651745 /* ARScreen.swift */,
 				9D2C71D42C66754000651745 /* SideMenuView.swift */,
 			);
 			path = EdTechStorypoints;
@@ -196,7 +202,9 @@
 			files = (
 				9D07CB282C624FB700DAA2AA /* Preview Assets.xcassets in Resources */,
 				9D07CB252C624FB700DAA2AA /* Assets.xcassets in Resources */,
+				9D2C71D72C66A52500651745 /* Bosel-Mausoleum.usdz in Resources */,
 				9D07CB362C6258FC00DAA2AA /* Storyk.json in Resources */,
+				9D2C71D92C6764AB00651745 /* gramophone.usdz in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -212,7 +220,7 @@
 				9D2C71D52C66754000651745 /* SideMenuView.swift in Sources */,
 				9D07CB3B2C62DE3B00DAA2AA /* OnboardingScreenTwo.swift in Sources */,
 				9D2C71C52C6642C800651745 /* RatingScreen.swift in Sources */,
-				9D2C71D12C6649D500651745 /* ARPuzzlesScreen.swift in Sources */,
+				9D2C71D12C6649D500651745 /* ARScreen.swift in Sources */,
 				9D2C71D32C66625400651745 /* NavigationBarModifier.swift in Sources */,
 				9D07CB2F2C62510100DAA2AA /* PreloaderScreen.swift in Sources */,
 				9D07CB3D2C636D4700DAA2AA /* NavLinkButtonStyle.swift in Sources */,
@@ -353,12 +361,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"EdTechStorypoints/Preview Content\"";
+				DEVELOPMENT_TEAM = 7P6F9U3TUM;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
+				INFOPLIST_KEY_NSCameraUsageDescription = "This is required to display AR content";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -372,6 +383,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.maksymlakhman.EdTechStorypoints;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -383,12 +395,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"EdTechStorypoints/Preview Content\"";
+				DEVELOPMENT_TEAM = 7P6F9U3TUM;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
+				INFOPLIST_KEY_NSCameraUsageDescription = "This is required to display AR content";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -402,6 +417,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.maksymlakhman.EdTechStorypoints;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

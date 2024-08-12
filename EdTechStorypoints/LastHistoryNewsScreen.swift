@@ -116,6 +116,7 @@ struct LastHistoryNewsScreen: View {
                 }
                 .padding(.top, 8)
             }
+            .configureNavigationBar()
             .background(.blue)
             .searchable(text: $searchText, prompt: "Search stories")
             .navigationBarTitleDisplayMode(.inline)

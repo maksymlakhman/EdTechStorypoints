@@ -47,13 +47,27 @@ struct MiniModelView: UIViewRepresentable {
 
 
 enum ModelCategory: String, CaseIterable, Identifiable {
-    case sculpture = "Скульптури"
-    case artwork = "Художні роботи"
-    case building = "Будівлі"
-    case castle = "Замки"
+    case sculpture = "Sculptures"
+    case artwork = "Artwork"
+    case building = "Buildings"
+    case castle = "Castles"
     
     var id: String { rawValue }
+    
+    var icon: String {
+        switch self {
+        case .sculpture:
+            return "figure.walk" // Виберіть відповідну іконку
+        case .artwork:
+            return "paintbrush"
+        case .building:
+            return "building.2"
+        case .castle:
+            return "house.and.flag"
+        }
+    }
 }
+
 
 struct ARModel: Identifiable {
     let id = UUID()
@@ -64,72 +78,261 @@ struct ARModel: Identifiable {
 
 
 let models: [ARModel] = [
-    ARModel(name: "Bosel-Mausoleum", displayName: "Модель 1", categories: [.building, .castle])
+    ARModel(name: "Bosel-Mausoleum", displayName: "Модель 1", categories: [.building, .castle]),
+    ARModel(name: "gramophone", displayName: "Модель 2", categories: [.building, .sculpture]),
 ]
 
 struct ARScreen: View {
     
     @State private var selectedCategory: ModelCategory = .building
     @State private var selectedModel: ARModel?
+    
+    @State private var isAffermationViewButtonPressed: Bool = false
+    @State private var isAppleWatchConnectivityViewButtonPressed: Bool = false
+    @State private var showSidebar: Bool = false
+    
+    @State private var searchText = ""
+    
+    @State private var isFavoriteARModel: Bool = false
 
     var body: some View {
         NavigationStack {
-            LazyVStack(alignment: .leading) {
-                Text("Welcome to")
-                HStack(spacing: 0) {
-                    Text("AR Gallery")
-                    Text("Guide")
-                        .foregroundStyle(.yellow)
-                    Spacer()
-                }
-                ScrollView(.horizontal, showsIndicators: false) {
-                    LazyHStack {
-                        ForEach(ModelCategory.allCases) { category in
-                            Button(action: {
-                                selectedCategory = category
-                            }) {
-                                Text(category.rawValue)
-                                    .padding()
-                                    .background(selectedCategory == category ? Color.yellow : Color.gray)
-                                    .foregroundColor(.white)
-                                    .cornerRadius(10)
-                            }
-                        }
+            ScrollView(.vertical, showsIndicators: false) {
+                LazyVStack(alignment: .leading) {
+                    Text("Welcome to")
+                        .foregroundStyle(.primary)
+                        .font(.subheadline)
+                        .padding(.top, 16)
+                    HStack(spacing: 0) {
+                        Text("AR Gallery")
+                        Text("Guide")
+                            .foregroundStyle(.yellow)
                     }
-                    .padding()
-                }
-
-                if models.filter({ $0.categories.contains(selectedCategory) }).isEmpty {
-                    VStack {
-                        Text("Поки немає моделей у цій категорії.")
-                            .padding()
-                            .foregroundColor(.red)
-                            .font(.subheadline)
-                            .multilineTextAlignment(.center)
-                    }
-                    .frame(height: 100)
-                } else {
+                    .font(.largeTitle)
+                    .bold()
                     ScrollView(.horizontal, showsIndicators: false) {
-                        LazyHStack {
-                            ForEach(models.filter { $0.categories.contains(selectedCategory) }) { model in
-                                NavigationLink {
-                                    ARItemScreen(selectedModel: model)
-                                } label: {
-                                    MiniModelView(modelName: model.name)
-                                        .frame(width: 100, height: 100) // Задайте розмір для мініатюри
-                                        .background(Color.gray.opacity(0.3)) // Додайте фон або обводку, якщо потрібно
-                                        .cornerRadius(10)
-                                        .padding()
+                        HStack {
+                            ForEach(ModelCategory.allCases) { category in
+                                Button(action: {
+                                    selectedCategory = category
+                                }) {
+                                    VStack {
+                                        Image(systemName: category.icon)
+                                        Text(category.rawValue)
+                                            .font(.footnote)
+                                    }
+                                    .frame(minWidth : UIScreen.main.bounds.width / 4)
+                                    .padding(.vertical, 10)
+                                    .padding(.horizontal, 15)
+                                    .background(selectedCategory == category ? Color.yellow : Color.white.opacity(0.2))
+                                    .cornerRadius(20)
+                                    .foregroundStyle(selectedCategory == category ? Color.black : Color.white)
+
                                 }
                             }
                         }
-                        .padding()
+                    }
+
+
+                    if models.filter({ $0.categories.contains(selectedCategory) }).isEmpty {
+                        VStack {
+                            Text("Currently, there are no models in this category.")
+                                .padding()
+                                .foregroundColor(.yellow)
+                                .font(.subheadline)
+                                .multilineTextAlignment(.center)
+                        }
+                        .frame(width : UIScreen.main.bounds.width)
+                    } else {
+                        Section {
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                LazyHStack {
+                                    ForEach(models.filter { $0.categories.contains(selectedCategory) }) { model in
+                                        NavigationLink {
+                                            ARItemScreen(selectedModel: model)
+                                        } label: {
+                                            VStack(spacing : 0) {
+                                                ZStack(alignment: .top) {
+                                                    MiniModelView(modelName: model.name)
+                                                        .frame(width: UIScreen.main.bounds.width / 1.5, height: UIScreen.main.bounds.width)
+                                                        .background(
+                                                            UnevenRoundedRectangle(topLeadingRadius: 20, topTrailingRadius: 20)
+                                                                .fill(Color.white.opacity(0.2))
+                                                        )
+                                                    
+                                                    HStack {
+                                                        Image(systemName: "person")
+                                                            .frame(width: 16, height: 16, alignment: .center)
+                                                            .font(.footnote)
+                                                            .padding(10)
+                                                            .background {
+                                                                RoundedRectangle(cornerRadius: 10)
+                                                                    .stroke(Color.yellow)
+                                                            }
+                                                        VStack(alignment: .leading) {
+                                                            Text("Designer Name")
+                                                            Text("Location City, County")
+                                                        }
+                                                        .font(.footnote)
+                                                        Spacer()
+                                                        Image(systemName: "ellipsis")
+                                                            .frame(width: 16, height: 16, alignment: .center)
+                                                            .foregroundStyle(.blue)
+                                                            .font(.footnote)
+                                                            .padding(10)
+                                                            .background {
+                                                                RoundedRectangle(cornerRadius: 10)
+                                                                    .fill(Color.yellow)
+                                                            }
+                                                            
+                                                    }
+                                                    .padding()
+                                                }
+                                                HStack(alignment: .center, spacing: 0) {
+                                                    Button {
+                                                        isFavoriteARModel.toggle()
+                                                    } label: {
+                                                        HStack {
+                                                            Image(systemName: isFavoriteARModel ? "backpack.fill" : "backpack")
+
+                                                            Text("256")
+                                                        }
+                                                        .font(.footnote)
+                                                        .foregroundStyle(isFavoriteARModel ? .yellow : .primary)
+                                                        .bold()
+                                                        .padding(.horizontal, 8)
+                                                        .padding(.vertical, 4)
+                                                        .background {
+                                                            Capsule()
+                                                                .fill(isFavoriteARModel ? .black : .blue)
+                                                        }
+                                                    }
+                                                    HStack(spacing : 0) {
+                                                        ForEach(0..<2){_ in
+                                                            Image(systemName: "rosette")
+                                                        }
+                                                    }
+                                                    .padding(.leading, 8)
+                                                    Spacer()
+                                                    Image(systemName: "square.and.arrow.up.fill")
+                                                }
+                                                .padding()
+                                                .background(
+                                                    UnevenRoundedRectangle(bottomLeadingRadius: 20, bottomTrailingRadius: 20)
+                                                        .fill(Color.white.opacity(0.2))
+                                                )
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        } header: {
+                            Text("ARCollection")
+                                .foregroundStyle(.accent)
+                                .font(.largeTitle)
+                        } footer: {
+                            Text("All your AR model collection will be stored here. As you open chests or progress through levels, new models will gradually be added or unlocked.")
+                                .foregroundStyle(.primary)
+                                .font(.footnote)
+                            
+                        }
+                        .headerProminence(.increased)
                     }
                 }
             }
-            .padding()
+            .configureNavigationBar()
+            .padding(.horizontal)
+            .navigationBarBackButtonHidden()
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle("ARGallery")
+            .searchable(text: $searchText, prompt: "Search AR Object")
             .background(.blue)
+            .toolbar {
+                leadingNavItems()
+                trailingNavItems()
+            }
         }
+    }
+}
+
+extension ARScreen {
+
+    @ToolbarContentBuilder
+    private func leadingNavItems() -> some ToolbarContent {
+        ToolbarItem(placement: .topBarLeading) {
+            leadingNavView()
+        }
+    }
+    
+    @ToolbarContentBuilder
+    private func trailingNavItems() -> some ToolbarContent {
+        ToolbarItem(placement: .topBarTrailing) {
+            trailingNavView()
+        }
+    }
+
+
+    @ViewBuilder
+    private func leadingNavView() -> some View {
+        Button {
+            withAnimation(.smooth) {
+                showSidebar.toggle()
+            }
+        } label: {
+            Image(systemName: showSidebar ? "backpack.fill" : "backpack")
+                .onTapGesture {
+                    withAnimation { showSidebar.toggle() }
+                }
+                .padding(5)
+                .hAlign(.leading)
+                .background {
+                    Circle()
+                        .fill(showSidebar ? .black : .white)
+                }
+                .foregroundStyle(showSidebar ? .yellow : .blue)
+                .contentTransition(.symbolEffect(.replace.upUp.byLayer))
+                .accessibilityLabel("Profile View Button")
+        }
+        .tint(.blue)
+        .buttonStyle(.borderedProminent)
+    }
+    
+
+    @ViewBuilder
+    private func trailingNavView() -> some View {
+        Button {
+            withAnimation(.smooth) {
+                isAppleWatchConnectivityViewButtonPressed.toggle()
+            }
+        } label: {
+            Image(systemName: isAppleWatchConnectivityViewButtonPressed ? "cart.fill" : "cart")
+                .padding(5)
+                .background {
+                    Circle()
+                        .fill(isAppleWatchConnectivityViewButtonPressed ? .black : .white)
+                }
+                .foregroundStyle(isAppleWatchConnectivityViewButtonPressed ? .yellow : .blue)
+                .contentTransition(.symbolEffect(.replace.upUp.byLayer))
+                .accessibilityLabel("Apple Watch")
+        }
+        .tint(.blue)
+        .buttonStyle(.borderedProminent)
+        .sheet(isPresented: $isAppleWatchConnectivityViewButtonPressed) {
+            AppleWatchConnectivityView()
+        }
+    }
+    
+    private struct NavigationBarConstants {
+        let leadingSpacing: CGFloat = 6
+        let leadingDefaultSpacing: CGFloat = 0
+        let leadingSmallestFont: CGFloat = 12
+        let leadingLargestFont: CGFloat = 14
+        
+        let trailingCornerRadius: CGFloat = 8
+        let trailingImageWidth: CGFloat = 24
+        let trailingImageHeight: CGFloat = 24
+        let trailingStackWidth: CGFloat = 40
+        let trailingStackHeight: CGFloat = 40
     }
 }
 
@@ -137,20 +340,21 @@ struct ARScreen: View {
 struct ARItemScreen: View {
     @State private var showARView = false
     let selectedModel : ARModel?
+    
+    @Environment(\.dismiss) private var dismiss
+    
     var body: some View {
         NavigationStack {
             ScrollView(.vertical, showsIndicators: false) {
                 LazyVStack {
                     MiniModelView(modelName: selectedModel?.name ?? "")
                         .frame(height: 400)
-                        .background(Color.gray.opacity(0.3)) // Додайте фон або обводку, якщо потрібно
-                        .cornerRadius(10)
+                        .background(Color.white.opacity(0.2))
+                        .cornerRadius(20)
                         .padding()
-
                     VStack {
                         HStack {
                             Button {
-                                
                             } label: {
                                 Label("Play", systemImage: "headphones")
                                     .padding(15)
@@ -191,19 +395,59 @@ struct ARItemScreen: View {
                     }
                     .background {
                         UnevenRoundedRectangle(topLeadingRadius: 25, bottomLeadingRadius: 25, bottomTrailingRadius: 25, topTrailingRadius: 25)
-                            .fill(.blue)
+                            .fill(.white.opacity(0.2))
                     }
                     .padding()
                 }
-                .background(.blue)
-
+            }
+            .configureNavigationBar()
+            .background(.blue)
+            .navigationTitle("Model Name")
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarBackButtonHidden()
+            .toolbar {
+                leadingNavItems()
             }
         }
+        .frame(width: UIScreen.main.bounds.width , height: UIScreen.main.bounds.height)
     }
 }
 
 #Preview {
     ARItemScreen(selectedModel: ARModel(name: "Bosel-Mausoleum", displayName: "Модель 1", categories: [.building, .castle]))
+}
+
+
+extension ARItemScreen {
+    
+    @ToolbarContentBuilder
+    private func leadingNavItems() -> some ToolbarContent {
+        ToolbarItem(placement: .topBarLeading) {
+            leadingNavView()
+        }
+    }
+    
+    @ViewBuilder
+    private func leadingNavView() -> some View {
+        Button {
+            withAnimation(.smooth) {
+                dismiss()
+            }
+        } label: {
+            Image(systemName: "chevron.backward")
+                .padding(5)
+                .hAlign(.leading)
+                .background {
+                    Circle()
+                        .fill(.white)
+                }
+                .foregroundStyle(.blue)
+                .contentTransition(.symbolEffect(.replace.upUp.byLayer))
+                .accessibilityLabel("Profile View Button")
+        }
+        .tint(.blue)
+        .buttonStyle(.borderedProminent)
+    }
 }
 
 struct ARViewContainer: UIViewRepresentable {

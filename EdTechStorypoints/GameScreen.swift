@@ -35,11 +35,9 @@ struct GameScreen: View {
                             .padding(.horizontal)
                         }
                     }
-                    .background {
-                        Color.blue
-                    }
                 }
                 .configureNavigationBar()
+                .background(Color.blue)
                 .ignoresSafeArea(edges: .bottom)
                 .navigationBarBackButtonHidden()
                 .navigationBarTitleDisplayMode(.inline)

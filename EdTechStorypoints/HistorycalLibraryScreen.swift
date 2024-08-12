@@ -92,8 +92,9 @@ struct HistorycalLibraryScreen: View {
                                             .padding(.horizontal, 15)
                                             .background(activeTag == tag ? Color.yellow : Color.white.opacity(0.2))
                                             .cornerRadius(20)
+                                            .foregroundStyle(activeTag == tag ? Color.black : Color.white)
                                     }
-                                    .foregroundStyle(activeTag == tag ? Color.black : Color.white)
+                                    
                                 }
                             }
                         }
@@ -132,6 +133,7 @@ struct HistorycalLibraryScreen: View {
                 }
                 .padding(.leading, 16)
             }
+            .configureNavigationBar()
             .background(Color.blue)
             .navigationBarBackButtonHidden()
             .navigationBarTitleDisplayMode(.inline)

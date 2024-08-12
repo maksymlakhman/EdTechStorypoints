@@ -89,6 +89,8 @@
 			children = (
 				9D2C71D82C6764AB00651745 /* gramophone.usdz */,
 				9D07CB222C624FB500DAA2AA /* RootTabBar.swift */,
+				9D2C71CC2C66467A00651745 /* GameScreen.swift */,
+				9D2C71C82C6643A000651745 /* LastHistoryNewsScreen.swift */,
 				9D2C71D22C66625400651745 /* NavigationBarModifier.swift */,
 				9D2C71C32C6642BC00651745 /* RatingScreen */,
 				9D07CB392C62DE2000DAA2AA /* Onboarding */,
@@ -100,9 +102,7 @@
 				9D07CB332C62513800DAA2AA /* LottieView.swift */,
 				9D07CB352C6258FC00DAA2AA /* Storyk.json */,
 				9D2C71C62C66432100651745 /* HistorycalLibraryScreen.swift */,
-				9D2C71C82C6643A000651745 /* LastHistoryNewsScreen.swift */,
 				9D2C71CA2C6644C900651745 /* AppleWatchConnectivityView.swift */,
-				9D2C71CC2C66467A00651745 /* GameScreen.swift */,
 				9D2C71CE2C66495C00651745 /* AffermationView.swift */,
 				9D2C71D02C6649D500651745 /* ARScreen.swift */,
 				9D2C71D42C66754000651745 /* SideMenuView.swift */,

@@ -1,5 +1,5 @@
 {
-  "originHash" : "0a79f2009ea5ba6a9e7c2c6471d05458a7ac9a981d2fd7ab914f1eb741af1ea1",
+  "originHash" : "f563920973bd43f54b817006f4ecdddcc5f88cd6ad4576f4e5387db1b1f88f9c",
   "pins" : [
     {
       "identity" : "lottie-ios",
@@ -8,6 +8,15 @@
       "state" : {
         "revision" : "fe4c6fe3a0aa66cdeb51d549623c82ca9704b9a5",
         "version" : "4.5.0"
+      }
+    },
+    {
+      "identity" : "swiftui-multicolorgradient",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ArthurGuibert/SwiftUI-MulticolorGradient.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "6f80da646b607d2e3cbacc259eb41f2912ea6e4f"
       }
     }
   ],

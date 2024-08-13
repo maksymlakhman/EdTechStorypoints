@@ -87,170 +87,167 @@ struct ARScreen: View {
     @State private var selectedCategory: ModelCategory = .building
     @State private var selectedModel: ARModel?
     
-    @State private var isAffermationViewButtonPressed: Bool = false
-    @State private var isAppleWatchConnectivityViewButtonPressed: Bool = false
-    @State private var showSidebar: Bool = false
+    @State private var isFavoritesARModelsViewButtonPressed: Bool = false
+    @State private var isARShopStoreViewButtonPressed: Bool = false
     
     @State private var searchText = ""
     
     @State private var isFavoriteARModel: Bool = false
 
     var body: some View {
-        NavigationStack {
-            ScrollView(.vertical, showsIndicators: false) {
-                LazyVStack(alignment: .leading) {
-                    Text("Welcome to")
-                        .foregroundStyle(.primary)
-                        .font(.subheadline)
-                        .padding(.top, 16)
-                    HStack(spacing: 0) {
-                        Text("AR Gallery")
-                        Text("Guide")
-                            .foregroundStyle(.yellow)
-                    }
-                    .font(.largeTitle)
-                    .bold()
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack {
-                            ForEach(ModelCategory.allCases) { category in
-                                Button(action: {
-                                    selectedCategory = category
-                                }) {
-                                    VStack {
-                                        Image(systemName: category.icon)
-                                        Text(category.rawValue)
-                                            .font(.footnote)
-                                    }
-                                    .frame(minWidth : UIScreen.main.bounds.width / 4)
-                                    .padding(.vertical, 10)
-                                    .padding(.horizontal, 15)
-                                    .background(selectedCategory == category ? Color.yellow : Color.white.opacity(0.2))
-                                    .cornerRadius(20)
-                                    .foregroundStyle(selectedCategory == category ? Color.black : Color.white)
-
+        ScrollView(.vertical, showsIndicators: false) {
+            LazyVStack(alignment: .leading) {
+                Text("Welcome to")
+                    .foregroundStyle(.primary)
+                    .font(.subheadline)
+                    .padding(.top, 16)
+                HStack(spacing: 0) {
+                    Text("AR Gallery")
+                    Text("Guide")
+                        .foregroundStyle(.yellow)
+                }
+                .font(.largeTitle)
+                .bold()
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        ForEach(ModelCategory.allCases) { category in
+                            Button(action: {
+                                selectedCategory = category
+                            }) {
+                                VStack {
+                                    Image(systemName: category.icon)
+                                    Text(category.rawValue)
+                                        .font(.footnote)
                                 }
+                                .frame(minWidth : UIScreen.main.bounds.width / 4)
+                                .padding(.vertical, 10)
+                                .padding(.horizontal, 15)
+                                .background(selectedCategory == category ? Color.yellow : Color.white.opacity(0.1))
+                                .cornerRadius(20)
+                                .foregroundStyle(selectedCategory == category ? Color.black : Color.white)
+
                             }
                         }
                     }
+                }
 
 
-                    if models.filter({ $0.categories.contains(selectedCategory) }).isEmpty {
-                        VStack {
-                            Text("Currently, there are no models in this category.")
-                                .padding()
-                                .foregroundColor(.yellow)
-                                .font(.subheadline)
-                                .multilineTextAlignment(.center)
-                        }
-                        .frame(width : UIScreen.main.bounds.width)
-                    } else {
-                        Section {
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                LazyHStack {
-                                    ForEach(models.filter { $0.categories.contains(selectedCategory) }) { model in
-                                        NavigationLink {
-                                            ARItemScreen(selectedModel: model)
-                                        } label: {
-                                            VStack(spacing : 0) {
-                                                ZStack(alignment: .top) {
-                                                    MiniModelView(modelName: model.name)
-                                                        .frame(width: UIScreen.main.bounds.width / 1.5, height: UIScreen.main.bounds.width)
-                                                        .background(
-                                                            UnevenRoundedRectangle(topLeadingRadius: 20, topTrailingRadius: 20)
-                                                                .fill(Color.white.opacity(0.2))
-                                                        )
-                                                    
-                                                    HStack {
-                                                        Image(systemName: "person")
-                                                            .frame(width: 16, height: 16, alignment: .center)
-                                                            .font(.footnote)
-                                                            .padding(10)
-                                                            .background {
-                                                                RoundedRectangle(cornerRadius: 10)
-                                                                    .stroke(Color.yellow)
-                                                            }
-                                                        VStack(alignment: .leading) {
-                                                            Text("Designer Name")
-                                                            Text("Location City, County")
-                                                        }
+                if models.filter({ $0.categories.contains(selectedCategory) }).isEmpty {
+                    VStack {
+                        Text("Currently, there are no models in this category.")
+                            .padding()
+                            .foregroundColor(.yellow)
+                            .font(.subheadline)
+                            .multilineTextAlignment(.center)
+                    }
+                    .frame(width : UIScreen.main.bounds.width)
+                } else {
+                    Section {
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            LazyHStack {
+                                ForEach(models.filter { $0.categories.contains(selectedCategory) }) { model in
+                                    NavigationLink {
+                                        ARItemScreen(selectedModel: model)
+                                    } label: {
+                                        VStack(spacing : 0) {
+                                            ZStack(alignment: .top) {
+                                                MiniModelView(modelName: model.name)
+                                                    .frame(width: UIScreen.main.bounds.width / 1.5, height: UIScreen.main.bounds.width)
+                                                    .background(
+                                                        UnevenRoundedRectangle(topLeadingRadius: 20, topTrailingRadius: 20)
+                                                            .fill(Color.white.opacity(0.1))
+                                                    )
+                                                
+                                                HStack {
+                                                    Image(systemName: "person")
+                                                        .frame(width: 16, height: 16, alignment: .center)
                                                         .font(.footnote)
-                                                        Spacer()
-                                                        Image(systemName: "ellipsis")
-                                                            .frame(width: 16, height: 16, alignment: .center)
-                                                            .foregroundStyle(.blue)
-                                                            .font(.footnote)
-                                                            .padding(10)
-                                                            .background {
-                                                                RoundedRectangle(cornerRadius: 10)
-                                                                    .fill(Color.yellow)
-                                                            }
-                                                            
-                                                    }
-                                                    .padding()
-                                                }
-                                                HStack(alignment: .center, spacing: 0) {
-                                                    Button {
-                                                        isFavoriteARModel.toggle()
-                                                    } label: {
-                                                        HStack {
-                                                            Image(systemName: isFavoriteARModel ? "backpack.fill" : "backpack")
-
-                                                            Text("256")
-                                                        }
-                                                        .font(.footnote)
-                                                        .foregroundStyle(isFavoriteARModel ? .yellow : .primary)
-                                                        .bold()
-                                                        .padding(.horizontal, 8)
-                                                        .padding(.vertical, 4)
+                                                        .padding(10)
                                                         .background {
-                                                            Capsule()
-                                                                .fill(isFavoriteARModel ? .black : .blue)
+                                                            RoundedRectangle(cornerRadius: 10)
+                                                                .stroke(Color.yellow)
                                                         }
+                                                    VStack(alignment: .leading) {
+                                                        Text("Designer Name")
+                                                        Text("Location City, County")
                                                     }
-                                                    HStack(spacing : 0) {
-                                                        ForEach(0..<2){_ in
-                                                            Image(systemName: "rosette")
-                                                        }
-                                                    }
-                                                    .padding(.leading, 8)
+                                                    .font(.footnote)
                                                     Spacer()
-                                                    Image(systemName: "square.and.arrow.up.fill")
+                                                    Image(systemName: "ellipsis")
+                                                        .frame(width: 16, height: 16, alignment: .center)
+                                                        .foregroundStyle(.blue)
+                                                        .font(.footnote)
+                                                        .padding(10)
+                                                        .background {
+                                                            RoundedRectangle(cornerRadius: 10)
+                                                                .fill(Color.yellow)
+                                                        }
+                                                        
                                                 }
                                                 .padding()
-                                                .background(
-                                                    UnevenRoundedRectangle(bottomLeadingRadius: 20, bottomTrailingRadius: 20)
-                                                        .fill(Color.white.opacity(0.2))
-                                                )
+                                                .foregroundStyle(.white)
                                             }
+                                            HStack(alignment: .center, spacing: 0) {
+                                                Button {
+                                                    isFavoriteARModel.toggle()
+                                                } label: {
+                                                    HStack {
+                                                        Image(systemName: isFavoriteARModel ? "backpack.fill" : "backpack")
+
+                                                        Text("256")
+                                                    }
+                                                    .font(.footnote)
+                                                    .foregroundStyle(isFavoriteARModel ? .yellow : .primary)
+                                                    .bold()
+                                                    .padding(.horizontal, 8)
+                                                    .padding(.vertical, 4)
+                                                    .background {
+                                                        Capsule()
+                                                            .fill(isFavoriteARModel ? .black : .blue)
+                                                    }
+                                                }
+                                                HStack(spacing : 0) {
+                                                    ForEach(0..<2){_ in
+                                                        Image(systemName: "rosette")
+                                                    }
+                                                }
+                                                .padding(.leading, 8)
+                                                Spacer()
+                                                Image(systemName: "square.and.arrow.up.fill")
+                                            }
+                                            .padding()
+                                            .background(
+                                                UnevenRoundedRectangle(bottomLeadingRadius: 20, bottomTrailingRadius: 20)
+                                                    .fill(Color.white.opacity(0.1))
+                                            )
                                         }
                                     }
                                 }
                             }
-                        } header: {
-                            Text("ARCollection")
-                                .foregroundStyle(.accent)
-                                .font(.largeTitle)
-                        } footer: {
-                            Text("All your AR model collection will be stored here. As you open chests or progress through levels, new models will gradually be added or unlocked.")
-                                .foregroundStyle(.primary)
-                                .font(.footnote)
-                            
                         }
-                        .headerProminence(.increased)
+                    } header: {
+                        Text("ARCollection")
+                            .foregroundStyle(.accent)
+                            .font(.largeTitle)
+                    } footer: {
+                        Text("All your AR model collection will be stored here. As you open chests or progress through levels, new models will gradually be added or unlocked.")
+                            .foregroundStyle(.primary)
+                            .font(.footnote)
+                        
                     }
+                    .headerProminence(.increased)
                 }
             }
-            .configureNavigationBar()
-            .padding(.horizontal)
-            .navigationBarBackButtonHidden()
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle("ARGallery")
-            .searchable(text: $searchText, prompt: "Search AR Object")
-            .background(.blue)
-            .toolbar {
-                leadingNavItems()
-                trailingNavItems()
-            }
+        }
+        .configureNavigationBar()
+        .padding(.leading)
+        .navigationBarBackButtonHidden()
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle("ARGallery")
+        .searchable(text: $searchText, prompt: "Search AR Object")
+        .toolbar {
+            leadingNavItems()
+            trailingNavItems()
         }
     }
 }
@@ -276,24 +273,16 @@ extension ARScreen {
     private func leadingNavView() -> some View {
         Button {
             withAnimation(.smooth) {
-                showSidebar.toggle()
+                isFavoritesARModelsViewButtonPressed.toggle()
             }
         } label: {
-            Image(systemName: showSidebar ? "backpack.fill" : "backpack")
-                .onTapGesture {
-                    withAnimation { showSidebar.toggle() }
-                }
-                .padding(5)
-                .hAlign(.leading)
-                .background {
-                    Circle()
-                        .fill(showSidebar ? .black : .white)
-                }
-                .foregroundStyle(showSidebar ? .yellow : .blue)
+            Image(systemName: isFavoritesARModelsViewButtonPressed ? "backpack.fill" : "backpack")
+                .foregroundStyle(isFavoritesARModelsViewButtonPressed ? .blue : .white)
                 .contentTransition(.symbolEffect(.replace.upUp.byLayer))
                 .accessibilityLabel("Profile View Button")
         }
-        .tint(.blue)
+        .clipShape(Circle())
+        .tint(Color.blue.opacity(0.1))
         .buttonStyle(.borderedProminent)
     }
     
@@ -302,24 +291,17 @@ extension ARScreen {
     private func trailingNavView() -> some View {
         Button {
             withAnimation(.smooth) {
-                isAppleWatchConnectivityViewButtonPressed.toggle()
+                isARShopStoreViewButtonPressed.toggle()
             }
         } label: {
-            Image(systemName: isAppleWatchConnectivityViewButtonPressed ? "cart.fill" : "cart")
-                .padding(5)
-                .background {
-                    Circle()
-                        .fill(isAppleWatchConnectivityViewButtonPressed ? .black : .white)
-                }
-                .foregroundStyle(isAppleWatchConnectivityViewButtonPressed ? .yellow : .blue)
+            Image(systemName: isARShopStoreViewButtonPressed ? "cart.fill" : "cart")
+                .foregroundStyle(isARShopStoreViewButtonPressed ? .blue : .white)
                 .contentTransition(.symbolEffect(.replace.upUp.byLayer))
                 .accessibilityLabel("Apple Watch")
         }
-        .tint(.blue)
+        .clipShape(Circle())
+        .tint(Color.blue.opacity(0.1))
         .buttonStyle(.borderedProminent)
-        .sheet(isPresented: $isAppleWatchConnectivityViewButtonPressed) {
-            AppleWatchConnectivityView()
-        }
     }
     
     private struct NavigationBarConstants {
@@ -401,7 +383,6 @@ struct ARItemScreen: View {
                 }
             }
             .configureNavigationBar()
-            .background(.blue)
             .navigationTitle("Model Name")
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden()
@@ -443,7 +424,7 @@ extension ARItemScreen {
                 }
                 .foregroundStyle(.blue)
                 .contentTransition(.symbolEffect(.replace.upUp.byLayer))
-                .accessibilityLabel("Profile View Button")
+                .accessibilityLabel("Back Button to ARScreen")
         }
         .tint(.blue)
         .buttonStyle(.borderedProminent)

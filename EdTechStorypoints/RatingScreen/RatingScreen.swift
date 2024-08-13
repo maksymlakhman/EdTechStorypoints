@@ -106,7 +106,7 @@ struct FirstView: View {
                 .padding(.top, 16)
                 .background {
                     UnevenRoundedRectangle(topLeadingRadius: 25, topTrailingRadius: 25)
-                        .fill(.yellow)
+                        .fill(Color.blue.opacity(0.2))
                 }
             }
         }
@@ -138,30 +138,29 @@ struct RatingScreen: View {
     }
 
     var body: some View {
-        NavigationStack {
-            VStack {
-                Picker("Category", selection: $selectedCategory) {
-                    ForEach(0..<categories.count, id: \.self) { index in
-                        Text(categories[index]).tag(index)
-                    }
-                }
-                .padding()
-                .background(.yellow)
-                .clipShape(RoundedRectangle(cornerRadius: 35))
-                .pickerStyle(.segmented)
-                .padding()
-                
-
-                if selectedCategory == 0 {
-                    FirstView(users: users)
-                } else {
-                    SecondView(users: users)
+        VStack {
+            Picker("Category", selection: $selectedCategory) {
+                ForEach(0..<categories.count, id: \.self) { index in
+                    Text(categories[index]).tag(index)
                 }
             }
-            .background(.blue)
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle("Leaderboard")
+            .padding()
+            .background{
+                Color.blue.opacity(0.2)
+            }
+            .clipShape(RoundedRectangle(cornerRadius: 20))
+            .pickerStyle(.segmented)
+            .padding()
+            
+
+            if selectedCategory == 0 {
+                FirstView(users: users)
+            } else {
+                SecondView(users: users)
+            }
         }
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle("Leaderboard")
     }
 }
 

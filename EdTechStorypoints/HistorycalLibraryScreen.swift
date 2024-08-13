@@ -134,7 +134,6 @@ struct HistorycalLibraryScreen: View {
                 .padding(.leading, 16)
             }
             .configureNavigationBar()
-            .background(Color.blue)
             .navigationBarBackButtonHidden()
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("Books")

@@ -4,57 +4,46 @@ struct GameScreen: View {
     private let images: [String] = ["CossackLong", "CossackLarge", "CossackSmall", "Cossacks"]
     @State private var isAffermationViewButtonPressed: Bool = false
     @State private var isAppleWatchConnectivityViewButtonPressed: Bool = false
-    @State private var showSidebar: Bool = false
+    @State private var isProfileViewButtonPressed: Bool = false
 
     var body: some View {
-        ZStack {
-            NavigationStack {
-                ScrollView(.vertical, showsIndicators: false) {
-                    LazyVStack(spacing: 5) {
-                        ForEach(1..<15) { index in
-                            HStack {
-                                // Картинка зліва, якщо offset позитивний
-                                if (index >= 4 && (index - 4) % 3 == 0) && LevelView(level: index).offset > 0 {
-                                    Image(images[(index - 4) % images.count])
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(height: 200)
-                                }
+        ScrollView(.vertical, showsIndicators: false) {
+            LazyVStack(spacing: 5) {
+                ForEach(1..<15) { index in
+                    HStack {
+                        // Картинка зліва, якщо offset позитивний
+                        if (index >= 4 && (index - 4) % 3 == 0) && LevelView(level: index).offset > 0 {
+                            Image(images[(index - 4) % images.count])
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 200)
+                        }
 
-                                LevelView(level: index)
-                                    .transition(.slide)
+                        LevelView(level: index)
+                            .transition(.slide)
 
-                                // Картинка справа, якщо offset негативний
-                                if (index >= 4 && (index - 4) % 3 == 0) && LevelView(level: index).offset < 0 {
-                                    Image(images[(index - 4) % images.count])
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(height: 200)
-                                }
-                            }
-                            .padding(.horizontal)
+                        // Картинка справа, якщо offset негативний
+                        if (index >= 4 && (index - 4) % 3 == 0) && LevelView(level: index).offset < 0 {
+                            Image(images[(index - 4) % images.count])
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 200)
                         }
                     }
-                }
-                .configureNavigationBar()
-                .background(Color.blue)
-                .ignoresSafeArea(edges: .bottom)
-                .navigationBarBackButtonHidden()
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    leadingNavItems()
-                    trailingNavItems()
-                    centerNavItems()
+                    .padding(.horizontal)
                 }
             }
-            
-            // Overlay для SideMenuView
-            if showSidebar {
-                SideMenuView(show: $showSidebar)
-                    .transition(.move(edge: .leading))
-                    .zIndex(1)
-            }
+
         }
+        .configureNavigationBar()
+        .navigationBarBackButtonHidden()
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            leadingNavItems()
+            trailingNavItems()
+            centerNavItems()
+        }
+ 
     }
 }
 
@@ -155,25 +144,21 @@ extension GameScreen {
     private func leadingNavView() -> some View {
         Button {
             withAnimation(.smooth) {
-                showSidebar.toggle()
+                isProfileViewButtonPressed.toggle()
             }
         } label: {
-            Image(systemName: showSidebar ? "person.circle.fill" : "person.crop.circle.dashed")
-                .onTapGesture {
-                    withAnimation { showSidebar.toggle() }
-                }
-                .padding(5)
-                .hAlign(.leading)
-                .background {
-                    Circle()
-                        .fill(showSidebar ? .black : .white)
-                }
-                .foregroundStyle(showSidebar ? .yellow : .blue)
+            Image(systemName: isProfileViewButtonPressed ? "person.circle.fill" : "person.crop.circle.dashed")
+                .foregroundStyle(isProfileViewButtonPressed ? .blue : .white)
                 .contentTransition(.symbolEffect(.replace.upUp.byLayer))
                 .accessibilityLabel("Profile View Button")
+                
         }
-        .tint(.blue)
+        .clipShape(Circle())
+        .tint(Color.blue.opacity(0.1))
         .buttonStyle(.borderedProminent)
+        .fullScreenCover(isPresented: $isProfileViewButtonPressed) {
+            UserProfileScreen()
+        }
     }
     
     @ViewBuilder
@@ -184,16 +169,12 @@ extension GameScreen {
             }
         } label: {
             Image(systemName: isAffermationViewButtonPressed ? "doc.richtext" : "doc.richtext.fill")
-                .padding(5)
-                .background {
-                    Circle()
-                        .fill(isAffermationViewButtonPressed ? .black : .white)
-                }
-                .foregroundStyle(isAffermationViewButtonPressed ? .yellow : .blue)
+                .foregroundStyle(isAffermationViewButtonPressed ? .blue : .white)
                 .contentTransition(.symbolEffect(.replace.upUp.byLayer))
                 .accessibilityLabel("Affermation For User")
-        }
-        .tint(.blue)
+        }        
+        .clipShape(Circle())
+        .tint(Color.blue.opacity(0.1))
         .buttonStyle(.borderedProminent)
         .sheet(isPresented: $isAffermationViewButtonPressed) {
             AffermationView()
@@ -208,17 +189,13 @@ extension GameScreen {
                 isAppleWatchConnectivityViewButtonPressed.toggle()
             }
         } label: {
-            Image(systemName: isAppleWatchConnectivityViewButtonPressed ? "applewatch" : "applewatch.side.right")
-                .padding(5)
-                .background {
-                    Circle()
-                        .fill(isAppleWatchConnectivityViewButtonPressed ? .black : .white)
-                }
-                .foregroundStyle(isAppleWatchConnectivityViewButtonPressed ? .yellow : .blue)
+            Image(systemName: isAppleWatchConnectivityViewButtonPressed ? "applewatch.side.right" : "applewatch")
+                .foregroundStyle(isAppleWatchConnectivityViewButtonPressed ? .blue : .white)
                 .contentTransition(.symbolEffect(.replace.upUp.byLayer))
                 .accessibilityLabel("Apple Watch")
         }
-        .tint(.blue)
+        .clipShape(Circle())
+        .tint(Color.blue.opacity(0.1))
         .buttonStyle(.borderedProminent)
         .sheet(isPresented: $isAppleWatchConnectivityViewButtonPressed) {
             AppleWatchConnectivityView()

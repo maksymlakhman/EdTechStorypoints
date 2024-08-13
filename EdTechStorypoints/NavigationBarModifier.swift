@@ -13,7 +13,8 @@ struct NavigationBarModifier: ViewModifier {
             .onAppear {
                 let appearance = UINavigationBarAppearance()
                 appearance.configureWithOpaqueBackground()
-                appearance.backgroundColor = UIColor.systemBlue
+                appearance.backgroundEffect = UIBlurEffect(style: .systemUltraThinMaterial)
+                appearance.backgroundColor = UIColor(Color.blue.opacity(0.2))
                 appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
                 appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
                 

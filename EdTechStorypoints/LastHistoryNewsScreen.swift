@@ -58,9 +58,6 @@ struct LastHistoryNewsScreen: View {
                                 .font(.subheadline)
                         }
                         .frame(maxWidth: .infinity)
-                        .background {
-                            Color.gray.opacity(0.3)
-                        }
                     }
                 }
                 .clipped()
@@ -91,9 +88,6 @@ struct LastHistoryNewsScreen: View {
                                 .font(.subheadline)
                         }
                         .frame(maxWidth: .infinity)
-                        .background {
-                            Color.gray.opacity(0.3)
-                        }
                     }
                 }
                 .clipped()
@@ -117,7 +111,6 @@ struct LastHistoryNewsScreen: View {
                 .padding(.top, 8)
             }
             .configureNavigationBar()
-            .background(.blue)
             .searchable(text: $searchText, prompt: "Search stories")
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("History")

@@ -22,7 +22,7 @@ struct AnimatedTabItem: View {
 }
 
 struct RootTabBar: View {
-    @State private var programmaticSelectedIndex = 4
+    @State private var programmaticSelectedIndex = 0
     @State private var gradientView = ComplexAnimatedGradient()
     var body: some View {
         TabView(selection: $programmaticSelectedIndex) {
@@ -31,16 +31,16 @@ struct RootTabBar: View {
                     .background(gradientView)
             }
             .tabItem {
-                AnimatedTabItem(tabIcon: "building.columns", tabText: "Home", isSelected: programmaticSelectedIndex == 0)
+                AnimatedTabItem(tabIcon: "graduationcap.fill", tabText: "Story", isSelected: programmaticSelectedIndex == 0)
             }
             .tag(0)
 
             NavigationStack {
-                LastHistoryNewsScreen()
+                ArenaScreen()
                     .background(gradientView)
             }
             .tabItem {
-                AnimatedTabItem(tabIcon: "graduationcap.fill", tabText: "Home", isSelected: programmaticSelectedIndex == 1)
+                AnimatedTabItem(tabIcon: "building.columns", tabText: "Arena", isSelected: programmaticSelectedIndex == 1)
             }
             .tag(1)
             
@@ -49,7 +49,7 @@ struct RootTabBar: View {
                     .background(gradientView)
             }
             .tabItem {
-                AnimatedTabItem(tabIcon: "trophy.fill", tabText: "Home", isSelected: programmaticSelectedIndex == 2)
+                AnimatedTabItem(tabIcon: "trophy.fill", tabText: "Ranking", isSelected: programmaticSelectedIndex == 2)
             }
             .tag(2)
             
@@ -58,7 +58,7 @@ struct RootTabBar: View {
                     .background(gradientView)
             }
             .tabItem {
-                AnimatedTabItem(tabIcon: "books.vertical.fill", tabText: "Home", isSelected: programmaticSelectedIndex == 3)
+                AnimatedTabItem(tabIcon: "books.vertical.fill", tabText: "Library", isSelected: programmaticSelectedIndex == 3)
             }
             .tag(3)
             

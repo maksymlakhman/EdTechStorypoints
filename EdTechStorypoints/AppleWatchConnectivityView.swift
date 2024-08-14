@@ -120,7 +120,7 @@ struct AppleWatchConnectivityView: View {
             
         }
         .padding()
-        .background(LinearGradient(gradient: Gradient(colors: [.blue, .black, .blue]), startPoint: .top, endPoint: .bottomLeading))
+        .background(ComplexAnimatedGradient())
     }
 
     private var barChart: some View {

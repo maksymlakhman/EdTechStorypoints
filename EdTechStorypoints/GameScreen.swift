@@ -1,39 +1,45 @@
 import SwiftUI
 
 struct GameScreen: View {
-    private let images: [String] = ["CossackLong", "CossackLarge", "CossackSmall", "Cossacks"]
+    private let images: [String] = ["CossackLong", "CossackLarge", "CossackSmall", "Bride"]
+    @State private var activeLevel: Int = 3
     @State private var isAffermationViewButtonPressed: Bool = false
     @State private var isAppleWatchConnectivityViewButtonPressed: Bool = false
     @State private var isProfileViewButtonPressed: Bool = false
 
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
-            LazyVStack(spacing: 5) {
-                ForEach(1..<15) { index in
-                    HStack {
-                        // Картинка зліва, якщо offset позитивний
-                        if (index >= 4 && (index - 4) % 3 == 0) && LevelView(level: index).offset > 0 {
-                            Image(images[(index - 4) % images.count])
-                                .resizable()
-                                .scaledToFit()
-                                .frame(height: 200)
-                        }
+            ForEach(1..<3){ item in
+                LazyVStack(spacing: 5) {
+                    Text("Module Titile")
+                        .padding()
+                        .font(.headline)
+                    ForEach(1..<15) { index in
+                        HStack {
+                            // Картинка зліва, якщо offset позитивний
+                            if (index >= 4 && (index - 4) % 3 == 0) && LevelView(level: index, activeLevel: $activeLevel).offset > 0 {
+                                Image(images[(index - 4) % images.count])
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(height: 200)
+                            }
 
-                        LevelView(level: index)
-                            .transition(.slide)
+                            LevelView(level: index, activeLevel: $activeLevel)
+                                .transition(.slide)
 
-                        // Картинка справа, якщо offset негативний
-                        if (index >= 4 && (index - 4) % 3 == 0) && LevelView(level: index).offset < 0 {
-                            Image(images[(index - 4) % images.count])
-                                .resizable()
-                                .scaledToFit()
-                                .frame(height: 200)
+                            // Картинка справа, якщо offset негативний
+                            if (index >= 4 && (index - 4) % 3 == 0) && LevelView(level: index, activeLevel: $activeLevel).offset < 0 {
+                                Image(images[(index - 4) % images.count])
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(height: 200)
+                            }
                         }
+                        .padding(.horizontal)
                     }
-                    .padding(.horizontal)
                 }
             }
-
+            
         }
         .configureNavigationBar()
         .navigationBarBackButtonHidden()
@@ -43,13 +49,28 @@ struct GameScreen: View {
             trailingNavItems()
             centerNavItems()
         }
- 
     }
+}
+
+enum LevelStatus {
+    case active, completed, locked
 }
 
 struct LevelView: View {
     let level: Int
-    
+    @Binding var activeLevel: Int
+    @State private var isStartGameLevelViewButtonPressed: Bool = false
+
+    var status: LevelStatus {
+        if activeLevel == level {
+            return .active
+        } else if level < activeLevel {
+            return .completed
+        } else {
+            return .locked
+        }
+    }
+
     var offset: CGFloat {
         switch (level - 1) % 14 {
         case 0:
@@ -84,36 +105,42 @@ struct LevelView: View {
             return UIScreen.main.bounds.width / -5
         }
     }
-    
+
     var body: some View {
-        HStack {
-            VStack {
-                Image(systemName: "graduationcap")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 75, height: 25)
-                    .padding()
-                    .background(Color.yellow.opacity(0.8))
-                    .clipShape(
-                        Circle()
-                    )
-                    .shadow(radius: 5) // Додає тінь для глибини
-                
-                Text("Level \(level)")
-                    .font(.headline)
-                    .foregroundColor(.primary) // Залишає стандартний колір тексту
-                    .padding(.top, 8)
-                    .background(Color.white.opacity(0.6)) // Фон для тексту
-                    .cornerRadius(8) // Краї з округленням
-                    .shadow(radius: 2) // Легка тінь
+            HStack {
+                VStack {
+                    Button {
+                        isStartGameLevelViewButtonPressed.toggle()
+                    } label: {
+                        Image(systemName: "graduationcap")
+                            .resizable()
+                            .scaledToFit()
+                            .offset(x: -1, y: -1)
+                            .foregroundStyle(status == .active ? .white : .blue.opacity(0.6))
+                            .frame(width: 75, height: 25)
+                            .padding()
+                            .background {
+                                Circle()
+                                    .fill(status == .active ? .blue.opacity(0.8) : (status == .completed ? .white.opacity(0.6) : .blue.opacity(0.6)))
+                                    .offset(x: -2.5, y: -5)
+                            }
+                            .background(status == .active ? Color.white.opacity(0.2) : (status == .completed ? Color.blue : Color.black))
+                            .clipShape(Circle())
+                            .shadow(radius: 5)
+                    }
+                }
+                .offset(x: offset)
+                .animation(.easeInOut(duration: 0.3), value: offset)
             }
-            .offset(x: offset)
-            .animation(.easeInOut(duration: 0.3), value: offset) // Анімація при зміні offset
-        }
-        .frame(maxWidth: .infinity)
-        .padding()
-        .cornerRadius(10) // Округлення куточків
-        .shadow(radius: 5) // Тінь для загального вигляду
+            .frame(maxWidth: .infinity)
+            .padding()
+            .cornerRadius(10)
+            .shadow(radius: 5)
+            .opacity(status == .locked ? 0.5 : 1.0)
+            .disabled(status == .locked)
+            .fullScreenCover(isPresented: $isStartGameLevelViewButtonPressed) {
+                StartGameScreen()
+            }
     }
 }
 
@@ -156,9 +183,12 @@ extension GameScreen {
         .clipShape(Circle())
         .tint(Color.blue.opacity(0.1))
         .buttonStyle(.borderedProminent)
-        .fullScreenCover(isPresented: $isProfileViewButtonPressed) {
+        .sheet(isPresented: $isProfileViewButtonPressed) {
             UserProfileScreen()
+                .presentationDetents([.custom(MyDetent.self)])
+                .presentationDragIndicator(.visible)
         }
+
     }
     
     @ViewBuilder
@@ -176,9 +206,8 @@ extension GameScreen {
         .clipShape(Circle())
         .tint(Color.blue.opacity(0.1))
         .buttonStyle(.borderedProminent)
-        .sheet(isPresented: $isAffermationViewButtonPressed) {
-            AffermationView()
-                .presentationDetents([.medium])
+        .fullScreenCover(isPresented: $isAffermationViewButtonPressed) {
+            GameNewsScreen()
         }
     }
 
@@ -213,6 +242,14 @@ extension GameScreen {
         let trailingImageHeight: CGFloat = 24
         let trailingStackWidth: CGFloat = 40
         let trailingStackHeight: CGFloat = 40
+    }
+}
+
+struct MyDetent: CustomPresentationDetent {
+    // 1
+    static func height(in context: Context) -> CGFloat? {
+        // 2
+        return max(50, context.maxDetentValue * 0.6)
     }
 }
 

@@ -17,13 +17,13 @@ struct PreloaderScreen: View {
                 .scaleEffect(Constants.Dimensions.scaleEffect)
         }
         .ignoresSafeArea()
-        .background(Color.yellow)
+        .background(Color.blue)
     }
     
     func icon() -> some View {
         VStack(spacing: Constants.Icon.spacing) {
             RoundedRectangle(cornerRadius: Constants.Icon.cornerRadius)
-                .fill(Color.accentColor)
+                .fill(Color.pink)
                 .frame(width: Constants.Icon.width, height: Constants.Icon.height)
         }
     }

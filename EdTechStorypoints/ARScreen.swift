@@ -325,29 +325,37 @@ struct ARItemScreen: View {
     
     @Environment(\.dismiss) private var dismiss
     
+    @State private var isShowAudioPlayer: Bool = false
+    
     var body: some View {
         NavigationStack {
             ScrollView(.vertical, showsIndicators: false) {
                 LazyVStack {
                     MiniModelView(modelName: selectedModel?.name ?? "")
                         .frame(height: 400)
-                        .background(Color.white.opacity(0.2))
+                        .background(Color.white.opacity(0.1))
                         .cornerRadius(20)
                         .padding()
                     VStack {
                         HStack {
                             Button {
+                                isShowAudioPlayer.toggle()
                             } label: {
                                 Label("Play", systemImage: "headphones")
                                     .padding(15)
                                     .foregroundStyle(.blue)
                                     .background {
                                         RoundedRectangle(cornerRadius: 15)
+                                            .fill(.yellow)
                                     }
                                 
                             }
                             .padding(.horizontal)
                             .offset(y: -20)
+                            .sheet(isPresented: $isShowAudioPlayer) {
+                                Text("Player")
+                                    .presentationDetents([.medium])
+                            }
                             Spacer()
                             Button {
                                 showARView.toggle()
@@ -357,6 +365,7 @@ struct ARItemScreen: View {
                                     .foregroundStyle(.blue)
                                     .background {
                                         RoundedRectangle(cornerRadius: 15)
+                                            .fill(.yellow)
                                     }
                                 
                             }
@@ -377,7 +386,7 @@ struct ARItemScreen: View {
                     }
                     .background {
                         UnevenRoundedRectangle(topLeadingRadius: 25, bottomLeadingRadius: 25, bottomTrailingRadius: 25, topTrailingRadius: 25)
-                            .fill(.white.opacity(0.2))
+                            .fill(.white.opacity(0.1))
                     }
                     .padding()
                 }
@@ -389,8 +398,8 @@ struct ARItemScreen: View {
             .toolbar {
                 leadingNavItems()
             }
+            .background(ComplexAnimatedGradient())
         }
-        .frame(width: UIScreen.main.bounds.width , height: UIScreen.main.bounds.height)
     }
 }
 
@@ -416,17 +425,12 @@ extension ARItemScreen {
             }
         } label: {
             Image(systemName: "chevron.backward")
-                .padding(5)
-                .hAlign(.leading)
-                .background {
-                    Circle()
-                        .fill(.white)
-                }
-                .foregroundStyle(.blue)
+                .foregroundStyle(.white)
                 .contentTransition(.symbolEffect(.replace.upUp.byLayer))
                 .accessibilityLabel("Back Button to ARScreen")
         }
-        .tint(.blue)
+        .clipShape(Circle())
+        .tint(Color.blue.opacity(0.1))
         .buttonStyle(.borderedProminent)
     }
 }

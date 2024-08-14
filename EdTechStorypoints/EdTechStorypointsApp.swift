@@ -17,7 +17,7 @@ struct EdTechStorypointsApp: App {
                 PreloaderScreen()
                     .preferredColorScheme(.dark)
                     .onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
                             withAnimation {
                                 showPreloader = false
                                 if isFirstLaunch {

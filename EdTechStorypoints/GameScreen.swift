@@ -139,7 +139,7 @@ struct LevelView: View {
             .opacity(status == .locked ? 0.5 : 1.0)
             .disabled(status == .locked)
             .fullScreenCover(isPresented: $isStartGameLevelViewButtonPressed) {
-                StartGameScreen()
+                GameView()
             }
     }
 }

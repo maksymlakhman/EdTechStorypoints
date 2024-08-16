@@ -213,10 +213,11 @@ struct GameNewsScreen: View {
                             
                         }
                     }
+                    .padding(5)
                 }
             }
             .configureNavigationBar()
-            .background(ComplexAnimatedGradient())
+            .background(BlueBackgroundAnimatedGradient())
             .navigationTitle("Game News")
             .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden()

@@ -91,7 +91,7 @@ struct UserProfileScreen: View {
                .padding(.horizontal)
                Spacer()
            }
-           .background(ComplexAnimatedGradient())
+           .background(BlueBackgroundAnimatedGradient())
         }
     }
 }

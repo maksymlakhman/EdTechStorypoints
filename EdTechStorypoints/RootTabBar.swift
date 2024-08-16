@@ -23,7 +23,7 @@ struct AnimatedTabItem: View {
 
 struct RootTabBar: View {
     @State private var programmaticSelectedIndex = 0
-    @State private var gradientView = ComplexAnimatedGradient()
+    @State private var gradientView = BlueBackgroundAnimatedGradient()
     var body: some View {
         TabView(selection: $programmaticSelectedIndex) {
             NavigationStack {

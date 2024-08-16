@@ -398,7 +398,7 @@ struct ARItemScreen: View {
             .toolbar {
                 leadingNavItems()
             }
-            .background(ComplexAnimatedGradient())
+            .background(BlueBackgroundAnimatedGradient())
         }
     }
 }

@@ -2,7 +2,7 @@ import SwiftUI
 
 struct ProgressBarView: View {
     @Binding var progress: Double
-
+    
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
             ZStack(alignment: .center) {
@@ -47,17 +47,47 @@ class GameViewModel: ObservableObject {
     @Published var showIncorrectSheet = false
     @Published var progress: Double = 0.0
     @Published var isGameFinished = false
+    
     init() {
         loadTasks()
         shuffleTasks()
-        updateProgress()
+        progress = 0.0
     }
     
     func loadTasks() {
         tasks = [
-            Task(type: .quiz, question: "Коли була заснована Київська Русь?", image: "BohdanKhmelnytsky", options: ["800 рік", "882 рік", "988 рік"], correctAnswer: 1),
-            Task(type: .findPair, question: "Знайдіть пари відомих авторів та їх творів", image: nil, options: ["Шевченко - Кобзар", "Франко - Захар Беркут"], correctAnswer: 0),
-            Task(type: .chronology, question: "Виберіть правильний порядок подій", image: nil, options: ["Хрещення Русі", "Заснування Києва"], correctAnswer: 0)
+            Task(
+                type: .quiz,
+                question: "Who is depicted in the photo?",
+                image: "BohdanKhmelnytsky",
+                options: [
+                    "Bohdan Khmelnytsky",
+                    "Ivan Mazepa",
+                    "Taras Shevchenko",
+                    "Petro Konashevych-Sahaidachny"
+                ],
+                correctAnswer: 0
+            ),
+            Task(
+                type: .findPair,
+                question: "Знайдіть пари відомих авторів та їх творів",
+                image: nil,
+                options: [
+                    "Шевченко - Кобзар",
+                    "Франко - Захар Беркут"
+                ],
+                correctAnswer: 0
+            ),
+            Task(
+                type: .chronology,
+                question: "Виберіть правильний порядок подій",
+                image: nil,
+                options: [
+                    "Хрещення Русі",
+                    "Заснування Києва"
+                ],
+                correctAnswer: 0
+            )
         ]
     }
     
@@ -66,7 +96,7 @@ class GameViewModel: ObservableObject {
     }
     
     func updateProgress() {
-        progress = Double(currentTaskIndex + 1) / Double(tasks.count)
+        progress = Double(currentTaskIndex) / Double(tasks.count)
     }
     
     func checkAnswer(selectedAnswer: Int, completion: @escaping () -> Void) {
@@ -90,19 +120,19 @@ class GameViewModel: ObservableObject {
         if currentTaskIndex < tasks.count - 1 {
             currentTaskIndex += 1
             isAnswerCorrect = false
-            updateProgress()
+            updateProgress() // Оновлюємо прогрес після завершення завдання
         } else {
             isGameFinished = true
         }
     }
-
 }
+
 
 
 struct GameView: View {
     @StateObject private var viewModel = GameViewModel()
     @State private var selectedAnswer: Int? = nil
-
+    
     let correctPhrases = [
         "Spot on! You're a genius!",
         "Bullseye! Nailed it!",
@@ -222,8 +252,47 @@ struct GameView: View {
 }
 
 
-// Відображення завдання
 struct TaskView: View {
+    let task: Task
+    @Binding var selectedAnswer: Int?
+    
+    var body: some View {
+        VStack {
+            switch task.type {
+            case .quiz:
+                QuizTaskView(task: task, selectedAnswer: $selectedAnswer)
+            case .findPair:
+                FindPairTaskView(task: task)
+            case .chronology:
+                ChronologyTaskView(task: task)
+            }
+        }
+    }
+}
+
+
+
+struct FindPairTaskView: View {
+    let task: Task
+    
+    var body: some View {
+        // Реалізація для знаходження пар
+        Text("Find Pair Task View")
+    }
+}
+
+struct ChronologyTaskView: View {
+    let task: Task
+    
+    var body: some View {
+        // Реалізація для завдання на хронологію
+        Text("Chronology Task View")
+    }
+}
+
+
+
+struct QuizTaskView: View {
     let task: Task
     @Binding var selectedAnswer: Int?
     
@@ -240,19 +309,27 @@ struct TaskView: View {
                 .foregroundStyle(.accent)
             
             ForEach(0..<task.options.count, id: \.self) { index in
-                Button {
-                    selectedAnswer = index
-                } label: {
-                    Text(task.options[index])
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(selectedAnswer == index ? self.colorForOption(at: index) : Color.white.opacity(0.7))
-                        .foregroundColor(selectedAnswer == index ? .white : .black)
-                        .cornerRadius(10)
-                        .scaleEffect(selectedAnswer == index ? 1.0 : 0.97, anchor: .bottomTrailing)
-                        .font(.subheadline)
+                HStack(spacing: 0) {
+                    if selectedAnswer != index {
+                        Text(self.variantForOption(at: index))
+                            .padding(10)
+                            .background(self.colorForOption(at: index).opacity(0.8))
+                            .foregroundColor(selectedAnswer == index ? .white : .black)
+                            .cornerRadius(10)
+                    }
+                    Button {
+                        selectedAnswer = index
+                    } label: {
+                        Text(task.options[index])
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(selectedAnswer == index ? self.colorForOption(at: index) : Color.white.opacity(0.7))
+                            .foregroundColor(selectedAnswer == index ? .white : .black)
+                            .cornerRadius(10)
+                            .scaleEffect(selectedAnswer == index ? 1.0 : 0.97, anchor: .bottomTrailing)
+                            .font(.subheadline)
+                    }
                 }
-
             }
         }
     }

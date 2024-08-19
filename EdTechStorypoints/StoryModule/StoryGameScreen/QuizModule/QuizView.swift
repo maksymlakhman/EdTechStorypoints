@@ -21,109 +21,139 @@ struct ProgressBarView: View {
     }
 }
 
-enum TaskType {
-    case quiz
-    case findPair
-    case chronology
+
+enum GameModuleType {
+    case quiz(QuizModule)
+    case findPair(FindPairModule)
+    case chronology(ChronologyModule)
 }
 
-// Описуємо самі завдання
-struct Task: Identifiable {
-    let id = UUID()
-    let type: TaskType
-    let question: String
-    let image: String?
-    let options: [String]
-    let correctAnswer: Int
+struct AnyGameModule {
+    let moduleType: GameModuleType
+    
+    init(_ quizModule: QuizModule) {
+        self.moduleType = .quiz(quizModule)
+    }
+    
+    init(_ findPairModule: FindPairModule) {
+        self.moduleType = .findPair(findPairModule)
+    }
+    
+    init(_ chronologyModule: ChronologyModule) {
+        self.moduleType = .chronology(chronologyModule)
+    }
+    
+    func checkAnswer(_ answer: Any) -> Bool {
+        switch moduleType {
+        case .quiz(let quizModule):
+            return quizModule.checkAnswer(answer as! Int)
+        case .findPair(let findPairModule):
+            return findPairModule.checkAnswer(answer as! [String: String])
+        case .chronology(let chronologyModule):
+            return chronologyModule.checkAnswer(answer as! [String])
+        }
+    }
 }
+
+
+
+protocol GameModule {
+    associatedtype AnswerType
+    var question: String { get }
+    var options: [String] { get }
+    func checkAnswer(_ answer: AnswerType) -> Bool
+}
+
+struct QuizModule: GameModule {
+    typealias AnswerType = Int
+    
+    var question: String
+    var options: [String]
+    var correctAnswer: Int
+    
+    func checkAnswer(_ answer: Int) -> Bool {
+        return answer == correctAnswer
+    }
+}
+
+struct FindPairModule: GameModule {
+    typealias AnswerType = [String: String]
+    
+    var question: String
+    var options: [String]
+    var correctPairs: [String: String]
+    
+    func checkAnswer(_ answer: [String: String]) -> Bool {
+        return answer == correctPairs
+    }
+}
+
+struct ChronologyModule: GameModule {
+    typealias AnswerType = [String]
+    
+    var question: String
+    var options: [String]
+    var correctOrder: [String]
+    
+    func checkAnswer(_ answer: [String]) -> Bool {
+        return answer == correctOrder
+    }
+}
+
 
 class GameViewModel: ObservableObject {
-    @Published var tasks: [Task] = []
-    @Published var currentTaskIndex: Int = 0
-    @Published var isAnswerCorrect: Bool = false
-    @Published var isCheckButtonActive: Bool = true
-    @Published var isNextButtonActive: Bool = false
-    @Published var showCorrectSheet = false
-    @Published var showIncorrectSheet = false
+    @Published var modules: [AnyGameModule] = []
+    @Published var currentModuleIndex: Int = 0
     @Published var progress: Double = 0.0
     @Published var isGameFinished = false
+    @Published var showCorrectSheet = false
+    @Published var showIncorrectSheet = false
     
     init() {
-        loadTasks()
-        shuffleTasks()
+        loadModules()
+        shuffleModules()
         progress = 0.0
     }
     
-    func loadTasks() {
-        tasks = [
-            Task(
-                type: .quiz,
-                question: "Who is depicted in the photo?",
-                image: "BohdanKhmelnytsky",
-                options: [
-                    "Bohdan Khmelnytsky",
-                    "Ivan Mazepa",
-                    "Taras Shevchenko",
-                    "Petro Konashevych-Sahaidachny"
-                ],
-                correctAnswer: 0
-            ),
-            Task(
-                type: .findPair,
-                question: "Знайдіть пари відомих авторів та їх творів",
-                image: nil,
-                options: [
-                    "Шевченко - Кобзар",
-                    "Франко - Захар Беркут"
-                ],
-                correctAnswer: 0
-            ),
-            Task(
-                type: .chronology,
-                question: "Виберіть правильний порядок подій",
-                image: nil,
-                options: [
-                    "Хрещення Русі",
-                    "Заснування Києва"
-                ],
-                correctAnswer: 0
-            )
-        ]
+    func loadModules() {
+        let quiz = AnyGameModule(QuizModule(question: "Who is depicted in the photo?", options: ["Bohdan Khmelnytsky", "Ivan Mazepa", "Taras Shevchenko", "Petro Konashevych-Sahaidachny"], correctAnswer: 0))
+        let findPair = AnyGameModule(FindPairModule(question: "Знайдіть пари відомих авторів та їх творів", options: [], correctPairs: ["Шевченко": "Кобзар", "Франко": "Захар Беркут"]))
+        let chronology = AnyGameModule(ChronologyModule(question: "Виберіть правильний порядок подій", options: [], correctOrder: ["Хрещення Русі", "Заснування Києва"]))
+        
+        modules = [quiz, findPair, chronology]
     }
     
-    func shuffleTasks() {
-        tasks.shuffle()
+    func shuffleModules() {
+        modules.shuffle()
     }
     
     func updateProgress() {
-        progress = Double(currentTaskIndex) / Double(tasks.count)
+        progress = Double(currentModuleIndex) / Double(modules.count)
     }
     
-    func checkAnswer(selectedAnswer: Int, completion: @escaping () -> Void) {
-        let correctAnswer = tasks[currentTaskIndex].correctAnswer
-        if selectedAnswer == correctAnswer {
-            isAnswerCorrect = true
-            isNextButtonActive = true
-            showCorrectSheet.toggle()
+    func checkAnswer(_ answer: Any) -> Bool {
+        let currentModule = modules[currentModuleIndex]
+        let result = currentModule.checkAnswer(answer)
+        
+        if result {
+            showCorrectSheet = true
         } else {
-            isAnswerCorrect = false
             showIncorrectSheet = true
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                completion()
                 self.showIncorrectSheet = false
             }
         }
-        isCheckButtonActive = false
+        
+        return result
     }
-    
-    func completeTask() {
-        if currentTaskIndex < tasks.count - 1 {
-            currentTaskIndex += 1
-            isAnswerCorrect = false
-            updateProgress() // Оновлюємо прогрес після завершення завдання
+
+    func completeModule() {
+        if currentModuleIndex < modules.count - 1 {
+            currentModuleIndex += 1
         } else {
             isGameFinished = true
         }
+        updateProgress()
     }
 }
 
@@ -131,8 +161,7 @@ class GameViewModel: ObservableObject {
 
 struct GameView: View {
     @StateObject private var viewModel = GameViewModel()
-    @State private var selectedAnswer: Int? = nil
-    
+    @State private var selectedAnswer: Any? = nil
     let correctPhrases = [
         "Spot on! You're a genius!",
         "Bullseye! Nailed it!",
@@ -158,13 +187,12 @@ struct GameView: View {
         "Don't sweat it, try once more!",
         "You'll get it next time!"
     ]
-    
     @Environment(\.dismiss) private var dismiss
-    
     var body: some View {
         if viewModel.isGameFinished {
             PriceScreen()
         } else {
+            let currentModule = viewModel.modules[viewModel.currentModuleIndex]
             VStack(spacing: 0) {
                 HStack {
                     Button {
@@ -178,34 +206,45 @@ struct GameView: View {
                     .clipShape(Circle())
                     .tint(Color.blue.opacity(0.1))
                     .buttonStyle(.borderedProminent)
+                    
+                    Spacer()
+                    
                     ProgressBarView(progress: $viewModel.progress)
                 }
                 .frame(maxWidth: .infinity, maxHeight: 50)
                 .padding()
-                
                 Spacer()
-                VStack {
-                    if viewModel.currentTaskIndex < viewModel.tasks.count {
-                        let currentTask = viewModel.tasks[viewModel.currentTaskIndex]
-                        TaskView(task: currentTask, selectedAnswer: $selectedAnswer)
-                            .padding()
-                        Spacer()
-                        Button {
-                            if let answer = selectedAnswer {
-                                viewModel.checkAnswer(selectedAnswer: answer) {
-                                    selectedAnswer = nil
-                                }
-                            }
-                        } label: {
-                            CheckAnimationBTN()
-                        }
-                        .padding(.horizontal)
-                    } else {
-                        PriceScreen()
-                    }
+                switch currentModule.moduleType {
+                case .quiz(let quizModule):
+                    QuizModuleView(quizModule: quizModule, selectedAnswer: $selectedAnswer)
+                case .findPair(let findPairModule):
+                    FindPairModuleView(findPairModule: findPairModule)
+                case .chronology(let chronologyModule):
+                    ChronologyModuleView(chronologyModule: chronologyModule)
                 }
-                .padding(.top)
+                Spacer()
                 
+                Button {
+                    if let answer = selectedAnswer {
+                        let isCorrect = viewModel.checkAnswer(answer)
+                        viewModel.showCorrectSheet = isCorrect
+                        if !isCorrect {
+                            viewModel.showIncorrectSheet = true
+                        }
+                    }
+                } label: {
+                    CheckAnimationBTN()
+                }
+                .padding(.horizontal)
+                
+                Button("Next Random Module") {
+                    viewModel.completeModule()
+                    selectedAnswer = nil
+                }
+                .padding()
+                .background(Color.orange)
+                .foregroundColor(.white)
+                .cornerRadius(10)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background {
@@ -221,10 +260,11 @@ struct GameView: View {
                     }
                     Spacer()
                     Button("Next") {
-                        viewModel.completeTask()
+                        viewModel.completeModule()
                         selectedAnswer = nil
                         viewModel.showCorrectSheet = false
                         viewModel.showIncorrectSheet = false
+                        viewModel.updateProgress()
                     }
                     .padding()
                     .background(OrangeBackgroundAnimatedGradient())
@@ -251,121 +291,67 @@ struct GameView: View {
     }
 }
 
+// Прев'ю
+#Preview {
+    GameView()
+}
 
-struct TaskView: View {
-    let task: Task
-    @Binding var selectedAnswer: Int?
+struct QuizModuleView: View {
+    let quizModule: QuizModule
+    @Binding var selectedAnswer: Any?
     
     var body: some View {
         VStack {
-            switch task.type {
-            case .quiz:
-                QuizTaskView(task: task, selectedAnswer: $selectedAnswer)
-            case .findPair:
-                FindPairTaskView(task: task)
-            case .chronology:
-                ChronologyTaskView(task: task)
-            }
-        }
-    }
-}
-
-
-
-struct FindPairTaskView: View {
-    let task: Task
-    
-    var body: some View {
-        // Реалізація для знаходження пар
-        Text("Find Pair Task View")
-    }
-}
-
-struct ChronologyTaskView: View {
-    let task: Task
-    
-    var body: some View {
-        // Реалізація для завдання на хронологію
-        Text("Chronology Task View")
-    }
-}
-
-
-
-struct QuizTaskView: View {
-    let task: Task
-    @Binding var selectedAnswer: Int?
-    
-    var body: some View {
-        VStack {
-            if task.image != nil {
-                Image(task.image ?? "")
-                    .resizable()
-                    .scaledToFit()
-            }
-            Text(task.question)
+            Text(quizModule.question)
                 .font(.title)
                 .padding()
                 .foregroundStyle(.accent)
             
-            ForEach(0..<task.options.count, id: \.self) { index in
-                HStack(spacing: 0) {
-                    if selectedAnswer != index {
-                        Text(self.variantForOption(at: index))
-                            .padding(10)
-                            .background(self.colorForOption(at: index).opacity(0.8))
-                            .foregroundColor(selectedAnswer == index ? .white : .black)
-                            .cornerRadius(10)
-                    }
-                    Button {
-                        selectedAnswer = index
-                    } label: {
-                        Text(task.options[index])
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(selectedAnswer == index ? self.colorForOption(at: index) : Color.white.opacity(0.7))
-                            .foregroundColor(selectedAnswer == index ? .white : .black)
-                            .cornerRadius(10)
-                            .scaleEffect(selectedAnswer == index ? 1.0 : 0.97, anchor: .bottomTrailing)
-                            .font(.subheadline)
-                    }
+            ForEach(quizModule.options.indices, id: \.self) { index in
+                Button(action: {
+                    selectedAnswer = index
+                }) {
+                    Text(quizModule.options[index])
+                        .padding()
+                        .background(selectedAnswer as? Int == index ? Color.blue : Color.gray)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
                 }
             }
         }
     }
+}
+
+// Окреме в'ю для FindPairModule
+struct FindPairModuleView: View {
+    let findPairModule: FindPairModule
     
-    private func colorForOption(at index: Int) -> Color {
-        switch index {
-        case 0:
-            return .pink
-        case 1:
-            return .cyan
-        case 2:
-            return .purple
-        case 3:
-            return .orange
-        default:
-            return .gray
-        }
-    }
-    
-    private func variantForOption(at index: Int) -> String {
-        switch index {
-        case 0:
-            return "A"
-        case 1:
-            return "B"
-        case 2:
-            return "C"
-        case 3:
-            return "D"
-        default:
-            return ""
+    var body: some View {
+        VStack {
+            Text(findPairModule.question)
+                .font(.title)
+                .padding()
+                .foregroundStyle(.accent)
+            // Додати логіку для відображення пар
         }
     }
 }
 
-// Прев'ю
+// Окреме в'ю для ChronologyModule
+struct ChronologyModuleView: View {
+    let chronologyModule: ChronologyModule
+    
+    var body: some View {
+        VStack {
+            Text(chronologyModule.question)
+                .font(.title)
+                .padding()
+                .foregroundStyle(.accent)
+            // Додати логіку для відображення подій у хронологічному порядку
+        }
+    }
+}
+
 #Preview {
     GameView()
 }

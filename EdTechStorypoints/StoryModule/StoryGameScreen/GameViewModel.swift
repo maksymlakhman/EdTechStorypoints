@@ -1,10 +1,3 @@
-//
-//  GameViewModel.swift
-//  EdTechStorypoints
-//
-//  Created by Макс Лахман on 19.08.2024.
-//
-
 import SwiftUI
 
 class GameViewModel: ObservableObject {
@@ -14,40 +7,48 @@ class GameViewModel: ObservableObject {
     @Published var isGameFinished = false
     @Published var showCorrectSheet = false
     @Published var showIncorrectSheet = false
-    
+
+    @Published var events: [String: String] = [
+        "1798": "Тарас Шевченко публікує 'Кобзар'",
+        "1867": "Іван Франко публікує 'Захар Беркут'",
+        "1934": "Перший конгрес письменників України",
+        "1991": "Проголошення незалежності України"
+    ]
+
+    @Published var eventList: [String] = []
+
+    private var correctOrder: [String] {
+        return events.sorted(by: { $0.key < $1.key }).map { $0.value }
+    }
+
     init() {
         loadModules()
         shuffleModules()
-        progress = 0.0
+        eventList = events.values.shuffled() // Initialize after properties are set
+        updateProgress()
     }
-    
+
     func loadModules() {
         let quiz = AnyGameModule(QuizModule(question: "Who is depicted in the photo?", options: ["Bohdan Khmelnytsky", "Ivan Mazepa", "Taras Shevchenko", "Petro Konashevych-Sahaidachny"], correctAnswer: 0))
+        
         let findPair = AnyGameModule(FindPairModule(question: "Знайдіть пари відомих авторів та їх творів", correctPairs: ["Шевченко": "Кобзар", "Франко": "Захар Беркут"]))
         
-        let eventsWithYears = [
-            1919: "Підписання Акта Злуки",
-            1991: "Проголошення незалежності України",
-            2004: "Початок Помаранчевої революції",
-            2014: "Революція Гідності"
-        ]
-        
-        
         let chronology = AnyGameModule(ChronologyModule(
-            eventsWithYears: eventsWithYears, question: "Розмістіть події в хронологічному порядку"
+            question: "Розмісти події в хронологічному порядку:",
+            events: events
         ))
         
         modules = [quiz, findPair, chronology]
     }
-    
+
     func shuffleModules() {
         modules.shuffle()
     }
-    
+
     func updateProgress() {
         progress = Double(currentModuleIndex) / Double(modules.count)
     }
-    
+
     func checkAnswer<AnswerType>(_ answer: AnswerType) -> Bool {
         let currentModule = modules[currentModuleIndex]
         let result = currentModule.checkAnswer(answer)
@@ -71,5 +72,19 @@ class GameViewModel: ObservableObject {
             isGameFinished = true
         }
         updateProgress()
+    }
+
+    func checkOrder(eventList: [String]) {
+        print("Correct Order: \(correctOrder)")
+        print("Current Event List: \(eventList)")
+        
+        if eventList == correctOrder {
+            showCorrectSheet = true
+        } else {
+            showIncorrectSheet = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                self.showIncorrectSheet = false
+            }
+        }
     }
 }

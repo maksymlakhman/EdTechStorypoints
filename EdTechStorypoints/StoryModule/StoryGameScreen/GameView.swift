@@ -1,18 +1,16 @@
-//
-//  GameView.swift
-//  EdTechStorypoints
-//
-//  Created by Макс Лахман on 19.08.2024.
-//
-
 import SwiftUI
 
 struct GameView: View {
     @StateObject private var viewModel = GameViewModel()
     @State private var selectedAnswer: Any? = nil
-    //Test
-    @State private var selectedOrder: [String] = []
     @State private var selectedPairs: [String: String] = [:]
+    @State private var events: [String: String] = [
+        "1798": "Тарас Шевченко публікує 'Кобзар'",
+        "1867": "Іван Франко публікує 'Захар Беркут'",
+        "1934": "Перший конгрес письменників України",
+        "1991": "Проголошення незалежності України"
+    ]
+
     let correctPhrases = [
         "Spot on! You're a genius!",
         "Bullseye! Nailed it!",
@@ -38,7 +36,9 @@ struct GameView: View {
         "Don't sweat it, try once more!",
         "You'll get it next time!"
     ]
+    
     @Environment(\.dismiss) private var dismiss
+    
     var body: some View {
         if viewModel.isGameFinished {
             PriceScreen()
@@ -64,15 +64,22 @@ struct GameView: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: 50)
                 .padding()
+                
                 Spacer()
+                
                 switch currentModule.moduleType {
                 case .quiz(let quizModule):
                     QuizModuleView(quizModule: quizModule, selectedAnswer: $selectedAnswer)
                 case .findPair(let findPairModule):
                     FindPairModuleView(findPairModule: findPairModule, selectedPairs: $selectedPairs)
                 case .chronology(let chronologyModule):
-                    ChronologyModuleView(module: chronologyModule)
+                    ChronologyModuleView(
+                        chronologyModule: chronologyModule,
+                        eventList: $viewModel.eventList // Pass the eventList binding here
+                    )
+                    .environmentObject(viewModel)
                 }
+                
                 Spacer()
                 
                 Button {
@@ -84,15 +91,25 @@ struct GameView: View {
                     case .findPair:
                         answer = selectedPairs
                     case .chronology:
-                        answer = selectedOrder
+                        answer = events.sorted(by: { $0.key < $1.key }).map { $0.value }
                     }
                     
+                    print("Current Module: \(currentModule.moduleType)")
+                    print("Answer: \(String(describing: answer))")
+                    
                     if let answer = answer {
-                        let isCorrect = viewModel.checkAnswer(answer)
-                        if isCorrect {
-                            viewModel.showCorrectSheet = true
+                        if case .chronology = currentModule.moduleType {
+                            viewModel.checkOrder(eventList: viewModel.eventList)
                         } else {
-                            viewModel.showIncorrectSheet = true
+                            let isCorrect = viewModel.checkAnswer(answer)
+
+                            print("Is Correct: \(isCorrect)")
+                            
+                            if isCorrect {
+                                viewModel.showCorrectSheet = true
+                            } else {
+                                viewModel.showIncorrectSheet = true
+                            }
                         }
                     }
                 } label: {
@@ -120,7 +137,6 @@ struct GameView: View {
                         viewModel.updateProgress()
                         selectedAnswer = nil
                         selectedPairs = [:]
-                        selectedOrder = []
                     }
                     .padding()
                     .background(OrangeBackgroundAnimatedGradient())

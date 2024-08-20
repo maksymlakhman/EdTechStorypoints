@@ -32,9 +32,9 @@ struct AnyGameModule {
                  return findPairModule.checkAnswer(answer)
              }
          case .chronology(let chronologyModule):
-              if let answer = answer as? [Int: String] {
-                  return chronologyModule.checkAnswer(answer)
-              }
+             if let answer = answer as? [String: String] {
+                 return chronologyModule.checkAnswer(answer)
+             }
          }
          return false
      }
@@ -55,7 +55,7 @@ struct QuizModule: GameModule {
     var options: [String]
     var correctAnswer: Int
     
-    func checkAnswer(_ answer: Int) -> Bool {
+    func checkAnswer(_ answer: AnswerType) -> Bool {
         return answer == correctAnswer
     }
 }
@@ -64,37 +64,24 @@ struct FindPairModule: GameModule {
     typealias AnswerType = [String: String]
     
     var question: String
-    var correctPairs: [String: String]
+    var correctPairs: AnswerType
     
-    func checkAnswer(_ answer: [String: String]) -> Bool {
+    func checkAnswer(_ answer: AnswerType) -> Bool {
         return answer == correctPairs
     }
 }
 
 
-struct ChronologyModule {
-    let eventsWithYears: [Int: String]
-    let question: String
+struct ChronologyModule: GameModule {
+    typealias AnswerType = [String: String]
     
-    func getShuffledEvents() -> [String] {
-        return Array(eventsWithYears.values).shuffled()
-    }
+    var question: String
+    var events: AnswerType
     
-    func checkAnswer(_ userEventsForYears: [Int: String]) -> Bool {
-        // Create correct order by sorting eventsWithYears by year
-        let correctOrder = eventsWithYears.sorted(by: { $0.key < $1.key }).map { $0.value }
-        
-        // Create user order by sorting userEventsForYears by year
-        let userOrder = userEventsForYears.sorted(by: { $0.key < $1.key }).map { $0.value }
-        
-        // Compare if the user's order matches the correct order
-        return correctOrder == userOrder
+    func checkAnswer(_ answer: AnswerType) -> Bool {
+        return answer == events
     }
 }
-
-
-
-
 
 
 #Preview {

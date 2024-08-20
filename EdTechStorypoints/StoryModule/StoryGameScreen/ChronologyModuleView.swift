@@ -1,135 +1,117 @@
 import SwiftUI
 
 struct ChronologyModuleView: View {
-    @State private var shuffledEvents: [String]
-    @State private var eventsForYears: [Int: String]
-    
-    let module: ChronologyModule
-    
-    init(module: ChronologyModule) {
-        self.module = module
-        self._shuffledEvents = State(initialValue: module.getShuffledEvents())
-        self._eventsForYears = State(initialValue: Dictionary(uniqueKeysWithValues: module.eventsWithYears.keys.sorted().map { ($0, "") }))
+    let chronologyModule: ChronologyModule
+
+    @EnvironmentObject private var vm: GameViewModel
+
+    @Binding var eventList: [String]
+
+    @State private var years: [String]
+
+    init(chronologyModule: ChronologyModule, eventList: Binding<[String]>) {
+        self.chronologyModule = chronologyModule
+        self._eventList = eventList
+        _years = State(initialValue: chronologyModule.events.keys.sorted())
     }
-    
+
     var body: some View {
         VStack {
-            Text(module.question)
-                .font(.headline)
+            Text(chronologyModule.question)
+                .font(.title)
                 .padding()
-            
+                .foregroundStyle(.accent)
+
             HStack {
-                // Column for years
-                VStack {
-                    ForEach(module.eventsWithYears.keys.sorted(), id: \.self) { year in
-                        Text("\(year)")
+                // Колонка з роками
+                VStack(alignment: .leading) {
+                    ForEach(years, id: \.self) { year in
+                        Text(year)
                             .padding()
                             .background(Color.gray.opacity(0.2))
                             .cornerRadius(8)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .onDrop(of: [.text], delegate: DropViewDelegate(year: year, eventsForYears: $eventsForYears, shuffledEvents: $shuffledEvents))
                     }
+                    .padding(.bottom, 5)
                 }
-                
-                // Column for events
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding()
+
+                // Колонка з подіями
                 VStack {
-                    ForEach(shuffledEvents, id: \.self) { event in
-                        Text(event)
+                    ForEach(eventList.indices, id: \.self) { index in
+                        Text(eventList[index])
                             .padding()
                             .background(Color.blue.opacity(0.2))
                             .cornerRadius(8)
                             .onDrag {
-                                NSItemProvider(object: event as NSString)
+                                NSItemProvider(object: eventList[index] as NSString)
                             }
-                            .onDrop(of: [.text], delegate: EventDropViewDelegate(event: event, shuffledEvents: $shuffledEvents))
+                            .onDrop(of: [.text], delegate: ChronologyEventDropDelegate(
+                                eventIndex: index,
+                                eventList: $eventList
+                            ))
                     }
                 }
+                .padding()
             }
-            
-            Spacer()
-            
-            HStack {
-                Button("Check") {
-                    // Create expected order from the module
-                    let expectedOrder = module.eventsWithYears.sorted(by: { $0.key < $1.key }).map { $0.value }
-                    
-                    
-                    // Check if userOrder matches the expectedOrder
-                    let isCorrect = shuffledEvents == expectedOrder
-                    if isCorrect {
-                        print("Correct Order!")
-                    } else {
-                        print("Incorrect Order.")
-                        print("Expected: \(expectedOrder)")
-                    }
-                }
-                
-                Button("Shuffle") {
-                    shuffledEvents = module.getShuffledEvents()
-                }
-            }
-            .padding()
         }
+        .padding()
     }
 }
 
 
-struct EventDropViewDelegate: DropDelegate {
-    let event: String
-    @Binding var shuffledEvents: [String]
-    
+struct ChronologyDropDelegate: DropDelegate {
+    let year: String
+    @Binding var events: [String: String]
+    @Binding var eventList: [String]
+
     func performDrop(info: DropInfo) -> Bool {
-        if let itemProvider = info.itemProviders(for: [.text]).first {
-            itemProvider.loadDataRepresentation(forTypeIdentifier: "public.text") { data, _ in
-                if let data = data, let draggedEvent = String(data: data, encoding: .utf8) {
-                    DispatchQueue.main.async {
-                        withAnimation {
-                            if let draggedIndex = shuffledEvents.firstIndex(of: draggedEvent),
-                               let targetIndex = shuffledEvents.firstIndex(of: self.event) {
-                                shuffledEvents.swapAt(draggedIndex, targetIndex)
-                            }
-                            print("Shuffled events after drop: \(shuffledEvents)")
-                        }
+        guard let item = info.itemProviders(for: [.text]).first else { return false }
+        
+        item.loadItem(forTypeIdentifier: "public.text", options: nil) { (data, error) in
+            if let data = data as? Data, let event = String(data: data, encoding: .utf8) {
+                DispatchQueue.main.async {
+                    events[year] = event
+                    if let oldYear = events.first(where: { $0.value == event })?.key, oldYear != year {
+                        events.removeValue(forKey: oldYear)
+                        eventList.append(event)
+                        eventList.sort()
                     }
                 }
             }
-            return true
         }
-        return false
+        return true
     }
 }
 
-struct DropViewDelegate: DropDelegate {
-    let year: Int
-    @Binding var eventsForYears: [Int: String]
-    @Binding var shuffledEvents: [String]
-    
+struct ChronologyEventDropDelegate: DropDelegate {
+    let eventIndex: Int
+    @Binding var eventList: [String]
+
     func performDrop(info: DropInfo) -> Bool {
-        if let itemProvider = info.itemProviders(for: [.text]).first {
-            itemProvider.loadDataRepresentation(forTypeIdentifier: "public.text") { data, _ in
-                if let data = data, let draggedEvent = String(data: data, encoding: .utf8) {
-                    DispatchQueue.main.async {
-                        withAnimation {
-                            // Update eventsForYears with the dragged event
-                            eventsForYears[year] = draggedEvent
-                            
-                            // Update shuffledEvents to reflect the change
-                            if let index = shuffledEvents.firstIndex(of: draggedEvent) {
-                                shuffledEvents.remove(at: index)
-                            }
-                            print("Events for years after drop: \(eventsForYears)")
-                        }
+        guard let item = info.itemProviders(for: [.text]).first else { return false }
+        
+        item.loadItem(forTypeIdentifier: "public.text", options: nil) { (data, error) in
+            if let data = data as? Data, let draggedEvent = String(data: data, encoding: .utf8) {
+                DispatchQueue.main.async {
+                    if let draggedEventIndex = eventList.firstIndex(of: draggedEvent) {
+                        eventList.swapAt(draggedEventIndex, eventIndex)
                     }
                 }
             }
-            return true
         }
-        return false
+        return true
     }
 }
-
-
 
 #Preview {
-    GameView()
+    ChronologyModuleView(
+        chronologyModule: ChronologyModule(question: "Arrange the events in chronological order:", events: [
+            "1798": "Taras Shevchenko publishes 'Kobzar'",
+            "1867": "Ivan Franco publishes 'Zakhar Berkut'",
+            "1934": "First Congress of Ukrainian Writers",
+            "1991": "Proclamation of Ukrainian Independence"
+        ]), eventList: .constant([])
+    )
+
 }

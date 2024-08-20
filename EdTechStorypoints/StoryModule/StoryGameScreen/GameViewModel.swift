@@ -7,7 +7,71 @@ class GameViewModel: ObservableObject {
     @Published var isGameFinished = false
     @Published var showCorrectSheet = false
     @Published var showIncorrectSheet = false
-
+    
+    ///QuizModule
+    @Published var optionsRandom: [QuizModule] = [
+        QuizModule(question: "Who is depicted in the photo?", options: ["Bohdan Khmelnytsky", "Ivan Mazepa", "Taras Shevchenko", "Petro Konashevych-Sahaidachny"], correctAnswer: 0),
+        QuizModule(question: "Who is depicted in the photo?", options: ["Bohdan Khmelnytsky", "Ivan Mazepa", "Taras Shevchenko", "Petro Konashevych-Sahaidachny"], correctAnswer: 1),
+        QuizModule(question: "Who is depicted in the photo?", options: ["Bohdan Khmelnytsky", "Ivan Mazepa", "Taras Shevchenko", "Petro Konashevych-Sahaidachny"], correctAnswer: 2),
+        QuizModule(question: "Who is depicted in the photo?", options: ["Bohdan Khmelnytsky", "Ivan Mazepa", "Taras Shevchenko", "Petro Konashevych-Sahaidachny"], correctAnswer: 3),
+        QuizModule(question: "Who is depicted in the photo?", options: ["Bohdan Khmelnytsky", "Ivan Mazepa", "Taras Shevchenko", "Petro Konashevych-Sahaidachny"], correctAnswer: 0),
+        QuizModule(question: "Who is depicted in the photo?", options: ["Bohdan Khmelnytsky", "Ivan Mazepa", "Taras Shevchenko", "Petro Konashevych-Sahaidachny"], correctAnswer: 1),
+        QuizModule(question: "Who is depicted in the photo?", options: ["Bohdan Khmelnytsky", "Ivan Mazepa", "Taras Shevchenko", "Petro Konashevych-Sahaidachny"], correctAnswer: 2),
+        QuizModule(question: "Who is depicted in the photo?", options: ["Bohdan Khmelnytsky", "Ivan Mazepa", "Taras Shevchenko", "Petro Konashevych-Sahaidachny"], correctAnswer: 3)
+    ]
+    
+    ///FindPairModule
+    @Published var findPairRandom: [FindPairModule] = [
+        FindPairModule(question: "Знайдіть пари відомих авторів та їх творів", correctPairs: ["Шевченко": "Кобзар", "Франко": "Захар Беркут"]),
+        FindPairModule(question: "Знайдіть пари відомих авторів та їх творів", correctPairs: ["Шевченко": "Кобзар", "Франко": "Захар Беркут"]),
+        FindPairModule(question: "Знайдіть пари відомих авторів та їх творів", correctPairs: ["Шевченко": "Кобзар", "Франко": "Захар Беркут"]),
+        FindPairModule(question: "Знайдіть пари відомих авторів та їх творів", correctPairs: ["Шевченко": "Кобзар", "Франко": "Захар Беркут"]),
+        FindPairModule(question: "Знайдіть пари відомих авторів та їх творів", correctPairs: ["Шевченко": "Кобзар", "Франко": "Захар Беркут"]),
+        FindPairModule(question: "Знайдіть пари відомих авторів та їх творів", correctPairs: ["Шевченко": "Кобзар", "Франко": "Захар Беркут"]),
+        FindPairModule(question: "Знайдіть пари відомих авторів та їх творів", correctPairs: ["Шевченко": "Кобзар", "Франко": "Захар Беркут"]),
+        FindPairModule(question: "Знайдіть пари відомих авторів та їх творів", correctPairs: ["Шевченко": "Кобзар", "Франко": "Захар Беркут"]),
+    ]
+    
+    ///ChronologyModule
+    @Published var chronologyRandom: [ChronologyModule] = [
+        ChronologyModule(
+            question: "Розмісти події в хронологічному порядку:",
+            events: [
+                "1798": "Тарас Шевченко публікує 'Кобзар'",
+                "1867": "Іван Франко публікує 'Захар Беркут'",
+                "1934": "Перший конгрес письменників України",
+                "1991": "Проголошення незалежності України"
+            ]
+        ),
+        ChronologyModule(
+            question: "Розмісти події в хронологічному порядку:",
+            events: [
+                "1798": "Тарас Шевченко публікує 'Кобзар'",
+                "1867": "Іван Франко публікує 'Захар Беркут'",
+                "1934": "Перший конгрес письменників України",
+                "1991": "Проголошення незалежності України"
+            ]
+        ),
+        ChronologyModule(
+            question: "Розмісти події в хронологічному порядку:",
+            events: [
+                "1798": "Тарас Шевченко публікує 'Кобзар'",
+                "1867": "Іван Франко публікує 'Захар Беркут'",
+                "1934": "Перший конгрес письменників України",
+                "1991": "Проголошення незалежності України"
+            ]
+        ),
+        ChronologyModule(
+            question: "Розмісти події в хронологічному порядку:",
+            events: [
+                "1798": "Тарас Шевченко публікує 'Кобзар'",
+                "1867": "Іван Франко публікує 'Захар Беркут'",
+                "1934": "Перший конгрес письменників України",
+                "1991": "Проголошення незалежності України"
+            ]
+        ),
+    ]
+    
     @Published var events: [String: String] = [
         "1798": "Тарас Шевченко публікує 'Кобзар'",
         "1867": "Іван Франко публікує 'Захар Беркут'",
@@ -24,21 +88,22 @@ class GameViewModel: ObservableObject {
     init() {
         loadModules()
         shuffleModules()
-        eventList = events.values.shuffled() // Initialize after properties are set
+        eventList = events.values.shuffled()
         updateProgress()
     }
 
     func loadModules() {
-        let quiz = AnyGameModule(QuizModule(question: "Who is depicted in the photo?", options: ["Bohdan Khmelnytsky", "Ivan Mazepa", "Taras Shevchenko", "Petro Konashevych-Sahaidachny"], correctAnswer: 0))
+        // Вибір випадкового модуля з кожного масиву
+        let quiz = optionsRandom.randomElement() ?? QuizModule(question: "Default Question?", options: ["Option 1", "Option 2"], correctAnswer: 0)
+        let findPair = findPairRandom.randomElement() ?? FindPairModule(question: "Default Question?", correctPairs: ["Author": "Work"])
+        let chronology = chronologyRandom.randomElement() ?? ChronologyModule(question: "Default Question?", events: [:])
         
-        let findPair = AnyGameModule(FindPairModule(question: "Знайдіть пари відомих авторів та їх творів", correctPairs: ["Шевченко": "Кобзар", "Франко": "Захар Беркут"]))
-        
-        let chronology = AnyGameModule(ChronologyModule(
-            question: "Розмісти події в хронологічному порядку:",
-            events: events
-        ))
-        
-        modules = [quiz, findPair, chronology]
+        // Додавання випадкових модулів до списку модулів
+        modules = [
+            AnyGameModule(quiz),
+            AnyGameModule(findPair),
+            AnyGameModule(chronology)
+        ]
     }
 
     func shuffleModules() {

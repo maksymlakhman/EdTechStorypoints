@@ -26,7 +26,7 @@ struct ProgressBarView: View {
 
 struct QuizModuleView: View {
     let quizModule: QuizModule
-    @Binding var selectedAnswer: Any?
+    @EnvironmentObject var viewModel: GameViewModel
     
     var body: some View {
         VStack {
@@ -37,11 +37,11 @@ struct QuizModuleView: View {
             
             ForEach(quizModule.options.indices, id: \.self) { index in
                 Button(action: {
-                    selectedAnswer = index
+                    viewModel.selectedAnswer = index
                 }) {
                     Text(quizModule.options[index])
                         .padding()
-                        .background(selectedAnswer as? Int == index ? Color.blue : Color.gray)
+                        .background(viewModel.selectedAnswer == index ? Color.blue : Color.gray)
                         .foregroundColor(.white)
                         .cornerRadius(10)
                 }

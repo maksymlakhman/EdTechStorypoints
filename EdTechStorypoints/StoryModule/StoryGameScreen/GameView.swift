@@ -69,13 +69,15 @@ struct GameView: View {
                 
                 switch currentModule.moduleType {
                 case .quiz(let quizModule):
-                    QuizModuleView(quizModule: quizModule, selectedAnswer: $selectedAnswer)
+                    QuizModuleView(quizModule: quizModule)
+                        .environmentObject(viewModel)
                 case .findPair(let findPairModule):
                     FindPairModuleView(findPairModule: findPairModule, selectedPairs: $selectedPairs)
+                        .environmentObject(viewModel)
                 case .chronology(let chronologyModule):
                     ChronologyModuleView(
                         chronologyModule: chronologyModule,
-                        eventList: $viewModel.eventList // Pass the eventList binding here
+                        eventList: $viewModel.eventList
                     )
                     .environmentObject(viewModel)
                 }
@@ -87,7 +89,7 @@ struct GameView: View {
                     
                     switch currentModule.moduleType {
                     case .quiz:
-                        answer = selectedAnswer as? Int
+                        answer = viewModel.selectedAnswer
                     case .findPair:
                         answer = selectedPairs
                     case .chronology:

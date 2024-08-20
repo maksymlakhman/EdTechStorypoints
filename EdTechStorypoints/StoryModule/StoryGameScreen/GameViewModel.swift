@@ -7,7 +7,7 @@ class GameViewModel: ObservableObject {
     @Published var isGameFinished = false
     @Published var showCorrectSheet = false
     @Published var showIncorrectSheet = false
-    
+    @Published var selectedAnswer: Int?
     ///QuizModule
     @Published var optionsRandom: [QuizModule] = [
         QuizModule(question: "Who is depicted in the photo?", options: ["Bohdan Khmelnytsky", "Ivan Mazepa", "Taras Shevchenko", "Petro Konashevych-Sahaidachny"], correctAnswer: 0),

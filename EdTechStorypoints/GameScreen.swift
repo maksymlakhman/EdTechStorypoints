@@ -2,44 +2,45 @@ import SwiftUI
 
 struct GameScreen: View {
     private let images: [String] = ["CossackLong", "CossackLarge", "CossackSmall", "Bride"]
-    @State private var activeLevel: Int = 3
+    @State private var activeLevel: Int = 11
     @State private var isAffermationViewButtonPressed: Bool = false
     @State private var isAppleWatchConnectivityViewButtonPressed: Bool = false
     @State private var isProfileViewButtonPressed: Bool = false
-
+ 
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
-            ForEach(1..<3){ item in
-                LazyVStack(spacing: 5) {
-                    Text("Module Titile")
-                        .padding()
-                        .font(.headline)
-                    ForEach(1..<15) { index in
-                        HStack {
-                            // Картинка зліва, якщо offset позитивний
-                            if (index >= 4 && (index - 4) % 3 == 0) && LevelView(level: index, activeLevel: $activeLevel).offset > 0 {
-                                Image(images[(index - 4) % images.count])
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(height: 200)
-                            }
+            LazyVStack(spacing: 5) {
+                ForEach(0..<3, id: \.self) { index in
+                    VStack {
+                        Text("Module Title \(index + 1)")
+                            .padding()
+                            .font(.headline)
+                        ForEach(1..<15) { levelIndex in
+                            HStack {
+                                // Картинка зліва, якщо offset позитивний
+                                if (levelIndex >= 4 && (levelIndex - 4) % 3 == 0) && LevelView(level: levelIndex, activeLevel: $activeLevel).offset > 0 {
+                                    Image(images[(levelIndex - 4) % images.count])
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(height: 200)
+                                }
 
-                            LevelView(level: index, activeLevel: $activeLevel)
-                                .transition(.slide)
+                                LevelView(level: levelIndex, activeLevel: $activeLevel)
+                                    .transition(.slide)
 
-                            // Картинка справа, якщо offset негативний
-                            if (index >= 4 && (index - 4) % 3 == 0) && LevelView(level: index, activeLevel: $activeLevel).offset < 0 {
-                                Image(images[(index - 4) % images.count])
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(height: 200)
+                                // Картинка справа, якщо offset негативний
+                                if (levelIndex >= 4 && (levelIndex - 4) % 3 == 0) && LevelView(level: levelIndex, activeLevel: $activeLevel).offset < 0 {
+                                    Image(images[(levelIndex - 4) % images.count])
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(height: 200)
+                                }
                             }
+                            .padding(.horizontal)
                         }
-                        .padding(.horizontal)
                     }
                 }
             }
-            
         }
         .configureNavigationBar()
         .navigationBarBackButtonHidden()
@@ -52,6 +53,7 @@ struct GameScreen: View {
     }
 }
 
+
 enum LevelStatus {
     case active, completed, locked
 }
@@ -61,6 +63,7 @@ struct LevelView: View {
     @Binding var activeLevel: Int
     @State private var isStartGameLevelViewButtonPressed: Bool = false
 
+    @EnvironmentObject var gameViewModel: GameViewModel
     var status: LevelStatus {
         if activeLevel == level {
             return .active
@@ -140,7 +143,7 @@ struct LevelView: View {
             .disabled(status == .locked)
             .fullScreenCover(isPresented: $isStartGameLevelViewButtonPressed) {
                 GameView()
-            }
+          }
     }
 }
 

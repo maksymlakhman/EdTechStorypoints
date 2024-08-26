@@ -37,10 +37,6 @@ struct OnboardingScreenTwo: View {
     var body: some View {
         NavigationStack {
             ZStack(alignment: .center) {
-                RoundedRectangle(cornerRadius: 0)
-                    .fill(.yellow)
-                    .ignoresSafeArea()
-                
                 VStack(alignment: .center) {
                     LazyVStack(alignment: .leading, spacing: Constants.Spacing.small) {
                         ForEach(options) { option in
@@ -80,7 +76,7 @@ struct OnboardingScreenTwo: View {
                     .foregroundStyle(.white)
                     Spacer()
                     NavigationLink {
-                        RootTabBar()
+                        OnboardingScreenThree()
                     } label: {
                         Text("Next")
                             .padding()
@@ -97,6 +93,7 @@ struct OnboardingScreenTwo: View {
                     .disabled(selectedOption == nil)
                 }
             }
+            .background(BlueBackgroundAnimatedGradient())
             .navigationBarBackButtonHidden()
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

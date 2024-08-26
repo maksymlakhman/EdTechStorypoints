@@ -9,13 +9,19 @@ import SwiftUI
 
 struct PriceScreen: View {
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject var viewModel: GameViewModel
     var body: some View {
         VStack {
             Text("PriceScreen!")
             Button {
                 dismiss()
+                viewModel.restartGame()
             } label: {
-                Text("Back")
+                Text("Play Again")
+                    .padding()
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(8)
             }
 
         }

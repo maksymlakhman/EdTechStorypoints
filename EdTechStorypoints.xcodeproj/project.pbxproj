@@ -37,9 +37,18 @@
 		9D77AE3E2C6AB98500B99DEE /* BlueBackgroundAnimatedGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D77AE3D2C6AB98500B99DEE /* BlueBackgroundAnimatedGradient.swift */; };
 		9D7DCEC82C6E84BF005FE5D5 /* QuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7DCEC72C6E84BF005FE5D5 /* QuizView.swift */; };
 		9D7EF6A72C713D9B0059748E /* PriceScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7EF6A62C713D9B0059748E /* PriceScreen.swift */; };
-		9D9737542C73A18900C860A7 /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9737532C73A18900C860A7 /* GameViewModel.swift */; };
-		9D9737562C73A1A200C860A7 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9737552C73A1A200C860A7 /* GameView.swift */; };
+		9D9737542C73A18900C860A7 /* GameViewModelOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9737532C73A18900C860A7 /* GameViewModelOld.swift */; };
+		9D9737562C73A1A200C860A7 /* GameViewOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9737552C73A1A200C860A7 /* GameViewOld.swift */; };
 		9D9737582C73B27D00C860A7 /* ChronologyModuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9737572C73B27D00C860A7 /* ChronologyModuleView.swift */; };
+		9DA9BA0B2C7DE5B9001D4651 /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA9BA0A2C7DE5B9001D4651 /* ProgressBarView.swift */; };
+		9DA9BA0D2C7DE67F001D4651 /* GameModuleProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA9BA0C2C7DE67F001D4651 /* GameModuleProtocol.swift */; };
+		9DA9BA0F2C7DE6AA001D4651 /* QuizModuleProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA9BA0E2C7DE6AA001D4651 /* QuizModuleProtocol.swift */; };
+		9DA9BA112C7DE6D9001D4651 /* FindPairModuleProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA9BA102C7DE6D9001D4651 /* FindPairModuleProtocol.swift */; };
+		9DA9BA132C7DE70E001D4651 /* ChronologyModuleProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA9BA122C7DE70E001D4651 /* ChronologyModuleProtocol.swift */; };
+		9DA9BA152C7DE723001D4651 /* GameModuleType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA9BA142C7DE723001D4651 /* GameModuleType.swift */; };
+		9DA9BA172C7DE73B001D4651 /* AnyGameModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA9BA162C7DE73B001D4651 /* AnyGameModule.swift */; };
+		9DA9BA192C7DE750001D4651 /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA9BA182C7DE750001D4651 /* GameViewModel.swift */; };
+		9DA9BA1B2C7DE7B7001D4651 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA9BA1A2C7DE7B7001D4651 /* GameView.swift */; };
 		9DC9467C2C7BBBD300264F2E /* OnboardingScreenThree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC9467B2C7BBBD300264F2E /* OnboardingScreenThree.swift */; };
 		9DE881DA2C6CDFD700BCBF88 /* GameNewsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE881D92C6CDFD700BCBF88 /* GameNewsScreen.swift */; };
 		9DE9D8732C7649A400173BD9 /* Structure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE9D8722C7649A400173BD9 /* Structure.swift */; };
@@ -75,9 +84,18 @@
 		9D77AE3D2C6AB98500B99DEE /* BlueBackgroundAnimatedGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlueBackgroundAnimatedGradient.swift; sourceTree = "<group>"; };
 		9D7DCEC72C6E84BF005FE5D5 /* QuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizView.swift; sourceTree = "<group>"; };
 		9D7EF6A62C713D9B0059748E /* PriceScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceScreen.swift; sourceTree = "<group>"; };
-		9D9737532C73A18900C860A7 /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
-		9D9737552C73A1A200C860A7 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
+		9D9737532C73A18900C860A7 /* GameViewModelOld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModelOld.swift; sourceTree = "<group>"; };
+		9D9737552C73A1A200C860A7 /* GameViewOld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewOld.swift; sourceTree = "<group>"; };
 		9D9737572C73B27D00C860A7 /* ChronologyModuleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChronologyModuleView.swift; sourceTree = "<group>"; };
+		9DA9BA0A2C7DE5B9001D4651 /* ProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
+		9DA9BA0C2C7DE67F001D4651 /* GameModuleProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModuleProtocol.swift; sourceTree = "<group>"; };
+		9DA9BA0E2C7DE6AA001D4651 /* QuizModuleProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizModuleProtocol.swift; sourceTree = "<group>"; };
+		9DA9BA102C7DE6D9001D4651 /* FindPairModuleProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPairModuleProtocol.swift; sourceTree = "<group>"; };
+		9DA9BA122C7DE70E001D4651 /* ChronologyModuleProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChronologyModuleProtocol.swift; sourceTree = "<group>"; };
+		9DA9BA142C7DE723001D4651 /* GameModuleType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModuleType.swift; sourceTree = "<group>"; };
+		9DA9BA162C7DE73B001D4651 /* AnyGameModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyGameModule.swift; sourceTree = "<group>"; };
+		9DA9BA182C7DE750001D4651 /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
+		9DA9BA1A2C7DE7B7001D4651 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		9DC9467B2C7BBBD300264F2E /* OnboardingScreenThree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingScreenThree.swift; sourceTree = "<group>"; };
 		9DE881D92C6CDFD700BCBF88 /* GameNewsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameNewsScreen.swift; sourceTree = "<group>"; };
 		9DE9D8722C7649A400173BD9 /* Structure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structure.swift; sourceTree = "<group>"; };
@@ -163,7 +181,11 @@
 		9D2A31762C6F5C50005E36DE /* QuizModule */ = {
 			isa = PBXGroup;
 			children = (
-				9D7DCEC72C6E84BF005FE5D5 /* QuizView.swift */,
+				9D6DE38E2C6B58FC00DFC26B /* TemplateProtocols.swift */,
+				9D7EF6A62C713D9B0059748E /* PriceScreen.swift */,
+				9D9737532C73A18900C860A7 /* GameViewModelOld.swift */,
+				9D9737552C73A1A200C860A7 /* GameViewOld.swift */,
+				9D9737572C73B27D00C860A7 /* ChronologyModuleView.swift */,
 			);
 			path = QuizModule;
 			sourceTree = "<group>";
@@ -197,6 +219,17 @@
 			children = (
 				9DE9D8712C76498C00173BD9 /* noactive */,
 				9DE9D8722C7649A400173BD9 /* Structure.swift */,
+				9DA9BA0A2C7DE5B9001D4651 /* ProgressBarView.swift */,
+				9D76E0802C6F19A4004527B3 /* CheckAnimationBTN.swift */,
+				9DA9BA0C2C7DE67F001D4651 /* GameModuleProtocol.swift */,
+				9DA9BA102C7DE6D9001D4651 /* FindPairModuleProtocol.swift */,
+				9DA9BA122C7DE70E001D4651 /* ChronologyModuleProtocol.swift */,
+				9DA9BA142C7DE723001D4651 /* GameModuleType.swift */,
+				9DA9BA162C7DE73B001D4651 /* AnyGameModule.swift */,
+				9DA9BA182C7DE750001D4651 /* GameViewModel.swift */,
+				9DA9BA1A2C7DE7B7001D4651 /* GameView.swift */,
+				9DA9BA0E2C7DE6AA001D4651 /* QuizModuleProtocol.swift */,
+				9D7DCEC72C6E84BF005FE5D5 /* QuizView.swift */,
 			);
 			path = StoryGameScreen;
 			sourceTree = "<group>";
@@ -215,12 +248,6 @@
 			children = (
 				9D2A31762C6F5C50005E36DE /* QuizModule */,
 				9D2A317B2C6F615F005E36DE /* FindPairScreen */,
-				9D76E0802C6F19A4004527B3 /* CheckAnimationBTN.swift */,
-				9D6DE38E2C6B58FC00DFC26B /* TemplateProtocols.swift */,
-				9D7EF6A62C713D9B0059748E /* PriceScreen.swift */,
-				9D9737532C73A18900C860A7 /* GameViewModel.swift */,
-				9D9737552C73A1A200C860A7 /* GameView.swift */,
-				9D9737572C73B27D00C860A7 /* ChronologyModuleView.swift */,
 			);
 			path = noactive;
 			sourceTree = "<group>";
@@ -310,30 +337,39 @@
 				9DC9467C2C7BBBD300264F2E /* OnboardingScreenThree.swift in Sources */,
 				9D07CB232C624FB500DAA2AA /* RootTabBar.swift in Sources */,
 				9D2C71CD2C66467A00651745 /* GameScreen.swift in Sources */,
-				9D9737542C73A18900C860A7 /* GameViewModel.swift in Sources */,
+				9DA9BA112C7DE6D9001D4651 /* FindPairModuleProtocol.swift in Sources */,
+				9D9737542C73A18900C860A7 /* GameViewModelOld.swift in Sources */,
 				9D6F72D92C6A494700C35EDE /* UserProfileScreen.swift in Sources */,
 				9D77AE3E2C6AB98500B99DEE /* BlueBackgroundAnimatedGradient.swift in Sources */,
 				9D76E0812C6F19A4004527B3 /* CheckAnimationBTN.swift in Sources */,
 				9D07CB3B2C62DE3B00DAA2AA /* OnboardingScreenTwo.swift in Sources */,
+				9DA9BA152C7DE723001D4651 /* GameModuleType.swift in Sources */,
 				9D7EF6A72C713D9B0059748E /* PriceScreen.swift in Sources */,
 				9D2C71C52C6642C800651745 /* RatingScreen.swift in Sources */,
 				9D2C71D12C6649D500651745 /* ARScreen.swift in Sources */,
+				9DA9BA172C7DE73B001D4651 /* AnyGameModule.swift in Sources */,
 				9D2C71D32C66625400651745 /* NavigationBarModifier.swift in Sources */,
+				9DA9BA192C7DE750001D4651 /* GameViewModel.swift in Sources */,
 				9D07CB2F2C62510100DAA2AA /* PreloaderScreen.swift in Sources */,
 				9DE881DA2C6CDFD700BCBF88 /* GameNewsScreen.swift in Sources */,
+				9DA9BA0D2C7DE67F001D4651 /* GameModuleProtocol.swift in Sources */,
 				9D2A317A2C6F6110005E36DE /* FindPairScreen.swift in Sources */,
 				9D07CB3D2C636D4700DAA2AA /* NavLinkButtonStyle.swift in Sources */,
 				9D2C71C92C6643A000651745 /* LastHistoryNewsScreen.swift in Sources */,
 				9D07CB212C624FB500DAA2AA /* EdTechStorypointsApp.swift in Sources */,
+				9DA9BA132C7DE70E001D4651 /* ChronologyModuleProtocol.swift in Sources */,
+				9DA9BA0F2C7DE6AA001D4651 /* QuizModuleProtocol.swift in Sources */,
+				9DA9BA0B2C7DE5B9001D4651 /* ProgressBarView.swift in Sources */,
 				9D07CB382C625A7E00DAA2AA /* OnboardingView.swift in Sources */,
 				9DE9D8732C7649A400173BD9 /* Structure.swift in Sources */,
 				9D2C71CB2C6644C900651745 /* AppleWatchConnectivityView.swift in Sources */,
 				9D2C71CF2C66495C00651745 /* AffermationView.swift in Sources */,
 				9D9737582C73B27D00C860A7 /* ChronologyModuleView.swift in Sources */,
+				9DA9BA1B2C7DE7B7001D4651 /* GameView.swift in Sources */,
 				9D2C71C72C66432100651745 /* HistorycalLibraryScreen.swift in Sources */,
 				9D7DCEC82C6E84BF005FE5D5 /* QuizView.swift in Sources */,
 				9D6DE3952C6B836D00DFC26B /* ArenaScreen.swift in Sources */,
-				9D9737562C73A1A200C860A7 /* GameView.swift in Sources */,
+				9D9737562C73A1A200C860A7 /* GameViewOld.swift in Sources */,
 				9D07CB342C62513800DAA2AA /* LottieView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

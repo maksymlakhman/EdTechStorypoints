@@ -62,6 +62,7 @@ struct LevelView: View {
     let level: Int
     @Binding var activeLevel: Int
     @State private var isStartGameLevelViewButtonPressed: Bool = false
+    @State private var showContextButtons: Bool = true
 
     @EnvironmentObject var gameViewModel: GameViewModel
     var status: LevelStatus {
@@ -110,26 +111,65 @@ struct LevelView: View {
     }
 
     var body: some View {
-            HStack {
-                VStack {
-                    Button {
-                        isStartGameLevelViewButtonPressed.toggle()
-                    } label: {
-                        Image(systemName: "graduationcap")
-                            .resizable()
-                            .scaledToFit()
-                            .offset(x: -1, y: -1)
-                            .foregroundStyle(status == .active ? .white : .blue.opacity(0.6))
-                            .frame(width: 75, height: 25)
-                            .padding()
-                            .background {
-                                Circle()
-                                    .fill(status == .active ? .blue.opacity(0.8) : (status == .completed ? .white.opacity(0.6) : .blue.opacity(0.6)))
-                                    .offset(x: -2.5, y: -5)
+            HStack(spacing: 0) {
+                VStack(spacing: 0) {
+                    ZStack {
+                        Button {
+                            withAnimation(.spring) {
+                                showContextButtons.toggle()
                             }
-                            .background(status == .active ? Color.white.opacity(0.2) : (status == .completed ? Color.blue : Color.black))
-                            .clipShape(Circle())
-                            .shadow(radius: 5)
+                           
+                        } label: {
+                            Image(systemName: "graduationcap")
+                                .resizable()
+                                .scaledToFit()
+                                .offset(x: -1, y: -1)
+                                .foregroundStyle(status == .active ? .white : .blue.opacity(0.6))
+                                .frame(width: 75, height: 25)
+                                .padding()
+                                .background {
+                                    Circle()
+                                        .fill(status == .active ? .blue.opacity(0.8) : (status == .completed ? .white.opacity(0.6) : .blue.opacity(0.6)))
+                                        .offset(x: -2.5, y: -5)
+                                }
+                                .background(status == .active ? Color.white.opacity(0.2) : (status == .completed ? Color.blue : Color.black))
+                                .clipShape(Circle())
+                                .shadow(radius: 5)
+                        }
+                        if showContextButtons {
+                            withAnimation(.easeInOut(duration: 1.5)) {
+                                VStack(spacing: 4) {
+                                    Button {
+                                        
+                                    } label: {
+                                        Text("Jump to Module")
+                                            .padding(4)
+                                            .background(Capsule().fill(.black))
+                                    }
+  
+                                    Button {
+                                        isStartGameLevelViewButtonPressed.toggle()
+                                    } label: {
+                                        Text("Play")
+                                            .padding(4)
+                                            .background(
+                                                Capsule()
+                                                    .fill(.black)
+                                            )
+                                    }
+
+                                    
+                                }
+                                .padding(4)
+                                .foregroundStyle(status == .active ? .blue : .white)
+                                .background(status == .active ? .blue.opacity(0.8) : (status == .completed ? .white.opacity(0.6) : .blue.opacity(0.6)))
+                                .background(status == .active ? Color.white.opacity(0.2) : (status == .completed ? Color.blue : Color.black))
+                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                                .offset(x: offset < 0 ? UIScreen.main.bounds.width / 4 : -UIScreen.main.bounds.width / 4)
+                            }
+ 
+                        }
+
                     }
                 }
                 .offset(x: offset)
@@ -143,7 +183,7 @@ struct LevelView: View {
             .disabled(status == .locked)
             .fullScreenCover(isPresented: $isStartGameLevelViewButtonPressed) {
                 GameView()
-          }
+            }
     }
 }
 
@@ -265,4 +305,5 @@ extension View{
 
 #Preview {
     GameScreen()
+        .background(BlueBackgroundAnimatedGradient())
 }

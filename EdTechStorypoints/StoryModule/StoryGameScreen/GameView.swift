@@ -96,9 +96,13 @@ struct GameView: View {
                             viewModel.showCorrectSheet = true
                         } else {
                             viewModel.showIncorrectSheet = true
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                                viewModel.showIncorrectSheet = false
+                            }
                         }
                     } label: {
                         CheckAnimationBTN()
+                            .padding(.horizontal)
                     }
                 }
                 .sheet(isPresented: $viewModel.showFreemiumSheet) {
@@ -129,7 +133,7 @@ struct GameView: View {
                     HStack {
                         if let randomPhrase = viewModel.correctPhrases.randomElement() {
                             Label(randomPhrase, systemImage: "face.smiling.inverse")
-                                .foregroundColor(.green)
+                                .foregroundColor(.white)
                                 .padding()
                                 .font(.headline)
                         }
@@ -141,12 +145,12 @@ struct GameView: View {
                             viewModel.updateProgress()
                         }
                         .padding()
-                        .background(Color.orange)
-                        .cornerRadius(20)
-                        .foregroundColor(.white)
+                        .background(Capsule().fill(.yellow))
+                        .foregroundColor(.black)
+                        .padding(.horizontal)
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color.blue)
+                    .background(BlueBackgroundAnimatedGradient())
                     .presentationDetents([.fraction(0.15)])
                 }
                 .sheet(isPresented: $viewModel.showIncorrectSheet) {
@@ -154,11 +158,12 @@ struct GameView: View {
                         if let randomPhrase = viewModel.incorrectPhrases.randomElement() {
                             Label(randomPhrase, systemImage: "xmark.octagon")
                                 .foregroundColor(.red)
-                                .font(.headline)
+                                .font(.title3)
+                                .bold()
                         }
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color.blue)
+                    .background(BlueBackgroundAnimatedGradient())
                     .presentationDetents([.fraction(0.15)])
                 }
             }

@@ -58,8 +58,8 @@ class QuizViewModel: ObservableObject {
         
         self.checkAnswerAction = { [weak self] answer in
             let isCorrect = self?.module.correctAnswer == answer
-            print("CheckAnswerAction called with answer: \(answer), correct answer: \(self?.module.correctAnswer ?? -1), is correct: \(isCorrect ?? false)")
-            return isCorrect ?? false
+            print("CheckAnswerAction called with answer: \(answer), correct answer: \(self?.module.correctAnswer ?? -1), is correct: \(isCorrect)")
+            return isCorrect
         }
     }
     
@@ -72,6 +72,7 @@ class QuizViewModel: ObservableObject {
         print("Checking answer: \(answer), Correct: \(isCorrect)")
         return isCorrect
     }
+    
 }
 
 

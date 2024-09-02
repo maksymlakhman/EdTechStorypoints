@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 struct GameView: View {
     @StateObject private var viewModel = GameViewModel()
     @Environment(\.dismiss) private var dismiss
@@ -47,6 +46,7 @@ struct GameView: View {
                     }
                     .frame(maxWidth: .infinity, maxHeight: 50)
                     .padding()
+                    .zIndex(10)
                     Spacer()
                     
                     Group {
@@ -63,6 +63,8 @@ struct GameView: View {
                         }
                     }
                     Spacer()
+                    .zIndex(9)
+                    
                     
                     HStack(spacing: 0) {
                         Button {
@@ -81,6 +83,7 @@ struct GameView: View {
                         }
                     }
                     .padding(.horizontal)
+                    .zIndex(10)
                 }
                 .sheet(isPresented: $viewModel.showAIAssistantSheet) {
                     VStack {
@@ -117,22 +120,20 @@ struct GameView: View {
                     .background(BlueBackgroundAnimatedGradient())
                     .presentationDetents([.medium])
                 }
-                .alert("У тебе вже куплений Freemium", isPresented: $viewModel.isShowAlertFreemiumView){
+                .alert("Для того щоб відкрити додаткових асистентів потрібен Freemium", isPresented: $viewModel.isShowAlertFreemiumView){
                     
                 }
                 .sheet(isPresented: $viewModel.showFreemiumSheet) {
                     VStack {
-                        Text("Купити додаткові 2 AI асистенти?")
+                        Text("Buy 2 additional AI assistants?")
                             .padding()
                         
                         Button {
-                            if viewModel.freemiumIsActive {
-                                viewModel.isShowAlertFreemiumView = true
-                            } else {
+      
                                 viewModel.freemiumIsActive = true
                                 viewModel.activateAllButtons()
                                 viewModel.showFreemiumSheet = false
-                            }
+
 
                         } label: {
                             Label("Buy", systemImage: "brain.fill")
@@ -219,10 +220,14 @@ struct GameView: View {
         case .cossackLong:
             if viewModel.freemiumIsActive {
                 viewModel.showAIAssistantSheet = true
+            } else {
+                viewModel.isShowAlertFreemiumView = true
             }
         case .cossackSmall:
             if viewModel.freemiumIsActive {
                 viewModel.showAIAssistantSheet = true
+            } else {
+                viewModel.isShowAlertFreemiumView = true
             }
         }
     }

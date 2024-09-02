@@ -61,28 +61,61 @@ struct FlowLayout: Layout {
 struct FindPairView: View {
     @EnvironmentObject var viewModel: FindPairViewModel
     @Environment(\.dismiss) var dismiss
+    func colorForIndex(_ index: Int) -> Color {
+        switch index {
+        case 0: return .purple
+        case 1: return .pink
+        case 2: return .cyan
+        case 3: return .orange
+        default: return .gray
+        }
+    }
+    
+    func textForIndex(_ index: Int) -> String {
+        switch index {
+        case 0: return "A"
+        case 1: return "B"
+        case 2: return "C"
+        case 3: return "D"
+        default: return "Empty"
+        }
+    }
 
     var body: some View {
         VStack {
+            Spacer()
+ 
             Text(viewModel.module.question)
                 .font(.headline)
-                .padding()
-
+                .foregroundStyle(.white)
+            
             HStack {
-                VStack(alignment: .leading) {
-                    ForEach(viewModel.authors, id: \.self) { author in
-                        HStack {
-                            Text(author)
-                                .padding()
-                                .background(Color.gray.opacity(0.2))
-                                .cornerRadius(8)
-                            
-                            Spacer()
+                VStack(alignment: .center) {
+                    ForEach(Array(viewModel.authors.enumerated()), id: \.element) { index, author in
+                        VStack(alignment: .center) {
+                            HStack {
+                                Text(textForIndex(index))  // Додаємо літеру A, B, C, D
+                                    .font(.headline)
+                                    .foregroundColor(.white)
+                                    .padding(5)
+                                    .background(colorForIndex(index))
+                                    .clipShape(Circle())
+                                
+                                Text(author)
+                                    .padding(5)
+                                    .frame(maxWidth: .infinity)
+                                    .background(colorForIndex(index))
+                                    .foregroundStyle(.white)
+                                    .cornerRadius(8)
+                            }
                             
                             if let selectedWork = viewModel.selectedPairs[author] {
                                 Text(selectedWork)
-                                    .padding()
-                                    .background(Color.green.opacity(0.2))
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 16)
+                                    .padding(10)
+                                    .foregroundStyle(.white)
+                                    .background(colorForIndex(index))
                                     .cornerRadius(8)
                                     .onTapGesture {
                                         withAnimation(.smooth) {
@@ -96,8 +129,9 @@ struct FindPairView: View {
                             } else {
                                 Rectangle()
                                     .fill(Color.clear)
-                                    .frame(height: 40)
                                     .frame(maxWidth: .infinity)
+                                    .frame(height: 16)
+                                    .padding(10)
                                     .overlay(
                                         Text("Drop Here")
                                             .foregroundColor(.gray)
@@ -105,22 +139,25 @@ struct FindPairView: View {
                                     .background(Color.blue.opacity(0.1))
                                     .cornerRadius(8)
                                     .onDrop(of: [.text], delegate: PairDropDelegate(author: author, selectedPairs: $viewModel.selectedPairs, works: $viewModel.works))
+                                    
                             }
                         }
+                        .padding(5)
+                        .frame(maxWidth: .infinity)
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding()
             }
-            
+            .frame(height: UIScreen.main.bounds.height / 2.5)
             Spacer()
-
             FlowLayout {
                 ForEach(viewModel.works.shuffled(), id: \.self) { work in
                     Text(work)
                         .padding()
-                        .background(Capsule().fill(.white.opacity(0.5)))
+                        .background(Capsule().fill(.blue.opacity(0.5)))
                         .foregroundStyle(.white)
+                        .bold()
                         .lineLimit(1)
                         .onDrag {
                             NSItemProvider(object: work as NSString)
@@ -132,8 +169,11 @@ struct FindPairView: View {
                         }
                 }
             }
-            .padding(.horizontal)
+            .padding()
+            
+            
         }
+
     }
 }
 
@@ -212,10 +252,13 @@ struct PairDropDelegate: DropDelegate {
                 "1Panteleimon Kulish": "1Chorna Rada",
                 "2Marko Vovchok": "2Marusia",
                 "3Hryhorii Skovoroda": "3Garden of Divine Songs",
-                "4Ivan Nechuy-Levytskyi": "4Kaidasheva Family",
-                "5Taras Shevchenko": "5Kobzar",
-                "6Lesia Ukrainka": "6Lisova Pisnia"
+                "4Ivan Nechuy-Levytskyi": "4Kaidasheva Family"
             ]
         )))
         .background(BlueBackgroundAnimatedGradient())
+}
+
+
+#Preview {
+    GameView()
 }

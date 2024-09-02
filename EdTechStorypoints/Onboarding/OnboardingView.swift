@@ -15,8 +15,9 @@ struct Language: Identifiable {
 
 struct OnboardingScreen: View {
     private let languages: [Language] = [
-        Language(emojiFlag: "🇺🇦", text: "Українська"),
         Language(emojiFlag: "🇺🇸", text: "English"),
+        Language(emojiFlag: "🇺🇦", text: "Українська"),
+        Language(emojiFlag: "🇫🇮", text: "Suomi"),
         Language(emojiFlag: "🇵🇱", text: "Polski"),
         Language(emojiFlag: "🇩🇪", text: "Deutsch"),
         Language(emojiFlag: "🇫🇷", text: "Français"),
@@ -104,7 +105,7 @@ struct OnboardingScreen: View {
     private struct Constants {
         struct Spacing {
             static let zero: CGFloat = 0
-            static let small: CGFloat = 12
+            static let small: CGFloat = 10
             static let buttonPadding: CGFloat = 52
             static let horizontalPadding: CGFloat = 16
         }

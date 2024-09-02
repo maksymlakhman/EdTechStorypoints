@@ -137,9 +137,9 @@ class QuizViewModel: ObservableObject {
     QuizView()
         .background(BlueBackgroundAnimatedGradient())
         .environmentObject(QuizViewModel(module: .init(
-            question: "Хто зображений на картинці?",
+            question: "Who is depicted in the picture?",
             image: "BohdanKhmelnytsky",
-            options: ["Іван Мазепа", "Тарас Шевченко", "Богдан Хмельницький", "Михайло Грушевський"],
+            options: ["Ivan Mazepa", "Taras Shevchenko", "Bohdan Khmelnytsky", "Mykhailo Hrushevskyi"],
             correctAnswer: 2
         )))
         .environmentObject(GameViewModel())

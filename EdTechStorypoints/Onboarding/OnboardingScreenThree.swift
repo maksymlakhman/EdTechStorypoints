@@ -9,6 +9,7 @@ struct CountryHistory: Identifiable {
 struct OnboardingScreenThree: View {
     private let countries: [CountryHistory] = [
         CountryHistory(image: "ukraine", name: "Ukraine"),
+        CountryHistory(image: "finland", name: "Finland"),
         CountryHistory(image: "usa", name: "USA")
     ]
 

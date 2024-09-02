@@ -1,72 +1,205 @@
 import SwiftUI
 
+struct FlowLayout: Layout {
+    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
+        let subSizes = subviews.map { $0.sizeThatFits(proposal) }
 
+        let proposedWidth = proposal.width ?? .infinity
+        var maxRowWidth = CGFloat.zero
+        var rowCount = CGFloat.zero
+        var x = CGFloat.zero
+        for subSize in subSizes {
+            // This prevents empty rows if any subviews are wider than proposedWidth.
+            let lineBreakAllowed = x > 0
 
+            if lineBreakAllowed, x + subSize.width > proposedWidth {
+                rowCount += 1
+                x = 0
+            }
 
+            x += subSize.width
+            maxRowWidth = max(maxRowWidth, x)
+        }
 
+        if x > 0 {
+            rowCount += 1
+        }
 
-
-@Published var userAnswer: Int?
-let module: QuizModuleProtocol
-var checkAnswerAction: ((Int) -> Bool)?
-
-init(module: QuizModuleProtocol) {
-    self.module = module
-    print("QuizViewModel initialized with module: \(module)")
+        let rowHeight = subSizes.lazy.map { $0.height }.max() ?? 0
+        return CGSize(
+            width: proposal.width ?? maxRowWidth,
+            height: rowCount * rowHeight
+        )
+    }
     
-    self.checkAnswerAction = { [weak self] answer in
-        let isCorrect = self?.module.correctAnswer == answer
-        print("CheckAnswerAction called with answer: \(answer), correct answer: \(self?.module.correctAnswer ?? -1), is correct: \(isCorrect)")
-        return isCorrect
+    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
+        let subSizes = subviews.map { $0.sizeThatFits(proposal) }
+        let rowHeight = subSizes.lazy.map { $0.height }.max() ?? 0
+        let proposedWidth = proposal.width ?? .infinity
+
+        var p = CGPoint.zero
+        for (subview, subSize) in zip(subviews, subSizes) {
+            // This prevents empty rows if any subviews are wider than proposedWidth.
+            let lineBreakAllowed = p.x > 0
+
+            if lineBreakAllowed, p.x + subSize.width > proposedWidth {
+                p.x = 0
+                p.y += rowHeight
+            }
+
+            subview.place(
+                at: CGPoint(
+                    x: bounds.origin.x + p.x,
+                    y: bounds.origin.y + p.y + 0.5 * (rowHeight - subSize.height)
+                ),
+                proposal: proposal
+            )
+
+            p.x += subSize.width
+        }
     }
 }
 
-func checkAnswer() -> Bool {
-    guard let answer = userAnswer else {
-        print("No user answer selected")
-        return false
-    }
-    let isCorrect = checkAnswerAction?(answer) ?? false
-    print("Checking answer: \(answer), Correct: \(isCorrect)")
-    return isCorrect
-}
-
-
-
-
-
-
-
-// View для FindPair
 struct FindPairView: View {
     @EnvironmentObject var viewModel: FindPairViewModel
     @Environment(\.dismiss) var dismiss
-    
+
     var body: some View {
         VStack {
-//            Text(viewModel.module.question)
-            // Ваша логіка для FindPairView
-            Button {
-                dismiss()
-            } label: {
-                Image(systemName: "house")
+            Text(viewModel.module.question)
+                .font(.headline)
+                .padding()
+
+            HStack {
+                VStack(alignment: .leading) {
+                    ForEach(viewModel.authors, id: \.self) { author in
+                        HStack {
+                            Text(author)
+                                .padding()
+                                .background(Color.gray.opacity(0.2))
+                                .cornerRadius(8)
+                            
+                            Spacer()
+                            
+                            if let selectedWork = viewModel.selectedPairs[author] {
+                                Text(selectedWork)
+                                    .padding()
+                                    .background(Color.green.opacity(0.2))
+                                    .cornerRadius(8)
+                                    .onTapGesture {
+                                        withAnimation(.smooth) {
+                                            viewModel.removeWork(author: author, work: selectedWork)
+                                        }
+                                    }
+                            } else {
+                                Rectangle()
+                                    .fill(Color.clear)
+                                    .frame(height: 40)
+                                    .frame(maxWidth: .infinity)
+                                    .overlay(
+                                        Text("Drop Here")
+                                            .foregroundColor(.gray)
+                                    )
+                                    .background(Color.blue.opacity(0.1))
+                                    .cornerRadius(8)
+                                    .onDrop(of: [.text], delegate: PairDropDelegate(author: author, selectedPairs: $viewModel.selectedPairs, works: $viewModel.works))
+                            }
+                        }
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding()
             }
+            
+            Spacer()
+
+            FlowLayout {
+                ForEach(viewModel.works.shuffled(), id: \.self) { work in
+                    Text(work)
+                        .padding()
+                        .background(Capsule().fill(.white.opacity(0.5)))
+                        .foregroundStyle(.white)
+                        .lineLimit(1)
+                        .onDrag {
+                            withAnimation(.smooth) {
+                                NSItemProvider(object: work as NSString)
+                            }
+                        }
+                        .onTapGesture {
+                            withAnimation(.spring) {
+                                viewModel.selectWork(work)
+                            }
+                        }
+                }
+            }
+            .padding(.horizontal)
         }
     }
 }
 
 class FindPairViewModel: ObservableObject {
-    var module: FindPairModuleProtocol
-    var checkAnswerAction: (() -> Bool)?
-
+    @Published var module: FindPairModuleProtocol
+    @Published var authors: [String]
+    @Published var works: [String]
+    @Published var selectedPairs: [String: String] = [:]
+    
     init(module: FindPairModuleProtocol) {
         self.module = module
+        self.authors = Array(module.correctPairs.keys)
+        self.works = Array(module.correctPairs.values)
+    }
+    
+    
+    func selectWork(_ work: String) {
+        if let author = authors.first(where: { selectedPairs[$0] == nil }) {
+            selectedPairs[author] = work
+            works.removeAll { $0 == work }
+        }
+    }
+    
+    func removeWork(author: String, work: String) {
+        selectedPairs.removeValue(forKey: author)
+        works.append(work)
     }
     
     func checkAnswer() -> Bool {
-        return checkAnswerAction?() ?? false
+        return selectedPairs == module.correctPairs
     }
 }
 
-// View для Chronology
+struct PairDropDelegate: DropDelegate {
+    let author: String
+    @Binding var selectedPairs: [String: String]
+    @Binding var works: [String]
 
+    func performDrop(info: DropInfo) -> Bool {
+        if let item = info.itemProviders(for: [.text]).first {
+            item.loadItem(forTypeIdentifier: "public.text", options: nil) { (data, error) in
+                if let data = data as? Data, let work = String(data: data, encoding: .utf8) {
+                    DispatchQueue.main.async {
+                        selectedPairs[author] = work
+                        works.removeAll { $0 == work }
+                    }
+                }
+            }
+            return true
+        }
+        return false
+    }
+}
+
+#Preview {
+    FindPairView()
+        .environmentObject(FindPairViewModel(module: .init(
+            question: "Match the authors to their works",
+            correctPairs: [
+                "1Panteleimon Kulish": "1Chorna Rada",
+                "2Marko Vovchok": "2Marusia",
+                "3Hryhorii Skovoroda": "3Garden of Divine Songs",
+                "4Ivan Nechuy-Levytskyi": "4Kaidasheva Family",
+                "5Taras Shevchenko": "5Kobzar",
+                "6Lesia Ukrainka": "6Lisova Pisnia"
+            ]
+        )))
+        .background(BlueBackgroundAnimatedGradient())
+}

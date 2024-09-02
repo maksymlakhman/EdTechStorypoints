@@ -19,7 +19,10 @@ struct QuizView: View {
             ForEach(0..<quizVM.module.options.count, id: \.self) { index in
                 Button {
                     print("Button tapped for option \(index): \(quizVM.module.options[index])")
-                    quizVM.userAnswer = index
+                    withAnimation(.smooth) {
+                        quizVM.userAnswer = index
+                    }
+                    
                     print("User answer updated to: \(quizVM.userAnswer ?? -1)")
                 } label: {
                     Text(quizVM.module.options[index])

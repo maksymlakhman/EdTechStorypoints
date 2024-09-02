@@ -18,6 +18,10 @@ struct Module {
 }
 
 class GameViewModel: ObservableObject {
+    @Published var activeButtons: [ArcMenuButtonName] = []
+    func activateAllButtons() {
+        self.activeButtons = ArcMenuButtonName.allCases
+    }
     @Published var modules: [Module]
     @Published var showCorrectSheet = false
     @Published var showIncorrectSheet = false
@@ -26,9 +30,11 @@ class GameViewModel: ObservableObject {
     private var currentModuleIndex: Int = 0
     @Published var progress: Double = 0.0
     @Published var showFreemiumSheet = false
+    @Published var showAIAssistantSheet = false
+    @Published var generateAnswearAI = false
     @Published var freemiumIsActive = false
-    @Published var isFirstAIAssistantIsUser = false
-    
+    @Published var isFirstAIAssistantIsUser = true
+    @Published var isShowAlertFreemiumView = false
     var correctPhrases = [
         "Spot on! You're a genius!",
         "Bullseye! Nailed it!",
@@ -64,6 +70,12 @@ class GameViewModel: ObservableObject {
         self.modules = loadedModules
         self.currentModule = loadedModules.first ?? Module(moduleType: .quiz(QuizModuleProtocol(question: "", image: "", options: [], correctAnswer: 0)))
         setupViewModels()
+        activateFirstButton()
+    }
+    
+    private func activateFirstButton() {
+        guard let firstButton = ArcMenuButtonName.allCases.first else { return }
+        self.activeButtons.insert(firstButton, at: 0)
     }
 
     private func setupViewModels() {
@@ -80,14 +92,19 @@ class GameViewModel: ObservableObject {
     private static func loadModules() -> [Module] {
         return [
             Module(moduleType: .quiz(QuizModuleProtocol(
-                question: "Хто зображений на картинці?",
+                question: "Who is depicted in the picture?",
                 image: "BohdanKhmelnytsky",
-                options: ["Іван Мазепа", "Тарас Шевченко", "Богдан Хмельницький", "Михайло Грушевський"],
+                options: ["Ivan Mazepa", "Taras Shevchenko", "Bohdan Khmelnytsky", "Mykhailo Hrushevskyi"],
                 correctAnswer: 2
             ))),
             Module(moduleType: .findPair(FindPairModuleProtocol(
                 question: "Match the authors to their works",
-                correctPairs: ["Author1": "Work1", "Author2": "Work2"]
+                correctPairs: [
+                    "5Panteleimon Kulish": "5Chorna Rada",
+                    "6Marko Vovchok": "6Marusia",
+                    "7Hryhorii Skovoroda": "7Garden of Divine Songs",
+                    "8Ivan Nechuy-Levytskyi": "8Kaidasheva Family"
+                ]
             ))),
             Module(moduleType: .chronology(ChronologyModuleProtocol(
                 question: "Place these events in chronological order",
@@ -134,3 +151,4 @@ class GameViewModel: ObservableObject {
         }
     }
 }
+

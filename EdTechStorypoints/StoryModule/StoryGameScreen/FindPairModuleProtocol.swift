@@ -13,7 +13,7 @@ struct FindPairModuleProtocol: GameModuleProtocol {
     var question: String
     var correctPairs: AnswerType
     
-    func checkAnswer(_ answer: AnswerType) -> Bool {
-        return answer == correctPairs
-    }
+//    func checkAnswer(_ answer: AnswerType) -> Bool {
+//        return answer == correctPairs
+//    }
 }

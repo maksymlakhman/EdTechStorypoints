@@ -62,7 +62,7 @@ struct LevelView: View {
     let level: Int
     @Binding var activeLevel: Int
     @State private var isStartGameLevelViewButtonPressed: Bool = false
-    @State private var showContextButtons: Bool = true
+    @State private var showContextButtons: Bool = false
 
     @EnvironmentObject var gameViewModel: GameViewModel
     var status: LevelStatus {
@@ -161,7 +161,7 @@ struct LevelView: View {
                                     
                                 }
                                 .padding(4)
-                                .foregroundStyle(status == .active ? .blue : .white)
+                                .foregroundStyle(status == .active ? .white : .blue)
                                 .background(status == .active ? .blue.opacity(0.8) : (status == .completed ? .white.opacity(0.6) : .blue.opacity(0.6)))
                                 .background(status == .active ? Color.white.opacity(0.2) : (status == .completed ? Color.blue : Color.black))
                                 .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -300,6 +300,11 @@ extension View{
     func hAlign(_ alignment: Alignment) -> some View{
         self
             .frame(maxWidth: .infinity, alignment: alignment)
+    }
+    
+    func vAlign(_ alignment: Alignment) -> some View{
+        self
+            .frame(maxHeight: .infinity, alignment: alignment)
     }
 }
 

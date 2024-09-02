@@ -7,10 +7,11 @@
 
 import SwiftUI
 
+
 struct GameView: View {
     @StateObject private var viewModel = GameViewModel()
     @Environment(\.dismiss) private var dismiss
-    
+    @State var rotation: CGFloat = 0.0
     var body: some View {
         VStack {
             if viewModel.isGameFinished {
@@ -36,40 +37,13 @@ struct GameView: View {
                         ProgressBarView(progress: $viewModel.progress)
                         
                         Spacer()
-                        
-                        HStack() {
-                            Button {
-                                if viewModel.isFirstAIAssistantIsUser {
-                                    
-                                } else {
-                                    viewModel.showFreemiumSheet = true
-                                }
-                            } label: {
-                                Image("CossackLarge")
-                                    .resizable()
-                                    .frame(width: 40)
+                        AIAssistantButton(
+                            buttons: Array(ArcMenuButtonName.allCases),
+                            ontap: { button in
+                                handleAIAssistantButtonTap(button: button)
                             }
-
-                            Button {
-                                print("AI 2")
-                            } label: {
-                                Image("CossackLong")
-                                    .resizable()
-                                    .frame(width: 40)
-                            }
-                            .disabled(!viewModel.freemiumIsActive)
-                            .opacity(viewModel.freemiumIsActive ? 1.0 : 0.5)
-
-                            Button {
-                                print("AI 3")
-                            } label: {
-                                Image("CossackSmall")
-                                    .resizable()
-                                    .frame(width: 40)
-                            }
-                            .disabled(!viewModel.freemiumIsActive)
-                            .opacity(viewModel.freemiumIsActive ? 1.0 : 0.5)
-                        }
+                        )
+                        .environmentObject(viewModel)
                     }
                     .frame(maxWidth: .infinity, maxHeight: 50)
                     .padding()
@@ -90,20 +64,61 @@ struct GameView: View {
                     }
                     Spacer()
                     
-                    Button {
-                        let isCorrect = viewModel.checkAnswer()
-                        if isCorrect {
-                            viewModel.showCorrectSheet = true
-                        } else {
-                            viewModel.showIncorrectSheet = true
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                                viewModel.showIncorrectSheet = false
+                    HStack(spacing: 0) {
+                        Button {
+                            let isCorrect = viewModel.checkAnswer()
+                            if isCorrect {
+                                viewModel.showCorrectSheet = true
+                            } else {
+                                viewModel.showIncorrectSheet = true
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                                    viewModel.showIncorrectSheet = false
+                                }
                             }
+                        } label: {
+                            CheckAnimationBTN()
+                                
                         }
-                    } label: {
-                        CheckAnimationBTN()
-                            .padding(.horizontal)
                     }
+                    .padding(.horizontal)
+                }
+                .sheet(isPresented: $viewModel.showAIAssistantSheet) {
+                    VStack {
+                        Text("Generation Answear here")
+                            .padding()
+                        Spacer()
+                        if viewModel.generateAnswearAI {
+                            Text("some text")
+                                .padding()
+                        }
+                        Spacer()
+                        Button {
+                            if !viewModel.generateAnswearAI {
+                                viewModel.generateAnswearAI = true
+                            } else {
+                                viewModel.isFirstAIAssistantIsUser = false
+                                viewModel.showAIAssistantSheet = false
+                                viewModel.generateAnswearAI = false
+                            }
+                        } label: {
+                            Text(!viewModel.generateAnswearAI ? "Generate AI Answer" : "Close Answer" )
+                                .foregroundStyle(.white)
+                                .padding()
+                                .frame(maxWidth: .infinity)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 20)
+                                        .fill(Color.blue.opacity(0.2))
+                                )
+                        }
+
+                    }
+                    .padding(.horizontal)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(BlueBackgroundAnimatedGradient())
+                    .presentationDetents([.medium])
+                }
+                .alert("У тебе вже куплений Freemium", isPresented: $viewModel.isShowAlertFreemiumView){
+                    
                 }
                 .sheet(isPresented: $viewModel.showFreemiumSheet) {
                     VStack {
@@ -111,23 +126,42 @@ struct GameView: View {
                             .padding()
                         
                         Button {
-                            viewModel.freemiumIsActive = true
-                            viewModel.showFreemiumSheet = false
+                            if viewModel.freemiumIsActive {
+                                viewModel.isShowAlertFreemiumView = true
+                            } else {
+                                viewModel.freemiumIsActive = true
+                                viewModel.activateAllButtons()
+                                viewModel.showFreemiumSheet = false
+                            }
+
                         } label: {
                             Label("Buy", systemImage: "brain.fill")
-                                .foregroundStyle(.black)
+                                .foregroundStyle(.white)
                                 .padding()
                                 .frame(maxWidth: .infinity)
                                 .background(
                                     RoundedRectangle(cornerRadius: 20)
-                                        .fill(Color.yellow)
+                                        .fill(Color.blue.opacity(0.2))
+                                )
+                        }
+                        .padding(.horizontal)
+                        Button {
+                            viewModel.showFreemiumSheet = false
+                        } label: {
+                            Label("Cancel", systemImage: "xmark")
+                                .foregroundStyle(.red)
+                                .padding()
+                                .frame(maxWidth: .infinity)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 20)
+                                        .fill(Color.red.opacity(0.2))
                                 )
                         }
                         .padding(.horizontal)
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color.blue)
-                    .presentationDetents([.fraction(0.15)])
+                    .background(BlueBackgroundAnimatedGradient())
+                    .presentationDetents([.fraction(0.25)])
                 }
                 .sheet(isPresented: $viewModel.showCorrectSheet) {
                     HStack {
@@ -169,6 +203,28 @@ struct GameView: View {
             }
         }
         .background(BlueBackgroundAnimatedGradient())
+    }
+    
+    private func handleAIAssistantButtonTap(button: ArcMenuButtonName) {
+        print("handleAIAssistantButtonTap called with button: \(button.rawValue)")
+        switch button {
+        case .cossackLarge:
+            if viewModel.freemiumIsActive {
+                viewModel.showAIAssistantSheet = true
+            } else if viewModel.isFirstAIAssistantIsUser {
+                viewModel.showAIAssistantSheet = true
+            } else {
+                viewModel.showFreemiumSheet = true
+            }
+        case .cossackLong:
+            if viewModel.freemiumIsActive {
+                viewModel.showAIAssistantSheet = true
+            }
+        case .cossackSmall:
+            if viewModel.freemiumIsActive {
+                viewModel.showAIAssistantSheet = true
+            }
+        }
     }
 }
 

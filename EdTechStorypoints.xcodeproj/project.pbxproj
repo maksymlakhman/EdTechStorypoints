@@ -12,7 +12,6 @@
 		9D07CB252C624FB700DAA2AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D07CB242C624FB700DAA2AA /* Assets.xcassets */; };
 		9D07CB282C624FB700DAA2AA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D07CB272C624FB700DAA2AA /* Preview Assets.xcassets */; };
 		9D07CB2F2C62510100DAA2AA /* PreloaderScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D07CB2E2C62510100DAA2AA /* PreloaderScreen.swift */; };
-		9D07CB322C62511B00DAA2AA /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 9D07CB312C62511B00DAA2AA /* Lottie */; };
 		9D07CB342C62513800DAA2AA /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D07CB332C62513800DAA2AA /* LottieView.swift */; };
 		9D07CB382C625A7E00DAA2AA /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D07CB372C625A7E00DAA2AA /* OnboardingView.swift */; };
 		9D07CB3B2C62DE3B00DAA2AA /* OnboardingScreenTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D07CB3A2C62DE3B00DAA2AA /* OnboardingScreenTwo.swift */; };
@@ -32,11 +31,14 @@
 		9D6DE3932C6B803E00DFC26B /* Preloader.json in Resources */ = {isa = PBXBuildFile; fileRef = 9D6DE3922C6B803E00DFC26B /* Preloader.json */; };
 		9D6DE3952C6B836D00DFC26B /* ArenaScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6DE3942C6B836D00DFC26B /* ArenaScreen.swift */; };
 		9D6F72D92C6A494700C35EDE /* UserProfileScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6F72D82C6A494700C35EDE /* UserProfileScreen.swift */; };
+		9D704EAB2C80875300CF7F4D /* AIAssistantButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D704EAA2C80875300CF7F4D /* AIAssistantButton.swift */; };
 		9D76E0812C6F19A4004527B3 /* CheckAnimationBTN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76E0802C6F19A4004527B3 /* CheckAnimationBTN.swift */; };
 		9D77AE3C2C6AB95800B99DEE /* MulticolorGradient in Frameworks */ = {isa = PBXBuildFile; productRef = 9D77AE3B2C6AB95800B99DEE /* MulticolorGradient */; };
 		9D77AE3E2C6AB98500B99DEE /* BlueBackgroundAnimatedGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D77AE3D2C6AB98500B99DEE /* BlueBackgroundAnimatedGradient.swift */; };
 		9D7DCEC82C6E84BF005FE5D5 /* QuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7DCEC72C6E84BF005FE5D5 /* QuizView.swift */; };
 		9D7EF6A72C713D9B0059748E /* PriceScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7EF6A62C713D9B0059748E /* PriceScreen.swift */; };
+		9D8079B32C81B3770013CA30 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 9D8079B22C81B3770013CA30 /* Lottie */; };
+		9D8079B52C81B7B50013CA30 /* ChronologyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8079B42C81B7B50013CA30 /* ChronologyView.swift */; };
 		9D9737542C73A18900C860A7 /* GameViewModelOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9737532C73A18900C860A7 /* GameViewModelOld.swift */; };
 		9D9737562C73A1A200C860A7 /* GameViewOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9737552C73A1A200C860A7 /* GameViewOld.swift */; };
 		9D9737582C73B27D00C860A7 /* ChronologyModuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9737572C73B27D00C860A7 /* ChronologyModuleView.swift */; };
@@ -51,7 +53,7 @@
 		9DA9BA1B2C7DE7B7001D4651 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA9BA1A2C7DE7B7001D4651 /* GameView.swift */; };
 		9DC9467C2C7BBBD300264F2E /* OnboardingScreenThree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC9467B2C7BBBD300264F2E /* OnboardingScreenThree.swift */; };
 		9DE881DA2C6CDFD700BCBF88 /* GameNewsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE881D92C6CDFD700BCBF88 /* GameNewsScreen.swift */; };
-		9DE9D8732C7649A400173BD9 /* Structure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE9D8722C7649A400173BD9 /* Structure.swift */; };
+		9DE9D8732C7649A400173BD9 /* FindPairView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE9D8722C7649A400173BD9 /* FindPairView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,10 +82,12 @@
 		9D6DE3922C6B803E00DFC26B /* Preloader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Preloader.json; sourceTree = "<group>"; };
 		9D6DE3942C6B836D00DFC26B /* ArenaScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArenaScreen.swift; sourceTree = "<group>"; };
 		9D6F72D82C6A494700C35EDE /* UserProfileScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileScreen.swift; sourceTree = "<group>"; };
+		9D704EAA2C80875300CF7F4D /* AIAssistantButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIAssistantButton.swift; sourceTree = "<group>"; };
 		9D76E0802C6F19A4004527B3 /* CheckAnimationBTN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckAnimationBTN.swift; sourceTree = "<group>"; };
 		9D77AE3D2C6AB98500B99DEE /* BlueBackgroundAnimatedGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlueBackgroundAnimatedGradient.swift; sourceTree = "<group>"; };
 		9D7DCEC72C6E84BF005FE5D5 /* QuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizView.swift; sourceTree = "<group>"; };
 		9D7EF6A62C713D9B0059748E /* PriceScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceScreen.swift; sourceTree = "<group>"; };
+		9D8079B42C81B7B50013CA30 /* ChronologyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChronologyView.swift; sourceTree = "<group>"; };
 		9D9737532C73A18900C860A7 /* GameViewModelOld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModelOld.swift; sourceTree = "<group>"; };
 		9D9737552C73A1A200C860A7 /* GameViewOld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewOld.swift; sourceTree = "<group>"; };
 		9D9737572C73B27D00C860A7 /* ChronologyModuleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChronologyModuleView.swift; sourceTree = "<group>"; };
@@ -98,7 +102,7 @@
 		9DA9BA1A2C7DE7B7001D4651 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		9DC9467B2C7BBBD300264F2E /* OnboardingScreenThree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingScreenThree.swift; sourceTree = "<group>"; };
 		9DE881D92C6CDFD700BCBF88 /* GameNewsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameNewsScreen.swift; sourceTree = "<group>"; };
-		9DE9D8722C7649A400173BD9 /* Structure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structure.swift; sourceTree = "<group>"; };
+		9DE9D8722C7649A400173BD9 /* FindPairView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPairView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,7 +111,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9D77AE3C2C6AB95800B99DEE /* MulticolorGradient in Frameworks */,
-				9D07CB322C62511B00DAA2AA /* Lottie in Frameworks */,
+				9D8079B32C81B3770013CA30 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -182,7 +186,6 @@
 			isa = PBXGroup;
 			children = (
 				9D6DE38E2C6B58FC00DFC26B /* TemplateProtocols.swift */,
-				9D7EF6A62C713D9B0059748E /* PriceScreen.swift */,
 				9D9737532C73A18900C860A7 /* GameViewModelOld.swift */,
 				9D9737552C73A1A200C860A7 /* GameViewOld.swift */,
 				9D9737572C73B27D00C860A7 /* ChronologyModuleView.swift */,
@@ -218,18 +221,21 @@
 			isa = PBXGroup;
 			children = (
 				9DE9D8712C76498C00173BD9 /* noactive */,
-				9DE9D8722C7649A400173BD9 /* Structure.swift */,
 				9DA9BA0A2C7DE5B9001D4651 /* ProgressBarView.swift */,
 				9D76E0802C6F19A4004527B3 /* CheckAnimationBTN.swift */,
 				9DA9BA0C2C7DE67F001D4651 /* GameModuleProtocol.swift */,
+				9DA9BA0E2C7DE6AA001D4651 /* QuizModuleProtocol.swift */,
 				9DA9BA102C7DE6D9001D4651 /* FindPairModuleProtocol.swift */,
 				9DA9BA122C7DE70E001D4651 /* ChronologyModuleProtocol.swift */,
 				9DA9BA142C7DE723001D4651 /* GameModuleType.swift */,
 				9DA9BA162C7DE73B001D4651 /* AnyGameModule.swift */,
+				9D704EAA2C80875300CF7F4D /* AIAssistantButton.swift */,
 				9DA9BA182C7DE750001D4651 /* GameViewModel.swift */,
 				9DA9BA1A2C7DE7B7001D4651 /* GameView.swift */,
-				9DA9BA0E2C7DE6AA001D4651 /* QuizModuleProtocol.swift */,
 				9D7DCEC72C6E84BF005FE5D5 /* QuizView.swift */,
+				9DE9D8722C7649A400173BD9 /* FindPairView.swift */,
+				9D8079B42C81B7B50013CA30 /* ChronologyView.swift */,
+				9D7EF6A62C713D9B0059748E /* PriceScreen.swift */,
 			);
 			path = StoryGameScreen;
 			sourceTree = "<group>";
@@ -269,8 +275,8 @@
 			);
 			name = EdTechStorypoints;
 			packageProductDependencies = (
-				9D07CB312C62511B00DAA2AA /* Lottie */,
 				9D77AE3B2C6AB95800B99DEE /* MulticolorGradient */,
+				9D8079B22C81B3770013CA30 /* Lottie */,
 			);
 			productName = EdTechStorypoints;
 			productReference = 9D07CB1D2C624FB500DAA2AA /* EdTechStorypoints.app */;
@@ -301,8 +307,8 @@
 			);
 			mainGroup = 9D07CB142C624FB500DAA2AA;
 			packageReferences = (
-				9D07CB302C62511B00DAA2AA /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				9D77AE3A2C6AB95800B99DEE /* XCRemoteSwiftPackageReference "SwiftUI-MulticolorGradient" */,
+				9D8079B12C81B3770013CA30 /* XCRemoteSwiftPackageReference "lottie-spm" */,
 			);
 			productRefGroup = 9D07CB1E2C624FB500DAA2AA /* Products */;
 			projectDirPath = "";
@@ -339,7 +345,9 @@
 				9D2C71CD2C66467A00651745 /* GameScreen.swift in Sources */,
 				9DA9BA112C7DE6D9001D4651 /* FindPairModuleProtocol.swift in Sources */,
 				9D9737542C73A18900C860A7 /* GameViewModelOld.swift in Sources */,
+				9D8079B52C81B7B50013CA30 /* ChronologyView.swift in Sources */,
 				9D6F72D92C6A494700C35EDE /* UserProfileScreen.swift in Sources */,
+				9D704EAB2C80875300CF7F4D /* AIAssistantButton.swift in Sources */,
 				9D77AE3E2C6AB98500B99DEE /* BlueBackgroundAnimatedGradient.swift in Sources */,
 				9D76E0812C6F19A4004527B3 /* CheckAnimationBTN.swift in Sources */,
 				9D07CB3B2C62DE3B00DAA2AA /* OnboardingScreenTwo.swift in Sources */,
@@ -361,7 +369,7 @@
 				9DA9BA0F2C7DE6AA001D4651 /* QuizModuleProtocol.swift in Sources */,
 				9DA9BA0B2C7DE5B9001D4651 /* ProgressBarView.swift in Sources */,
 				9D07CB382C625A7E00DAA2AA /* OnboardingView.swift in Sources */,
-				9DE9D8732C7649A400173BD9 /* Structure.swift in Sources */,
+				9DE9D8732C7649A400173BD9 /* FindPairView.swift in Sources */,
 				9D2C71CB2C6644C900651745 /* AppleWatchConnectivityView.swift in Sources */,
 				9D2C71CF2C66495C00651745 /* AffermationView.swift in Sources */,
 				9D9737582C73B27D00C860A7 /* ChronologyModuleView.swift in Sources */,
@@ -588,14 +596,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		9D07CB302C62511B00DAA2AA /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/airbnb/lottie-ios";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.5.0;
-			};
-		};
 		9D77AE3A2C6AB95800B99DEE /* XCRemoteSwiftPackageReference "SwiftUI-MulticolorGradient" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ArthurGuibert/SwiftUI-MulticolorGradient.git";
@@ -604,18 +604,26 @@
 				kind = branch;
 			};
 		};
+		9D8079B12C81B3770013CA30 /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-spm.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.5.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		9D07CB312C62511B00DAA2AA /* Lottie */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9D07CB302C62511B00DAA2AA /* XCRemoteSwiftPackageReference "lottie-ios" */;
-			productName = Lottie;
-		};
 		9D77AE3B2C6AB95800B99DEE /* MulticolorGradient */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 9D77AE3A2C6AB95800B99DEE /* XCRemoteSwiftPackageReference "SwiftUI-MulticolorGradient" */;
 			productName = MulticolorGradient;
+		};
+		9D8079B22C81B3770013CA30 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9D8079B12C81B3770013CA30 /* XCRemoteSwiftPackageReference "lottie-spm" */;
+			productName = Lottie;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

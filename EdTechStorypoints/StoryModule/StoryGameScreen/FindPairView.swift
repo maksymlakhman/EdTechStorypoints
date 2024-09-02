@@ -9,7 +9,6 @@ struct FlowLayout: Layout {
         var rowCount = CGFloat.zero
         var x = CGFloat.zero
         for subSize in subSizes {
-            // This prevents empty rows if any subviews are wider than proposedWidth.
             let lineBreakAllowed = x > 0
 
             if lineBreakAllowed, x + subSize.width > proposedWidth {
@@ -39,7 +38,6 @@ struct FlowLayout: Layout {
 
         var p = CGPoint.zero
         for (subview, subSize) in zip(subviews, subSizes) {
-            // This prevents empty rows if any subviews are wider than proposedWidth.
             let lineBreakAllowed = p.x > 0
 
             if lineBreakAllowed, p.x + subSize.width > proposedWidth {
@@ -91,6 +89,10 @@ struct FindPairView: View {
                                             viewModel.removeWork(author: author, work: selectedWork)
                                         }
                                     }
+                                    .onDrag {
+                                        NSItemProvider(object: selectedWork as NSString)
+                                    }
+                                    .onDrop(of: [.text], delegate: PairDropDelegate(author: author, selectedPairs: $viewModel.selectedPairs, works: $viewModel.works))
                             } else {
                                 Rectangle()
                                     .fill(Color.clear)
@@ -121,9 +123,7 @@ struct FindPairView: View {
                         .foregroundStyle(.white)
                         .lineLimit(1)
                         .onDrag {
-                            withAnimation(.smooth) {
-                                NSItemProvider(object: work as NSString)
-                            }
+                            NSItemProvider(object: work as NSString)
                         }
                         .onTapGesture {
                             withAnimation(.spring) {
@@ -148,7 +148,6 @@ class FindPairViewModel: ObservableObject {
         self.authors = Array(module.correctPairs.keys)
         self.works = Array(module.correctPairs.values)
     }
-    
     
     func selectWork(_ work: String) {
         if let author = authors.first(where: { selectedPairs[$0] == nil }) {
@@ -175,10 +174,25 @@ struct PairDropDelegate: DropDelegate {
     func performDrop(info: DropInfo) -> Bool {
         if let item = info.itemProviders(for: [.text]).first {
             item.loadItem(forTypeIdentifier: "public.text", options: nil) { (data, error) in
-                if let data = data as? Data, let work = String(data: data, encoding: .utf8) {
+                if let data = data as? Data, let newWork = String(data: data, encoding: .utf8) {
                     DispatchQueue.main.async {
-                        selectedPairs[author] = work
-                        works.removeAll { $0 == work }
+                        // Перевірка, чи робота вже встановлена для іншого автора
+                        if let existingAuthor = selectedPairs.first(where: { $0.value == newWork })?.key {
+                            // Заміна старої роботи на нову
+                            let previousWork = selectedPairs[author]
+                            selectedPairs[existingAuthor] = previousWork
+                            selectedPairs[author] = newWork
+                        } else {
+                            // Перевірка, чи вже є робота для цього автора
+                            if let existingWork = selectedPairs[author] {
+                                // Повернення старої роботи назад до списку works
+                                works.append(existingWork)
+                            }
+                            
+                            // Додавання нової роботи для автора
+                            selectedPairs[author] = newWork
+                            works.removeAll { $0 == newWork }
+                        }
                     }
                 }
             }
@@ -187,6 +201,8 @@ struct PairDropDelegate: DropDelegate {
         return false
     }
 }
+
+
 
 #Preview {
     FindPairView()

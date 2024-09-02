@@ -25,35 +25,89 @@ struct QuizView: View {
                     
                     print("User answer updated to: \(quizVM.userAnswer ?? -1)")
                 } label: {
-                    Text(quizVM.module.options[index])
-                        .padding()
-                        .foregroundColor(quizVM.userAnswer == index ? .white : .yellow)
+                    HStack {
+                        Text(textForIndex(index))
+                            .font(.headline)
+                            .foregroundColor(quizVM.userAnswer == index ? colorForIndex(index) : Color.white)
+                            .padding(10)
+                            .background {
+                                Circle()
+                                    .fill(quizVM.userAnswer == index ? .white : .blue)
+                            }
+                        Text(quizVM.module.options[index])
+                            .padding()
+                            .foregroundColor(quizVM.userAnswer == index ? .white : colorForIndex(index))
+                            .bold()
+                        Spacer()
+                        Button {
+                            withAnimation(.spring) {
+                                quizVM.showSmallPlayer = true
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                                    withAnimation(.smooth) {
+                                        quizVM.showSmallPlayer = false
+                                    }
+                                }
+                            }
+                        } label: {
+                            Image(systemName: quizVM.userAnswer == index ? "music.note" : "")
+                                .foregroundColor(quizVM.userAnswer == index ? colorForIndex(index) : Color.white)
+                                .contentTransition(.symbolEffect(.replace))
+                                .padding(quizVM.userAnswer == index ? 10 : 0)
+                                .background {
+                                    Circle()
+                                        .fill(quizVM.userAnswer == index ? .white : .blue)
+                                }
+                        }
+                        .buttonStyle(BorderlessButtonStyle())
+                        
+                    }
+                    .padding(.horizontal)
                 }
                 .frame(maxWidth: .infinity)
-                .background(quizVM.userAnswer == index ? colorForIndex(index) : Color.clear)
-                .cornerRadius(8)
+                .background {
+                    Capsule()
+                        .fill(quizVM.userAnswer == index ? colorForIndex(index) : Color.white.opacity(0.1))
+                }
                 .padding(.horizontal)
                 .buttonStyle(BorderlessButtonStyle())
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .sheet(isPresented: $quizVM.showSmallPlayer){
+            VStack {
+                Text("Player")
+            }
+            .presentationDetents([.fraction(0.2)])
+        }
     }
     
     func colorForIndex(_ index: Int) -> Color {
         switch index {
-        case 0: return .green
+        case 0: return .purple
         case 1: return .pink
         case 2: return .cyan
         case 3: return .orange
         default: return .gray
         }
     }
+    
+    func textForIndex(_ index: Int) -> String {
+        switch index {
+        case 0: return "A"
+        case 1: return "B"
+        case 2: return "C"
+        case 3: return "D"
+        default: return "Empty"
+        }
+    }
 }
 
 class QuizViewModel: ObservableObject {
     @Published var userAnswer: Int?
+    @Published var showSmallPlayer = false
     let module: QuizModuleProtocol
     var checkAnswerAction: ((Int) -> Bool)?
+    
     
     init(module: QuizModuleProtocol) {
         self.module = module

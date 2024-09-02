@@ -71,11 +71,23 @@ At the first stage of development, the app will be localized for Ukraine and Fin
       </a>
       <br>AR Module
     </td>
-        <td align="center">
+    <td align="center">
       <a href="#macropower-tech">
         <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTRkNmprdHVuaDUwbmlhb3hrZ2k5NnFibTQxb3JueG01dWhhdnpwdiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/M40ta2x3RG3MsAo10T/giphy.gif">
       </a>
       <br>Ranking: Leaderboard 
+    </td>
+    <td align="center">
+      <a href="#macropower-tech">
+        <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExdWprb2xocWd1bWhtYzlmd253eTZoZjl2dWEyMWNmazJ0MmQ3Y2QyZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/oXCCcdWqDA9jGv7ai6/giphy.gif">
+      </a>
+      <br>Arena: Modes 
+    </td>
+    <td align="center">
+      <a href="#macropower-tech">
+        <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExdWprb2xocWd1bWhtYzlmd253eTZoZjl2dWEyMWNmazJ0MmQ3Y2QyZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/oXCCcdWqDA9jGv7ai6/giphy.gif">
+      </a>
+      <br>Arena: Modes 
     </td>
   </tr>
 </table>

@@ -217,3 +217,16 @@ At the first stage of development, the app will be localized for Ukraine ðŸ‡ºðŸ‡
     </td>
   </tr>
 </table>
+
+## :crystal_ball: :dark_sunglasses: :iphone: AR Tab
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="#macropower-tech">
+        <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHhhZHppOGxoZTEzZ3I2c204Y2lkYTlxN3c3amhtN3NlZWdqOGRudCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/HDJrUY0L0cdH1pE21N/giphy-downsized-large.gif">
+      </a>
+      <br>AR Screen
+    </td>
+  </tr>
+</table>

@@ -230,3 +230,13 @@ At the first stage of development, the app will be localized for Ukraine ğŸ‡ºğŸ‡
     </td>
   </tr>
 </table>
+
+<h2>:technologist: :student: :teacher:People who helped with this project</h2>
+
+`Daryna Havryliuk`
+
+`Diana Belyavtseva`
+
+`Yanina Kolodinska`
+
+`Serhii Levchenko`

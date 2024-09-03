@@ -111,5 +111,36 @@ At the first stage of development, the app will be localized for Ukraine and Fin
   </tr>
 </table>
 
+## :mortar_board: Main Tab
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="#macropower-tech">
+        <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExOWptNGF2dWpwZ2FydHVidTlpbnh3eG45YWFlcTltcHhwcWZiZnZhciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/uKSKUyNqTgdMuguNR5/giphy.gif">
+      </a>
+      <br>Map Campaign
+    </td>
+    <td align="center">
+      <a href="#macropower-tech">
+        <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExdDB0eHJuZDZnZTVmdXJjaWticjAwZnBydm9yZGs0dnRnZmp3OGZ3OCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Nbu57T7ZBlsAkDsDkw/giphy.gif">
+      </a>
+      <br>User Profile
+    </td>
+    <td align="center">
+      <a href="#macropower-tech">
+        <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExc29penJ0NW82ZzRnNnV4NjRlMWljYW5iN3lnNmlsb2tqcnhoeThrZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/TIDfeZaIk8QCvCHCPi/giphy.gif">
+      </a>
+      <br>Game News Updates
+    </td>
+    <td align="center">
+      <a href="#macropower-tech">
+        <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExdXR1eWEwZTVkMHl3ZnVtZGh2Y2xoaW9vYWlpeHM4OGo5cDF3b2p4byZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MPPRDLryymmnciLIOy/giphy.gif">
+      </a>
+      <br>Apple Watch Intergation Sheet
+    </td>
+  </tr>
+</table>
+
 
 

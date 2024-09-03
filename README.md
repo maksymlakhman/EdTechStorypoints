@@ -17,7 +17,7 @@ Main features:
 - Rewards and AR objects: For completing levels and modules, users receive virtual currency that can be exchanged for augmented reality (AR) objects.
 - Personal AI assistants: The application provides the opportunity to use personal AI assistants - one is free, and the other two are available for an additional fee, which is part of the monetization strategy.
 
-At the first stage of development, the app will be localized for Ukraine and Finland, allowing students from any country to study the history of these two countries</sub>
+At the first stage of development, the app will be localized for Ukraine 🇺🇦, Finland 🇫🇮, and the United States 🇺🇸, allowing students from any country to study the history of these regions.</sub>
 
 <h3> <img src="https://emojis.slackmojis.com/emojis/images/1621024394/39092/cat-roll.gif?1621024394" width="28" /> <a href=""> > Tools, languages, and services </a></h3>
 

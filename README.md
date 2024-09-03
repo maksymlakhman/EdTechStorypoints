@@ -92,5 +92,24 @@ At the first stage of development, the app will be localized for Ukraine and Fin
   </tr>
 </table>
 
+## :cyclone: Preloader + Onboarding
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="#macropower-tech">
+        <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExdXB5YmhnMmRqNXdhaWIxMmZzc3hjaGZsaTZ4enlsdWZyM2JmMWdlaCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/R2xBgDrEI7CswmZdKm/giphy.gif">
+      </a>
+      <br>Preloader
+    </td>
+    <td align="center">
+      <a href="#macropower-tech">
+        <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExZnI1bjNhcTBvc3plYWZsMjR3a2hzbmN3aG5ndDdmM3g3NnY2NXpreSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/vwQ7ZoH4gbCkva8OK0/giphy.gif">
+      </a>
+      <br>Onboarding
+    </td>
+  </tr>
+</table>
+
 
 

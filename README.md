@@ -179,4 +179,41 @@ At the first stage of development, the app will be localized for Ukraine ðŸ‡ºðŸ‡
   </tr>
 </table>
 
+## :joystick: Arena Tab
 
+<table>
+  <tr>
+    <td align="center">
+      <a href="#macropower-tech">
+        <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExdWprb2xocWd1bWhtYzlmd253eTZoZjl2dWEyMWNmazJ0MmQ3Y2QyZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/oXCCcdWqDA9jGv7ai6/giphy.gif">
+      </a>
+      <br>Arena Modules `In development`
+    </td>
+  </tr>
+</table>
+
+## :trophy: Rating Tab
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="#macropower-tech">
+        <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHFtbzJqbjZzcWtlb3Q5a2ZzNHkzYnYwcGF2cTdyem5idW91MTltcCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/N85wBj5FB90v7x5IO4/giphy.gif">
+      </a>
+      <br>Leaderboard SegmentControls
+    </td>
+  </tr>
+</table>
+
+## :books: Library Tab
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="#macropower-tech">
+        <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExa2oyMTh6ajkzM2xsenR3ZWNrbHNhbHU3dGo2aGlsNHhvMjBkMHVheiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/7AFh5f1FulSBKndFw0/giphy.gif">
+      </a>
+      <br>Library Screen
+    </td>
+  </tr>
+</table>

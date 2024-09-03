@@ -235,7 +235,7 @@ At the first stage of development, the app will be localized for Ukraine ğŸ‡ºğŸ‡
 
 `Daryna Havryliuk`
 
-`Diana Belyavtseva`
+`Diana Beliavtseva`
 
 `Yanina Kolodinska`
 

@@ -85,9 +85,9 @@ At the first stage of development, the app will be localized for Ukraine and Fin
     </td>
     <td align="center">
       <a href="#macropower-tech">
-        <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExdWprb2xocWd1bWhtYzlmd253eTZoZjl2dWEyMWNmazJ0MmQ3Y2QyZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/oXCCcdWqDA9jGv7ai6/giphy.gif">
+        <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExMmhmMTZqY2c2OGNqeGUwdnoydzcwMW9jM2o4dTh6bjA3d3IycmwwaiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/1hUNUfMpJQ24QiQRAX/giphy.gif">
       </a>
-      <br>Arena: Modes 
+      <br>Library
     </td>
   </tr>
 </table>

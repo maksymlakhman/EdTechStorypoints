@@ -142,5 +142,41 @@ At the first stage of development, the app will be localized for Ukraine ðŸ‡ºðŸ‡
   </tr>
 </table>
 
+## :brain: Campaign Modules
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="#macropower-tech">
+        <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExdThybTUzcG5nbzN0am5pczdvdGg3bWF1bWprNWdtbzF5NWhhbGowZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/DEkmMYJdXtMcLRu91V/giphy.gif">
+      </a>
+      <br>Template for AI Assistants
+    </td>
+    <td align="center">
+      <a href="#macropower-tech">
+        <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExdHF1NDVuZjkxejRieTl1M3V6OHlkcm8xaTUybmt3aW8zcGdndTZrayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MsSnGy1a4CjVKiAKO2/giphy.gif">
+      </a>
+      <br>Quiz Module
+    </td>
+    <td align="center">
+      <a href="#macropower-tech">
+        <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExbXdsOXhlbGUyaDI3cmJnNGZpdnRyZTA0OHRpNngzMTF4ZW1kbm1zdiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/FWSq6Bu8ZsmZYvZdhx/giphy.gif">
+      </a>
+      <br>FindPair Module
+    </td>
+    <td align="center">
+      <a href="#macropower-tech">
+        <img src="">
+      </a>
+      <br>Chronology Module `In development`
+    </td>
+    <td align="center">
+      <a href="#macropower-tech">
+        <img src="">
+      </a>
+      <br>SOTM Module: Select on the map `In development`
+    </td>
+  </tr>
+</table>
 
 

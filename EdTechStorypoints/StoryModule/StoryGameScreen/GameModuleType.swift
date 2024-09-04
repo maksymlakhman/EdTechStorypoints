@@ -24,7 +24,7 @@ enum GameModuleType: Equatable {
                    lhsModule.correctPairs == rhsModule.correctPairs
         case (.chronology(let lhsModule), .chronology(let rhsModule)):
             return lhsModule.question == rhsModule.question &&
-                   lhsModule.events == rhsModule.events
+                   lhsModule.correctPairsCronology == rhsModule.correctPairsCronology
         default:
             return false
         }

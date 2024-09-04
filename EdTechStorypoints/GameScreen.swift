@@ -157,10 +157,9 @@ struct LevelView: View {
                                                     .fill(.black)
                                             )
                                     }
-
-                                    
                                 }
-                                .padding(4)
+                                .font(.headline)
+                                .padding(8)
                                 .foregroundStyle(status == .active ? .white : .blue)
                                 .background(status == .active ? .blue.opacity(0.8) : (status == .completed ? .white.opacity(0.6) : .blue.opacity(0.6)))
                                 .background(status == .active ? Color.white.opacity(0.2) : (status == .completed ? Color.blue : Color.black))
@@ -169,8 +168,11 @@ struct LevelView: View {
                             }
  
                         }
-
+                        
+                        
                     }
+                    
+                    .frame(height: 55)
                 }
                 .offset(x: offset)
                 .animation(.easeInOut(duration: 0.3), value: offset)

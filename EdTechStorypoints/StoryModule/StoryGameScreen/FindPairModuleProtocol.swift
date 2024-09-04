@@ -8,12 +8,8 @@
 import Foundation
 
 struct FindPairModuleProtocol: GameModuleProtocol {
-    typealias AnswerType = [String: String]
+    typealias AnswerType = [String : [String: String]]
     
     var question: String
     var correctPairs: AnswerType
-    
-//    func checkAnswer(_ answer: AnswerType) -> Bool {
-//        return answer == correctPairs
-//    }
 }

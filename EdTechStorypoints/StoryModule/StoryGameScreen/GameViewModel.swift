@@ -100,15 +100,13 @@ class GameViewModel: ObservableObject {
             Module(moduleType: .findPair(FindPairModuleProtocol(
                 question: "Match the authors to their works",
                 correctPairs: [
-                    "5Panteleimon Kulish": "5Chorna Rada",
-                    "6Marko Vovchok": "6Marusia",
-                    "7Hryhorii Skovoroda": "7Garden of Divine Songs",
-                    "8Ivan Nechuy-Levytskyi": "8Kaidasheva Family"
+                    "1Panteleimon Kulish": ["1Chorna Rada" : "1857"],
+                    "2Marko Vovchok": ["2Marusia" : "1859"]
                 ]
             ))),
             Module(moduleType: .chronology(ChronologyModuleProtocol(
                 question: "Place these events in chronological order",
-                events: ["Event1": "Year1", "Event2": "Year2"]
+                correctPairsCronology: ["Event1": "Year1", "Event2": "Year2", "Event3": "Year3", "Event4": "Year4"]
             )))
         ]
     }

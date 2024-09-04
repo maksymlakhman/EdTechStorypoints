@@ -120,7 +120,7 @@ struct GameView: View {
                     .background(BlueBackgroundAnimatedGradient())
                     .presentationDetents([.medium])
                 }
-                .alert("Для того щоб відкрити додаткових асистентів потрібен Freemium", isPresented: $viewModel.isShowAlertFreemiumView){
+                .alert("To open additional AI assistants, you need Freemium", isPresented: $viewModel.isShowAlertFreemiumView){
                     
                 }
                 .sheet(isPresented: $viewModel.showFreemiumSheet) {

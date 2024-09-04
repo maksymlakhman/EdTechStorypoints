@@ -60,12 +60,12 @@ struct OrangeBackgroundAnimatedGradient: View {
     var body: some View {
         ZStack {
             MulticolorGradient {
-                ColorStop(position: .top, color: Color.pink)
+                ColorStop(position: .top, color: Color.black)
                 ColorStop(position: UnitPoint(x: 0.5 + sin(animationAmount * 0.8) * 0.5,
                                               y: 0.5 + cos(animationAmount * 0.8) * 0.5), color: Color.orange)
                 ColorStop(position: UnitPoint(x: 0.5 - sin(animationAmount) * 0.25,
-                                              y: 0.5 + cos(animationAmount) * 0.5), color: Color.red)
-                ColorStop(position: UnitPoint(x: 0.5, y: 0.5), color: Color.black)
+                                              y: 0.5 + cos(animationAmount) * 0.5), color: Color.yellow)
+                ColorStop(position: UnitPoint(x: 0.5, y: 0.5), color: Color.yellow)
             }
             .noise(12.0)
             .edgesIgnoringSafeArea(.all)

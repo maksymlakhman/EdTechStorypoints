@@ -11,9 +11,5 @@ struct ChronologyModuleProtocol: GameModuleProtocol {
     typealias AnswerType = [String: String]
     
     var question: String
-    var events: AnswerType
-    
-    func checkAnswer(_ answer: AnswerType) -> Bool {
-        return answer == events
-    }
+    var correctPairsCronology: AnswerType
 }
